@@ -16,7 +16,7 @@ In diesem Projekt werden vorwiegend technische Aspekte der Verordnung betrachtet
 Diese Plattform wird für die weitere Bereitstellung von Demo-Code, für das Bereitstellen von Prüfwerkzeugen und für die Erstellung von FAQs verwendet. Die weiteren Versionen des Codes werden demnächst veröffentlicht und fokussieren sich auf erweiterte Verwendungsmuster (z.B. Ausfall Sicherheitseinrichtung) und das Bereitstellen von Prüfwerkzeugen die es ermöglichen erstellte Belege, DEP-Export-Dateien auf Ihre Korrektheit zu prüfen. Auch wird dieses Projekt laufend um Antworten zu häufig gestellten Fragen ergänzt.
 
 ##Kontakt/Fragen
-Informationen werden hier sehr bald veröffentlicht.
+Informationen werden hier veröffentlicht.
 
 ## Lizenzen
 Der gesamte Code wird unter der Apache 2.0 Lizenz zur Verfügung gestellt (http://www.apache.org/licenses/LICENSE-2.0). Alle verwendeten Dritt-Bibliotheken und deren Lizenzen sind in den Maven Build Dateien (POM.xml) der einzelnen Module ersichtlich und werden am Ende dieses Dokuments zusammengefasst.
@@ -34,7 +34,7 @@ Neben dem Source Code wird auch immer eine ZIP Datei der ausführbaren Dateien z
 ###Verwendung des Demo-Codes - Demokassa
 Der Demo Code enthält aktuell eine einfache Testklasse die eine Demokassa ansteuert. Diese Demokassa bietet die Möglichkeit eine angegeben Anzahl von Belegen zu erstellen, diese in das DEP Export Format zu exportieren, und einfache Test-Belege als PDF zu erstellen, die die Daten als QR-Code oder OCR-Code beinhalten.
 
-Download und entpacken von regkassen-demo-release-0.1.zip
+Download und entpacken von [regkassen-demo-release-0.1.zip](https://github.com/a-sit-plus/at-registrierkassen-mustercode/blob/master/release/regkassen-demo-release-0.1.zip)
 
 Ausführen der Demokasse mit
 
@@ -50,7 +50,7 @@ Das Output-Verzeichnis enthält folgende Dateien/Verzeichnisse:
  - **Verzeichnis ocr-code-dir**: PDF-Belege die mit dem OCR-Code bedruckt wurden
  - **Verzeichnis qr-code-dir**: PDF-Belege die mit dem QR-Code bedruckt wurden
 
-Ein Beispiel für den Output kann von hier bezogen werden.
+Ein Beispiel für den Output ist auch direkt verfügbar: [example-output.zip](https://github.com/a-sit-plus/at-registrierkassen-mustercode/blob/master/release/example-output.zip).
 
 ###Verwendung des Prüfwerkzeugs
 In dieser Version ist eine erste rudimentäre Version des Prüfwerkzeugs enthalten das die Validität der von einer Kassa erstellten Belege und der Exportdateien überprüft. Hier werden noch detallierte Prüfwerkzeuge angeboten werden, die die korrekte Abbildung von verschiedenen Fällen (z.B. Ausfall Signatureinrichtung) überprüfen und Detailinformationen zur Korrektheit der Formate ausgeben.
