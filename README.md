@@ -1,3 +1,6 @@
+# Change Log
+* **02.10.2015**: Release 0.1 auf GitHub veröffentlicht
+
 # Überblick
 Dieses Projekt stellt Demo-Code als Begleitung zur Registrierkassensicherheitsverordnung (RKSV) (https://www.bmf.gv.at/steuern/Registrierkassensicherheitsverordnung.html) zur Verfügung. Der Demo-Code zeigt
 
@@ -19,7 +22,7 @@ Diese Plattform wird für die weitere Bereitstellung von Demo-Code, für das Ber
 Informationen werden hier veröffentlicht.
 
 ## Lizenzen
-Der gesamte Code wird unter der Apache 2.0 Lizenz zur Verfügung gestellt (http://www.apache.org/licenses/LICENSE-2.0). Alle verwendeten Dritt-Bibliotheken und deren Lizenzen sind in den Maven Build Dateien (POM.xml) der einzelnen Module ersichtlich und werden am Ende dieses Dokuments zusammengefasst.
+Der gesamte Code wird unter der Apache 2.0 Lizenz zur Verfügung gestellt (http://www.apache.org/licenses/LICENSE-2.0). Alle verwendeten Dritt-Bibliotheken und deren Lizenzen sind in den Maven Build Dateien (pom.xml) der einzelnen Module ersichtlich und werden am Ende dieses Dokuments zusammengefasst.
 
 
 # Verwendung des Democodes und der Demokassa
@@ -96,9 +99,9 @@ Es werden hier in den nächsten Tagen Erläuterungen bekannt gegeben, die bestim
 * Formate für die Übertragung der Daten zu Finanzonline
 * etc.
 
-Es wird auch noch ein FAQ erstellt, das Antworten auf oft gestellte Fragen erhält.
+Es wird auch noch eine FAQ-Seite erstellt, die Antworten auf oft gestellte Fragen erhält.
 
-#Dritt-Bibiliotheken und Lizenzen:
+#Dritt-Bibliotheken und Lizenzen:
 
  - Google GSON: Verarbeitung von JSON Elementen
 	 - Referenz: https://github.com/google/gson
@@ -123,4 +126,4 @@ Es wird auch noch ein FAQ erstellt, das Antworten auf oft gestellte Fragen erhä
 	 - Referenz: https://pdfbox.apache.org
 	 - Lizenz: Apache 2.0, http://www.apache.org/licenses/LICENSE-2.0
 
-OCR-Font: Der OCR-A Font für das Aufbringen des maschinelesbaren Codes wurde von http://sourceforge.net/projects/ocr-a-font/ bezogen und hat den Lizenz-Typ "Public Domain".
+OCR-Font: Der OCR-A Font für das Aufbringen des maschinenlesbaren Codes wurde von http://sourceforge.net/projects/ocr-a-font/ bezogen und hat den Lizenz-Typ "Public Domain".
