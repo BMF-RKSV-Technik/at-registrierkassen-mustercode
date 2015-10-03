@@ -28,7 +28,7 @@ Der gesamte Code wird unter der Apache 2.0 Lizenz zur Verfügung gestellt (http:
 # Verwendung des Democodes und der Demokassa
 
 ##Ausführen des Codes (Verwenden der Downloadpakete)
-Neben dem Source Code wird auch immer eine ZIP Datei der ausführbaren Dateien zur Verfügung gestellt (im Verzeichnis Releases).
+Neben dem Source Code wird auch immer eine ZIP Datei der ausführbaren Dateien zur Verfügung gestellt (im Verzeichnis Release).
 
 ###Voraussetzungen
 * *Java VM*: Es wird eine aktuelle Java VM (JRE ausreichend) mit Version >= 1.7 benötigt.
