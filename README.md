@@ -52,7 +52,7 @@ Das Output-Verzeichnis enthält folgende Dateien/Verzeichnisse:
  - **Verzeichnis ocr-code-dir**: PDF-Belege die mit dem OCR-Code bedruckt wurden
  - **Verzeichnis qr-code-dir**: PDF-Belege die mit dem QR-Code bedruckt wurden
 
-Ein Beispiel für den Output ist auch direkt verfügbar: example-output.zip (siehe https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases).
+Ein Beispiel für den Output ist auch direkt verfügbar: example-output-0.1.zip (siehe https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases).
 Code dazu: siehe Klasse [SimpleDemo](https://github.com/a-sit-plus/at-registrierkassen-mustercode/blob/master/regkassen-democashbox/src/main/java/at/asitplus/regkassen/demo/SimpleDemo.java).
 
 ###Verwendung des Prüfwerkzeugs
