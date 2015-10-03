@@ -28,7 +28,7 @@ Der gesamte Code wird unter der Apache 2.0 Lizenz zur Verfügung gestellt (http:
 # Verwendung des Democodes und der Demokassa
 
 ##Ausführen des Codes (Verwenden der Downloadpakete)
-Neben dem Source Code wird auch immer eine ZIP Datei der ausführbaren Dateien zur Verfügung gestellt (im Verzeichnis Releases).
+Neben dem Source Code wird auch immer eine ZIP Datei der ausführbaren Dateien zur Verfügung gestellt (im Verzeichnis Release).
 
 ###Voraussetzungen
 * *Java VM*: Es wird eine aktuelle Java VM (JRE ausreichend) mit Version >= 1.7 benötigt.
@@ -37,7 +37,7 @@ Neben dem Source Code wird auch immer eine ZIP Datei der ausführbaren Dateien z
 ###Verwendung des Demo-Codes - Demokassa
 Der Demo Code enthält aktuell eine einfache Testklasse die eine Demokassa ansteuert. Diese Demokassa bietet die Möglichkeit eine angegeben Anzahl von Belegen zu erstellen, diese in das DEP Export Format zu exportieren, und einfache Test-Belege als PDF zu erstellen, die die Daten als QR-Code oder OCR-Code beinhalten.
 
-Download und entpacken von [regkassen-demo-release-0.1.zip](https://github.com/a-sit-plus/at-registrierkassen-mustercode/blob/master/release/regkassen-demo-release-0.1.zip)
+Download und entpacken von regkassen-demo-release-0.1.zip (siehe https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases).
 
 Ausführen der Demokasse mit
 
@@ -52,7 +52,7 @@ Das Output-Verzeichnis enthält folgende Dateien/Verzeichnisse:
  - **Verzeichnis ocr-code-dir**: PDF-Belege die mit dem OCR-Code bedruckt wurden
  - **Verzeichnis qr-code-dir**: PDF-Belege die mit dem QR-Code bedruckt wurden
 
-Ein Beispiel für den Output ist auch direkt verfügbar: [example-output.zip](https://github.com/a-sit-plus/at-registrierkassen-mustercode/blob/master/release/example-output.zip).
+Ein Beispiel für den Output ist auch direkt verfügbar: example-output-0.1.zip (siehe https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases).
 Code dazu: siehe Klasse [SimpleDemo](https://github.com/a-sit-plus/at-registrierkassen-mustercode/blob/master/regkassen-democashbox/src/main/java/at/asitplus/regkassen/demo/SimpleDemo.java).
 
 ###Verwendung des Prüfwerkzeugs
