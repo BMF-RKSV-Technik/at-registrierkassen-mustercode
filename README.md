@@ -129,3 +129,10 @@ Die folgende Bibliotheken und Lizenzen wurden im Demo Code verwendet.
 
 OCR-Font: Der OCR-A Font für das Aufbringen des maschinenlesbaren Codes wurde von http://sourceforge.net/projects/ocr-a-font/ bezogen und hat den Lizenz-Typ "Public Domain".
 
+# Impressum
+Informationen zu A-SIT und A-SIT Plus unter http://www.a-sit.at
+A-SIT Plus GmbH
+A-1030 Wien, Seidlgasse 22 / 9 1030 Wien
+FN 436920 f, Handelsgericht Wien
+
+
