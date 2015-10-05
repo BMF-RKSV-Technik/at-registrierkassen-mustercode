@@ -101,7 +101,7 @@ Es werden hier in den nächsten Tagen Erläuterungen bekannt gegeben, die bestim
 
 Es wird auch noch eine FAQ-Seite erstellt, die Antworten auf oft gestellte Fragen erhält.
 
-#Dritt-Bibliotheken und Lizenzen:
+#Dritt-Bibliotheken und Lizenzen
 Die folgende Bibliotheken und Lizenzen wurden im Demo Code verwendet.
 
  - Google GSON: Verarbeitung von JSON Elementen
