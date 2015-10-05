@@ -131,6 +131,7 @@ OCR-Font: Der OCR-A Font für das Aufbringen des maschinenlesbaren Codes wurde v
 
 # Impressum
 Informationen zu A-SIT und A-SIT Plus unter http://www.a-sit.at
+
 A-SIT Plus GmbH
 A-1030 Wien, Seidlgasse 22 / 9 1030 Wien
 FN 436920 f, Handelsgericht Wien
