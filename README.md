@@ -31,9 +31,12 @@ Ausgewählte Fragen/Antworten werden aus diesem Forum übernommen und auf der hi
 
 https://github.com/a-sit-plus/at-registrierkassen-mustercode/wiki/Erläuterungen-FAQ
 
-## Lizenzen
-Der gesamte Code wird unter der Apache 2.0 Lizenz zur Verfügung gestellt (http://www.apache.org/licenses/LICENSE-2.0). Alle verwendeten Dritt-Bibliotheken und deren Lizenzen sind in den Maven Build Dateien (pom.xml) der einzelnen Module ersichtlich und werden am Ende dieses Dokuments zusammengefasst.
+## Lizenz
+Der gesamte Code wird unter der Apache 2.0 Lizenz zur Verfügung gestellt (http://www.apache.org/licenses/LICENSE-2.0). 
 
+Alle verwendeten Dritt-Bibliotheken und deren Lizenzen sind in den Maven Build Dateien (pom.xml) der einzelnen Module ersichtlich und auf der folgenden WIKI Seite zusammengefasst:
+
+https://github.com/a-sit-plus/at-registrierkassen-mustercode/wiki/Lizenzen-Dritt-Bibiliotheken
 
 # Verwendung des Democodes und der Demokassa
 
@@ -107,7 +110,7 @@ Werden laufend ergänzt:
 https://github.com/a-sit-plus/at-registrierkassen-mustercode/wiki/Erläuterungen-FAQ
 
 #Dritt-Bibliotheken und Lizenzen
-https://github.com/a-sit-plus/at-registrierkassen-mustercode/wiki/Lizenzen-Dritt-Bibiliotheken
+
 
 # Impressum
 Informationen zu A-SIT und A-SIT Plus unter http://www.a-sit.at
