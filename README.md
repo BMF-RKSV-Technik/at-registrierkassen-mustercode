@@ -23,9 +23,13 @@ Es wurde dazu eine Projektseite von der WKO eingerichtet. Es ist dazu eine Regis
 
 https://communities.wko.at/Kassensoftware/default.aspx
 
-Etwaige Fragen sollten dort im Forum gestellt werden, um hier möglichst effizient die Beantwortung durchführen zu können.
+Etwaige Fragen sollten dort im Forum gestellt werden, um eine möglichst effizient die Beantwortung durchführen zu können. 
 
 https://communities.wko.at/Kassensoftware/Lists/Forum/
+
+Ausgewählte Fragen/Antworten werden aus diesem Forum übernommen und auf der hier verfügbaren WIKI Seite eingetragen.
+
+https://github.com/a-sit-plus/at-registrierkassen-mustercode/wiki/Erläuterungen-FAQ
 
 ## Lizenzen
 Der gesamte Code wird unter der Apache 2.0 Lizenz zur Verfügung gestellt (http://www.apache.org/licenses/LICENSE-2.0). Alle verwendeten Dritt-Bibliotheken und deren Lizenzen sind in den Maven Build Dateien (pom.xml) der einzelnen Module ersichtlich und werden am Ende dieses Dokuments zusammengefasst.
