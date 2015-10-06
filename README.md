@@ -19,7 +19,13 @@ In diesem Projekt werden vorwiegend technische Aspekte der Verordnung betrachtet
 Diese Plattform wird für die weitere Bereitstellung von Demo-Code, für das Bereitstellen von Prüfwerkzeugen und für die Erstellung von FAQs verwendet. Die weiteren Versionen des Codes werden demnächst veröffentlicht und fokussieren sich auf erweiterte Verwendungsmuster (z.B. Ausfall Sicherheitseinrichtung) und das Bereitstellen von Prüfwerkzeugen die es ermöglichen erstellte Belege, DEP-Export-Dateien auf Ihre Korrektheit zu prüfen. Auch wird dieses Projekt laufend um Antworten zu häufig gestellten Fragen ergänzt.
 
 ##Kontakt/Fragen
-Informationen dazu werden hier demnächst veröffentlicht.
+Es wurde dazu eine Projektseite von der WKO eingerichtet. Es ist dazu eine Registrierung bei der WKO notwendig.
+
+https://communities.wko.at/Kassensoftware/default.aspx
+
+Etwaige Fragen sollten dort im Forum gestellt werden, um hier möglichst effizient die Beantwortung durchführen zu können.
+
+https://communities.wko.at/Kassensoftware/Lists/Forum/
 
 ## Lizenzen
 Der gesamte Code wird unter der Apache 2.0 Lizenz zur Verfügung gestellt (http://www.apache.org/licenses/LICENSE-2.0). Alle verwendeten Dritt-Bibliotheken und deren Lizenzen sind in den Maven Build Dateien (pom.xml) der einzelnen Module ersichtlich und werden am Ende dieses Dokuments zusammengefasst.
