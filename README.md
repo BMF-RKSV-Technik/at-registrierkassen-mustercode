@@ -102,32 +102,7 @@ Es werden hier in den nächsten Tagen Erläuterungen bekannt gegeben, die bestim
 Es wird auch noch eine FAQ-Seite erstellt, die Antworten auf oft gestellte Fragen erhält.
 
 #Dritt-Bibliotheken und Lizenzen
-Die folgende Bibliotheken und Lizenzen wurden im Demo Code verwendet.
-
- - Google GSON: Verarbeitung von JSON Elementen
-	 - Referenz: https://github.com/google/gson
-	 - Lizenz: Apache 2.0, http://www.apache.org/licenses/LICENSE-2.0
- - Bouncycastle Provider: Kryptographie Bibilitothek für JAVA
-	 - Referenz: https://www.bouncycastle.org
-	 - Lizenz: MIT, http://opensource.org/licenses/MIT
- - JSON Web Signature Library: Für die Erstellung/Prüfung der JSON Web Signaturen
-	 - Referenz: https://bitbucket.org/b_c/jose4j
-	 - Lizenz: Apache 2.0, http://www.apache.org/licenses/LICENSE-2.0
- - Apache commons libraries for BASE64, BASE64, math operations, etc.
-	 - Referenz allgemein: https://commons.apache.org
-	 - Lizenz (für alle): Apache 2.0, http://www.apache.org/licenses/LICENSE-2.0
-		 - commons-io
-		 - commons-math3
-		 - commons-codec
-		 - commons-cli
- - Google ZXING: QR-Code Erzeugung:
-	 - Referenz: http://zxing.github.io/zxing/project-info.html
-	 - Lizenz: Apache 2.0, http://www.apache.org/licenses/LICENSE-2.0
- - Apache PDFBOX: PDF Erzeugung (DEMO-Belege)
-	 - Referenz: https://pdfbox.apache.org
-	 - Lizenz: Apache 2.0, http://www.apache.org/licenses/LICENSE-2.0
-
-OCR-Font: Der OCR-A Font für das Aufbringen des maschinenlesbaren Codes wurde von http://sourceforge.net/projects/ocr-a-font/ bezogen und hat den Lizenz-Typ "Public Domain".
+https://github.com/a-sit-plus/at-registrierkassen-mustercode/wiki/Lizenzen-Dritt-Bibiliotheken
 
 # Impressum
 Informationen zu A-SIT und A-SIT Plus unter http://www.a-sit.at
