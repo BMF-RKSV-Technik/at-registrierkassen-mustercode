@@ -109,9 +109,6 @@ In den Verzeichnissen regkassen-democashbox, regkassen-verification befinden sic
 Werden laufend ergänzt:
 https://github.com/a-sit-plus/at-registrierkassen-mustercode/wiki/Erläuterungen-FAQ
 
-#Dritt-Bibliotheken und Lizenzen
-
-
 # Impressum
 Informationen zu A-SIT und A-SIT Plus unter http://www.a-sit.at
 
