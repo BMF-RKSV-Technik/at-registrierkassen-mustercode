@@ -43,7 +43,7 @@ Ausführen der Demokasse mit
 
       java -jar regkassen-demo-0.1.jar -o OUTPUT_DIR -n 20
       
-Wobei "OUTPUT_DIR" ein Verzeichnis ist, in dem die vom Demo-Code erstellten Daten/Belege geschrieben werden. Es wird in der aktuellen Version dazu ein zufällig genierter Signaturschlüssel verwendet. Wenn die Option "o" nicht angegeben wird, dann wird im aktuellen Verzeichnis eines mit dem Prefix CashBox erstellt.
+Wobei "OUTPUT_DIR" ein Verzeichnis ist, in dem die vom Demo-Code erstellten Daten/Belege geschrieben werden. Es wird in der aktuellen Version dazu ein zufällig genierter Signaturschlüssel verwendet. Wenn die Option "o" nicht angegeben wird, dann wird im aktuellen Verzeichnis eines mit dem Prefix CashBox ersteerlällt.
 Die Option "n" gibt die Anzahl der zu erstellenden Belege an. Wenn sie nicht angegeben wird, werden 15 Belege erstellt.
 Das Output-Verzeichnis enthält folgende Dateien/Verzeichnisse:
  - **Datei dep-export.txt**: Die generierten Belege im DEP Export Format (Detailspezifikation, Abs 3)
@@ -92,14 +92,9 @@ Um den Maven Build-Prozess eigenständig durchzuführen, sind in den jeweiligen 
       
 In den Verzeichnissen regkassen-democashbox, regkassen-verification befinden sich nach dem erfolgreichen Build-Prozess die JAR Dateien (im Unterverzeichnis "target"), die zum Ausführen benötigt werden (siehe Punkte zur Verwendung des Demo-Codes weiter oben).
 
-#Erläuterungen zur Detailspezifikation der Verordnung
-Es werden hier in den nächsten Tagen Erläuterungen bekannt gegeben, die bestimmte Aspekte der Detailspezifikation betreffen bei denen es noch Interpretationsspielraum gibt. Beispielhaft sind hier genannt:
-* Runden der MWST-Beträge beim Addieren zum Umsatzzähler
-* Formatierung des DEP-Formats im Jahr 2016
-* Formate für die Übertragung der Daten zu Finanzonline
-* etc.
-
-Es wird auch noch eine FAQ-Seite erstellt, die Antworten auf oft gestellte Fragen erhält.
+#Erläuterungen zur Detailspezifikation der Verordnung/FAQs
+Werden laufend ergänzt:
+https://github.com/a-sit-plus/at-registrierkassen-mustercode/wiki/Erläuterungen-FAQ
 
 #Dritt-Bibliotheken und Lizenzen
 https://github.com/a-sit-plus/at-registrierkassen-mustercode/wiki/Lizenzen-Dritt-Bibiliotheken
