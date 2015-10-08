@@ -24,6 +24,7 @@ import org.jose4j.base64url.internal.apache.commons.codec.binary.Base64;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import java.io.*;
+import java.nio.charset.Charset;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class CashBoxUtils {
     /**
      * Generates a random AES key for encrypting/decrypting the turnover value
      * ATTENTION: In a real cash box this key would be generated during the init process and stored in a secure area
+     *
      * @return generated AES key
      */
     public static SecretKey createAESKey() {
@@ -115,5 +117,21 @@ public class CashBoxUtils {
         Base32 decoder = new Base32();
         return decoder.decode(base32Data);
     }
+
+    public static String getValueFromMachineCode(String machineCodeRepresentation, MachineCodeValue machineCodeValue) {
+        return machineCodeRepresentation.split("_")[machineCodeValue.getIndex()];
+    }
+
+    public static String getQRCodeRepresentationFromJWSCompactRepresentation(String jwsCompactRepresentationOfReceipt) {
+        //get data
+        String jwsPayloadEncoded = jwsCompactRepresentationOfReceipt.split("\\.")[1];
+        String jwsSignatureEncoded = jwsCompactRepresentationOfReceipt.split("\\.")[2];
+
+        String payload = new String(CashBoxUtils.base64Decode(jwsPayloadEncoded, true), Charset.forName("UTF-8"));
+        String signature = CashBoxUtils.base64Encode(CashBoxUtils.base64Decode(jwsSignatureEncoded, true), false);
+
+        return payload + "_" + signature;
+    }
+
 
 }
