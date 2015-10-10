@@ -30,7 +30,7 @@ import at.asitplus.regkassen.core.modules.print.PrinterModule;
 import at.asitplus.regkassen.core.modules.print.ReceiptPrintType;
 import at.asitplus.regkassen.core.modules.print.SimplePDFPrinterModule;
 import at.asitplus.regkassen.core.modules.signature.jws.JWSModule;
-import at.asitplus.regkassen.core.modules.signature.jws.SimpleJWSModule;
+import at.asitplus.regkassen.core.modules.signature.jws.OtherJWSModule;
 import at.asitplus.regkassen.core.modules.signature.rawsignatureprovider.DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -121,7 +121,11 @@ public class SimpleDemo {
             //the signature module is composed of an JWS module that create the JSON Web Signature (JWS) and
             //a low level signature module for signing the hash values.
             //REF TO SPECIFICATION: Detailspezifikation/Abs 2, Abs 4, Abs 5, Abs 6
-            JWSModule jwsModule = new SimpleJWSModule();
+//            JWSModule jwsModule = new SimpleJWSModule();
+//            jwsModule.setSignatureModule(new DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule());
+//            cashBoxParameters.setJwsModule(jwsModule);
+
+            JWSModule jwsModule = new OtherJWSModule();
             jwsModule.setSignatureModule(new DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule());
             cashBoxParameters.setJwsModule(jwsModule);
 
