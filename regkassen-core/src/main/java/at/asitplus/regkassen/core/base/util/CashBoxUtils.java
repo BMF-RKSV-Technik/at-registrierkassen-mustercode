@@ -133,5 +133,31 @@ public class CashBoxUtils {
         return payload + "_" + signature;
     }
 
+    public static String getPayloadFromQRCodeRepresentation(String qrCodeRepresentation) {
+        String[] elements = qrCodeRepresentation.split("_");
+        String payload = "";
+        for (int i=0;i<12;i++) {
+            payload+=elements[i];
+            if (i<11) {
+                payload+="_";
+            }
+        }
+        return payload;
+    }
+
+    public static String getJWSCompactRepresentationFromQRMachineCodeRepresentation(String qrMachineCodeRepresentation) {
+        String payload = getPayloadFromQRCodeRepresentation(qrMachineCodeRepresentation);
+
+        //TODO replace with UTF-8 everywhere!!!!!
+        String jwsPayload = CashBoxUtils.base64Encode(payload.getBytes(Charset.forName("UTF-8")),true);
+
+        //TODO make that dependent on RK-SUITE
+        String jwsHeader = "eyJhbGciOiJFUzI1NiJ9";
+        String jwsSignature = CashBoxUtils.base64Encode(CashBoxUtils.base64Decode(CashBoxUtils.getValueFromMachineCode(qrMachineCodeRepresentation,MachineCodeValue.SIGNATURE_VALUE),false),true);
+
+        String jwsCompactRepresentation = jwsHeader+"."+jwsPayload+"."+jwsSignature;
+        return jwsCompactRepresentation;
+    }
+
 
 }
