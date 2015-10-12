@@ -24,6 +24,7 @@ import org.jose4j.base64url.internal.apache.commons.codec.binary.Base64;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import java.io.*;
+import java.nio.charset.Charset;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class CashBoxUtils {
     /**
      * Generates a random AES key for encrypting/decrypting the turnover value
      * ATTENTION: In a real cash box this key would be generated during the init process and stored in a secure area
+     *
      * @return generated AES key
      */
     public static SecretKey createAESKey() {
@@ -115,5 +117,47 @@ public class CashBoxUtils {
         Base32 decoder = new Base32();
         return decoder.decode(base32Data);
     }
+
+    public static String getValueFromMachineCode(String machineCodeRepresentation, MachineCodeValue machineCodeValue) {
+        return machineCodeRepresentation.split("_")[machineCodeValue.getIndex()];
+    }
+
+    public static String getQRCodeRepresentationFromJWSCompactRepresentation(String jwsCompactRepresentationOfReceipt) {
+        //get data
+        String jwsPayloadEncoded = jwsCompactRepresentationOfReceipt.split("\\.")[1];
+        String jwsSignatureEncoded = jwsCompactRepresentationOfReceipt.split("\\.")[2];
+
+        String payload = new String(CashBoxUtils.base64Decode(jwsPayloadEncoded, true), Charset.forName("UTF-8"));
+        String signature = CashBoxUtils.base64Encode(CashBoxUtils.base64Decode(jwsSignatureEncoded, true), false);
+
+        return payload + "_" + signature;
+    }
+
+    public static String getPayloadFromQRCodeRepresentation(String qrCodeRepresentation) {
+        String[] elements = qrCodeRepresentation.split("_");
+        String payload = "";
+        for (int i=0;i<12;i++) {
+            payload+=elements[i];
+            if (i<11) {
+                payload+="_";
+            }
+        }
+        return payload;
+    }
+
+    public static String getJWSCompactRepresentationFromQRMachineCodeRepresentation(String qrMachineCodeRepresentation) {
+        String payload = getPayloadFromQRCodeRepresentation(qrMachineCodeRepresentation);
+
+        //TODO replace with UTF-8 everywhere!!!!!
+        String jwsPayload = CashBoxUtils.base64Encode(payload.getBytes(Charset.forName("UTF-8")),true);
+
+        //TODO make that dependent on RK-SUITE
+        String jwsHeader = "eyJhbGciOiJFUzI1NiJ9";
+        String jwsSignature = CashBoxUtils.base64Encode(CashBoxUtils.base64Decode(CashBoxUtils.getValueFromMachineCode(qrMachineCodeRepresentation,MachineCodeValue.SIGNATURE_VALUE),false),true);
+
+        String jwsCompactRepresentation = jwsHeader+"."+jwsPayload+"."+jwsSignature;
+        return jwsCompactRepresentation;
+    }
+
 
 }

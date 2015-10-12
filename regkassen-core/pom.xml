@@ -7,7 +7,7 @@
 
     <groupId>at.asitplus.regkassen</groupId>
     <artifactId>registrierkassen-core</artifactId>
-    <version>0.1</version>
+    <version>0.2</version>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -38,7 +38,7 @@
         </dependency>
 
 
-        <!-- JSON Web Signature Library
+        <!-- JSON Web Signature Library 1 REQUIRES BC PROVIDER
         REF: https://bitbucket.org/b_c/jose4j
         License: http://www.apache.org/licenses/LICENSE-2.0
         -->
@@ -46,6 +46,15 @@
             <groupId>org.bitbucket.b_c</groupId>
             <artifactId>jose4j</artifactId>
             <version>0.4.4</version>
+        </dependency>
+
+        <!-- JSON Web Signature Library 2 PROVIDER INDEPENDENT
+       REF: http://connect2id.com/products/nimbus-jose-jwt/
+       License:  http://www.apache.org/licenses/LICENSE-2.0 -->
+        <dependency>
+            <groupId>com.nimbusds</groupId>
+            <artifactId>nimbus-jose-jwt</artifactId>
+            <version>4.2</version>
         </dependency>
 
         <!-- Apache commons libraries for BASE64, BASE64, math operations etc.
@@ -71,6 +80,7 @@
             <artifactId>commons-codec</artifactId>
             <version>1.10</version>
         </dependency>
+
 
 
 

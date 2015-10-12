@@ -29,16 +29,19 @@ import at.asitplus.regkassen.core.modules.init.CashBoxParameters;
 import at.asitplus.regkassen.core.modules.print.PrinterModule;
 import at.asitplus.regkassen.core.modules.print.ReceiptPrintType;
 import at.asitplus.regkassen.core.modules.print.SimplePDFPrinterModule;
+import at.asitplus.regkassen.core.modules.signature.jws.ComNimbusdsJwsModule;
 import at.asitplus.regkassen.core.modules.signature.jws.JWSModule;
-import at.asitplus.regkassen.core.modules.signature.jws.SimpleJWSModule;
 import at.asitplus.regkassen.core.modules.signature.rawsignatureprovider.DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.apache.commons.cli.*;
+import org.apache.commons.io.IOUtils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import java.io.*;
 import java.security.Security;
+import java.security.cert.CertificateEncodingException;
+import java.security.cert.X509Certificate;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -121,7 +124,9 @@ public class SimpleDemo {
             //the signature module is composed of an JWS module that create the JSON Web Signature (JWS) and
             //a low level signature module for signing the hash values.
             //REF TO SPECIFICATION: Detailspezifikation/Abs 2, Abs 4, Abs 5, Abs 6
-            JWSModule jwsModule = new SimpleJWSModule();
+
+            //JWSModule jwsModule = new OrgBitbucketBcJwsModule();  //requires bouncycastle provider
+            JWSModule jwsModule = new ComNimbusdsJwsModule();   //allows for provider independent use cases
             jwsModule.setSignatureModule(new DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule());
             cashBoxParameters.setJwsModule(jwsModule);
 
@@ -207,10 +212,19 @@ public class SimpleDemo {
             List<byte[]> printedOCRCodeReceipts = demoCashBox.printReceipt(receiptPackages, ReceiptPrintType.OCR);
             CashBoxUtils.writeReceiptsToFiles(printedOCRCodeReceipts, "OCR-", ocrCodeDumpDirectory);
 
+            //store signature certificate
+            X509Certificate signatureCertificate = cashBoxParameters.getJwsModule().getSignatureModule().getSigningCertificate();
+            File signatureCertificateOutputFile = new File(OUTPUT_PARENT_DIRECTORY,"signatureCertificate.cer");
+            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(signatureCertificateOutputFile));
+            ByteArrayInputStream bIn = new ByteArrayInputStream(signatureCertificate.getEncoded());
+            IOUtils.copy(bIn,bufferedOutputStream);
+            bufferedOutputStream.close();
 
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (CertificateEncodingException e) {
             e.printStackTrace();
         }
     }

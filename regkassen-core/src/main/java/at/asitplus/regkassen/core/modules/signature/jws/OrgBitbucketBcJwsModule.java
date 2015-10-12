@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * JWS Signature module based on JWS library https://bitbucket.org/b_c/jose4j/wiki/Home
  */
-public class SimpleJWSModule implements JWSModule {
+public class OrgBitbucketBcJwsModule implements JWSModule {
     protected JsonWebSignature jws;
     protected SignatureModule signatureModule;
     protected boolean damaged = false;
