@@ -38,7 +38,7 @@
         </dependency>
 
 
-        <!-- JSON Web Signature Library
+        <!-- JSON Web Signature Library 1 REQUIRES BC PROVIDER
         REF: https://bitbucket.org/b_c/jose4j
         License: http://www.apache.org/licenses/LICENSE-2.0
         -->
@@ -48,7 +48,7 @@
             <version>0.4.4</version>
         </dependency>
 
-        <!-- JSON Web Signature Library
+        <!-- JSON Web Signature Library 2 PROVIDER INDEPENDENT
        REF: http://connect2id.com/products/nimbus-jose-jwt/
        License:  http://www.apache.org/licenses/LICENSE-2.0 -->
         <dependency>
