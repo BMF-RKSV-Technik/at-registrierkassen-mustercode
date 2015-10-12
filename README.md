@@ -19,11 +19,24 @@ In diesem Projekt werden vorwiegend technische Aspekte der Verordnung betrachtet
 Diese Plattform wird für die weitere Bereitstellung von Demo-Code, für das Bereitstellen von Prüfwerkzeugen und für die Erstellung von FAQs verwendet. Die weiteren Versionen des Codes werden demnächst veröffentlicht und fokussieren sich auf erweiterte Verwendungsmuster (z.B. Ausfall Sicherheitseinrichtung) und das Bereitstellen von Prüfwerkzeugen die es ermöglichen erstellte Belege, DEP-Export-Dateien auf Ihre Korrektheit zu prüfen. Auch wird dieses Projekt laufend um Antworten zu häufig gestellten Fragen ergänzt.
 
 ##Kontakt/Fragen
-Informationen dazu werden hier demnächst veröffentlicht.
+Es wurde dazu eine Projektseite von der WKO eingerichtet. Es ist dazu eine Registrierung bei der WKO notwendig.
 
-## Lizenzen
-Der gesamte Code wird unter der Apache 2.0 Lizenz zur Verfügung gestellt (http://www.apache.org/licenses/LICENSE-2.0). Alle verwendeten Dritt-Bibliotheken und deren Lizenzen sind in den Maven Build Dateien (pom.xml) der einzelnen Module ersichtlich und werden am Ende dieses Dokuments zusammengefasst.
+https://communities.wko.at/Kassensoftware/default.aspx
 
+Etwaige Fragen sollten dort im Forum gestellt werden, um eine möglichst effizient die Beantwortung durchführen zu können. 
+
+https://communities.wko.at/Kassensoftware/Lists/Forum/
+
+Ausgewählte Fragen/Antworten werden aus diesem Forum übernommen und auf der hier verfügbaren WIKI Seite eingetragen.
+
+https://github.com/a-sit-plus/at-registrierkassen-mustercode/wiki/Erläuterungen-FAQ
+
+## Lizenz
+Der gesamte Code wird unter der Apache 2.0 Lizenz zur Verfügung gestellt (http://www.apache.org/licenses/LICENSE-2.0). 
+
+Alle verwendeten Dritt-Bibliotheken und deren Lizenzen sind in den Maven Build Dateien (pom.xml) der einzelnen Module ersichtlich und auf der folgenden WIKI Seite zusammengefasst:
+
+https://github.com/a-sit-plus/at-registrierkassen-mustercode/wiki/Lizenzen-Dritt-Bibiliotheken
 
 # Verwendung des Democodes und der Demokassa
 
@@ -43,7 +56,7 @@ Ausführen der Demokasse mit
 
       java -jar regkassen-demo-0.1.jar -o OUTPUT_DIR -n 20
       
-Wobei "OUTPUT_DIR" ein Verzeichnis ist, in dem die vom Demo-Code erstellten Daten/Belege geschrieben werden. Es wird in der aktuellen Version dazu ein zufällig genierter Signaturschlüssel verwendet. Wenn die Option "o" nicht angegeben wird, dann wird im aktuellen Verzeichnis eines mit dem Prefix CashBox erstellt.
+Wobei "OUTPUT_DIR" ein Verzeichnis ist, in dem die vom Demo-Code erstellten Daten/Belege geschrieben werden. Es wird in der aktuellen Version dazu ein zufällig genierter Signaturschlüssel verwendet. Wenn die Option "o" nicht angegeben wird, dann wird im aktuellen Verzeichnis eines mit dem Prefix CashBox ersteerlällt.
 Die Option "n" gibt die Anzahl der zu erstellenden Belege an. Wenn sie nicht angegeben wird, werden 15 Belege erstellt.
 Das Output-Verzeichnis enthält folgende Dateien/Verzeichnisse:
  - **Datei dep-export.txt**: Die generierten Belege im DEP Export Format (Detailspezifikation, Abs 3)
@@ -92,40 +105,13 @@ Um den Maven Build-Prozess eigenständig durchzuführen, sind in den jeweiligen 
       
 In den Verzeichnissen regkassen-democashbox, regkassen-verification befinden sich nach dem erfolgreichen Build-Prozess die JAR Dateien (im Unterverzeichnis "target"), die zum Ausführen benötigt werden (siehe Punkte zur Verwendung des Demo-Codes weiter oben).
 
-#Erläuterungen zur Detailspezifikation der Verordnung
-Es werden hier in den nächsten Tagen Erläuterungen bekannt gegeben, die bestimmte Aspekte der Detailspezifikation betreffen bei denen es noch Interpretationsspielraum gibt. Beispielhaft sind hier genannt:
-* Runden der MWST-Beträge beim Addieren zum Umsatzzähler
-* Formatierung des DEP-Formats im Jahr 2016
-* Formate für die Übertragung der Daten zu Finanzonline
-* etc.
+#Erläuterungen zur Detailspezifikation der Verordnung/FAQs
+Werden laufend ergänzt:
+https://github.com/a-sit-plus/at-registrierkassen-mustercode/wiki/Erläuterungen-FAQ
 
-Es wird auch noch eine FAQ-Seite erstellt, die Antworten auf oft gestellte Fragen erhält.
+# Impressum
+Informationen zu A-SIT und A-SIT Plus unter http://www.a-sit.at
 
-#Dritt-Bibliotheken und Lizenzen:
-Die folgende Bibliotheken und Lizenzen wurden im Demo Code verwendet.
+A-SIT Plus GmbH, A-1030 Wien, Seidlgasse 22 / 9, 1030 Wien, FN 436920 f, Handelsgericht Wien
 
- - Google GSON: Verarbeitung von JSON Elementen
-	 - Referenz: https://github.com/google/gson
-	 - Lizenz: Apache 2.0, http://www.apache.org/licenses/LICENSE-2.0
- - Bouncycastle Provider: Kryptographie Bibilitothek für JAVA
-	 - Referenz: https://www.bouncycastle.org
-	 - Lizenz: MIT, http://opensource.org/licenses/MIT
- - JSON Web Signature Library: Für die Erstellung/Prüfung der JSON Web Signaturen
-	 - Referenz: https://bitbucket.org/b_c/jose4j
-	 - Lizenz: Apache 2.0, http://www.apache.org/licenses/LICENSE-2.0
- - Apache commons libraries for BASE64, BASE64, math operations, etc.
-	 - Referenz allgemein: https://commons.apache.org
-	 - Lizenz (für alle): Apache 2.0, http://www.apache.org/licenses/LICENSE-2.0
-		 - commons-io
-		 - commons-math3
-		 - commons-codec
-		 - commons-cli
- - Google ZXING: QR-Code Erzeugung:
-	 - Referenz: http://zxing.github.io/zxing/project-info.html
-	 - Lizenz: Apache 2.0, http://www.apache.org/licenses/LICENSE-2.0
- - Apache PDFBOX: PDF Erzeugung (DEMO-Belege)
-	 - Referenz: https://pdfbox.apache.org
-	 - Lizenz: Apache 2.0, http://www.apache.org/licenses/LICENSE-2.0
-
-OCR-Font: Der OCR-A Font für das Aufbringen des maschinenlesbaren Codes wurde von http://sourceforge.net/projects/ocr-a-font/ bezogen und hat den Lizenz-Typ "Public Domain".
 
