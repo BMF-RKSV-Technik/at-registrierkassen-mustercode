@@ -220,11 +220,14 @@ public class DemoCashBox {
             double sumTayTypeBesonders = Precision.round(receiptRepresentationForSignature.getSumTaxSetBesonders(), 2);
 
             //round and add values to turnover counter
-            turnoverCounter += Math.round(sumTaxTypeNormal);
-            turnoverCounter += Math.round(sumTaxTypeErmaessigt1);
-            turnoverCounter += Math.round(sumTaxTypeErmaessigt2);
-            turnoverCounter += Math.round(sumTaxTypeNull);
-            turnoverCounter += Math.round(sumTayTypeBesonders);
+            double tempSum = 0.0;
+            tempSum += sumTaxTypeNormal;
+            tempSum += sumTaxTypeErmaessigt1;
+            tempSum += sumTaxTypeErmaessigt2;
+            tempSum += sumTaxTypeNull;
+            tempSum += sumTayTypeBesonders;
+
+            turnoverCounter += Math.round(tempSum);
 
             //encrypt turnover counter and store the encrypted value in the data-to-be-signed package
 

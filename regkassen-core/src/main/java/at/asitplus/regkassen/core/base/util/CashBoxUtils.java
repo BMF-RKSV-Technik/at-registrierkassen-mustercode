@@ -125,7 +125,7 @@ public class CashBoxUtils {
     }
 
     public static String getValueFromMachineCode(String machineCodeRepresentation, MachineCodeValue machineCodeValue) {
-        return machineCodeRepresentation.split("_")[machineCodeValue.getIndex()];
+        return machineCodeRepresentation.split("_")[machineCodeValue.getIndex()+1];
     }
 
     public static String getQRCodeRepresentationFromJWSCompactRepresentation(String jwsCompactRepresentationOfReceipt) {
@@ -142,9 +142,9 @@ public class CashBoxUtils {
     public static String getPayloadFromQRCodeRepresentation(String qrCodeRepresentation) {
         String[] elements = qrCodeRepresentation.split("_");
         String payload = "";
-        for (int i=0;i<12;i++) {
+        for (int i=0;i<13;i++) {
             payload+=elements[i];
-            if (i<11) {
+            if (i<12) {
                 payload+="_";
             }
         }
@@ -217,10 +217,10 @@ public class CashBoxUtils {
 
     }
 
-    public static double getDoubleFromTaxSet(String taxSetValue) {
+    public static double getDoubleFromTaxSet(String taxSetValue) throws Exception {
         NumberFormat nf = NumberFormat.getNumberInstance(Locale.GERMAN);
         DecimalFormat decimalFormat = (DecimalFormat)nf;
-
+        Exception parseException;
         try {
             return decimalFormat.parse(taxSetValue).doubleValue();
         } catch (ParseException e) {
@@ -230,8 +230,9 @@ public class CashBoxUtils {
         try {
             return decimalFormat.parse(taxSetValue).doubleValue();
         } catch (ParseException e) {
+            parseException = e;
         }
-        return -1;
+        throw parseException;
 
 
     }
