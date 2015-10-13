@@ -24,8 +24,10 @@ import org.apache.commons.math3.util.Precision;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * This class represents the data structure that is specified in Detailspezifikation Abs 4
@@ -74,7 +76,12 @@ public class ReceiptRepresentationForSignature {
      */
     public String getDataToBeSigned(RKSuite rkSuite) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-        DecimalFormat decimalFormat = new DecimalFormat("0,00");
+        //DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        NumberFormat nf = NumberFormat.getNumberInstance(Locale.GERMAN);
+        nf.setMinimumFractionDigits(2);
+        nf.setMaximumFractionDigits(2);
+        DecimalFormat decimalFormat = (DecimalFormat)nf;
+
         //prepare signature payload string for signature creation (Detailspezifikation/ABS 5
         return rkSuite.getSuiteID() + "_" + cashBoxID + "_" + receiptIdentifier + "_" + dateFormat.format(receiptDateAndTime) + "_" + decimalFormat.format(sumTaxSetNormal) + "_" + decimalFormat.format(sumTaxSetErmaessigt1) + "_" + decimalFormat.format(sumTaxSetErmaessigt2) + "_" + decimalFormat.format(sumTaxSetNull) + "_" + decimalFormat.format(sumTaxSetBesonders) + "_" + encryptedTurnoverValue + "_" + signatureCertificateSerialNumber + "_" + signatureValuePreviousReceipt;
     }
@@ -88,7 +95,11 @@ public class ReceiptRepresentationForSignature {
      */
     public String getOCRCodeRepresentationWithoutSignature(RKSuite rkSuite) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        NumberFormat nf = NumberFormat.getNumberInstance(Locale.GERMAN);
+        nf.setMinimumFractionDigits(2);
+        nf.setMaximumFractionDigits(2);
+        DecimalFormat decimalFormat = (DecimalFormat)nf;
+
         //prepare signature payload string for signature creation (Detailspezifikation/ABS 5
         String base32RepOfSignatureValuePreviousReceipt = CashBoxUtils.base32Encode(CashBoxUtils.base64Decode(signatureValuePreviousReceipt, false));
         String base32EncryptedTurnoverValue = CashBoxUtils.base32Encode(CashBoxUtils.base64Decode(signatureValuePreviousReceipt, false));

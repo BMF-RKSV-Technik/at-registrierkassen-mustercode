@@ -28,7 +28,11 @@ import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.security.*;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.List;
+import java.util.Locale;
 
 public class CashBoxUtils {
 
@@ -210,6 +214,25 @@ public class CashBoxUtils {
         long plainTurnOverValue = plainTurnOverValueByteBuffer.getLong();
 
         return plainTurnOverValue;
+
+    }
+
+    public static double getDoubleFromTaxSet(String taxSetValue) {
+        NumberFormat nf = NumberFormat.getNumberInstance(Locale.GERMAN);
+        DecimalFormat decimalFormat = (DecimalFormat)nf;
+
+        try {
+            return decimalFormat.parse(taxSetValue).doubleValue();
+        } catch (ParseException e) {
+        }
+        nf = NumberFormat.getNumberInstance(Locale.US);
+        decimalFormat = (DecimalFormat)nf;
+        try {
+            return decimalFormat.parse(taxSetValue).doubleValue();
+        } catch (ParseException e) {
+        }
+        return -1;
+
 
     }
 
