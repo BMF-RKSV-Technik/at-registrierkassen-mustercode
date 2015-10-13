@@ -74,7 +74,7 @@ public class ReceiptRepresentationForSignature {
      */
     public String getDataToBeSigned(RKSuite rkSuite) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        DecimalFormat decimalFormat = new DecimalFormat("0,00");
         //prepare signature payload string for signature creation (Detailspezifikation/ABS 5
         return rkSuite.getSuiteID() + "_" + cashBoxID + "_" + receiptIdentifier + "_" + dateFormat.format(receiptDateAndTime) + "_" + decimalFormat.format(sumTaxSetNormal) + "_" + decimalFormat.format(sumTaxSetErmaessigt1) + "_" + decimalFormat.format(sumTaxSetErmaessigt2) + "_" + decimalFormat.format(sumTaxSetNull) + "_" + decimalFormat.format(sumTaxSetBesonders) + "_" + encryptedTurnoverValue + "_" + signatureCertificateSerialNumber + "_" + signatureValuePreviousReceipt;
     }
