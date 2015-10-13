@@ -23,7 +23,7 @@ import com.google.gson.annotations.SerializedName;
  * DEP Export format according to Detailspezifikation Abs 3
  */
 public class DEPExportFormat {
-    @SerializedName("Belege-gruppiert")
+    @SerializedName("Belege-Gruppe")
     protected DEPBelegDump[] belegPackage;
 
     public DEPBelegDump[] getBelegPackage() {
