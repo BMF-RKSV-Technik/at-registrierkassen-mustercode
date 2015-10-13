@@ -21,11 +21,13 @@ import org.apache.commons.codec.binary.Base32;
 import org.apache.commons.io.IOUtils;
 import org.jose4j.base64url.internal.apache.commons.codec.binary.Base64;
 
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
+import javax.crypto.*;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 import java.io.*;
+import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
-import java.security.NoSuchAlgorithmException;
+import java.security.*;
 import java.util.List;
 
 public class CashBoxUtils {
@@ -159,5 +161,56 @@ public class CashBoxUtils {
         return jwsCompactRepresentation;
     }
 
+    public static long decryptTurnOverCounter(String encryptedTurnOverCounterBase64,String hashAlgorithm, String cashBoxIDUTF8String, String receiptIdentifierUTF8String,String aesKeyBase64) throws NoSuchPaddingException, NoSuchAlgorithmException, NoSuchProviderException, BadPaddingException, IllegalBlockSizeException, InvalidAlgorithmParameterException, InvalidKeyException {
+        byte[] rawAesKey = CashBoxUtils.base64Decode(aesKeyBase64,false);
+        SecretKeySpec secretKeySpec = new SecretKeySpec(rawAesKey,"AES");
+        SecretKey aesKey = secretKeySpec;
+        return decryptTurnOverCounter(encryptedTurnOverCounterBase64,hashAlgorithm,cashBoxIDUTF8String,receiptIdentifierUTF8String,aesKey);
+    }
+
+
+    public static long decryptTurnOverCounter(String encryptedTurnOverCounterBase64,String hashAlgorithm, String cashBoxIDUTF8String, String receiptIdentifierUTF8String,SecretKey aesKey) throws NoSuchPaddingException, NoSuchAlgorithmException, NoSuchProviderException, BadPaddingException, IllegalBlockSizeException, InvalidAlgorithmParameterException, InvalidKeyException {
+        //calc IV value (cashbox if + receipt identifer, both as UTF-8 Strings)
+        String IVUTF8StringRepresentation = cashBoxIDUTF8String + receiptIdentifierUTF8String;
+
+        //calc hash
+        MessageDigest messageDigest = MessageDigest.getInstance(hashAlgorithm);
+        byte[] hashValue = messageDigest.digest(IVUTF8StringRepresentation.getBytes());
+        byte[] concatenatedHashValue = new byte[16];
+        System.arraycopy(hashValue, 0, concatenatedHashValue, 0, 16);
+
+        //extract bytes 0-15 from hash value
+        ByteBuffer byteBufferIV = ByteBuffer.allocate(16);
+        byteBufferIV.put(concatenatedHashValue);
+
+        //IV for AES algorithm
+        byte[] IV = byteBufferIV.array();
+
+
+        //prepare AES cipher with CTR/ICM mode, NoPadding is essential for the decryption process. Padding could not be reconstructed due
+        //to storing only 8 bytes of the cipher text (not the full 16 bytes) (or 5 bytes if the mininum turnover length is used)
+        IvParameterSpec ivSpec = new IvParameterSpec(IV);
+
+        //start decryption process
+        ByteBuffer encryptedTurnOverValueComplete = ByteBuffer.allocate(16);
+
+        byte[] encryptedTurnOverValue = CashBoxUtils.base64Decode(encryptedTurnOverCounterBase64, false);
+        int lengthOfEncryptedTurnOverValue = encryptedTurnOverValue.length;
+        encryptedTurnOverValueComplete.put(encryptedTurnOverValue); //result after decoding the BASE64 value in Beleg
+
+        Cipher cipher = Cipher.getInstance("AES/CTR/NoPadding", "BC");
+        cipher.init(Cipher.DECRYPT_MODE, aesKey, ivSpec);
+        byte[] testPlainTurnOverValueComplete = cipher.doFinal(encryptedTurnOverValue);
+
+        byte[] testPlainTurnOverValue = new byte[lengthOfEncryptedTurnOverValue];
+        System.arraycopy(testPlainTurnOverValueComplete, 0, testPlainTurnOverValue, 0, lengthOfEncryptedTurnOverValue);
+
+        //create java LONG out of ByteArray
+        ByteBuffer plainTurnOverValueByteBuffer = ByteBuffer.wrap(testPlainTurnOverValue);
+        long plainTurnOverValue = plainTurnOverValueByteBuffer.getLong();
+
+        return plainTurnOverValue;
+
+    }
 
 }
