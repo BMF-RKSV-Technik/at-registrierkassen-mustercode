@@ -1,5 +1,23 @@
 # Change Log
-* **12.10.2015**: Release 0.2 auf GitHub veröffentlicht
+
+ - **14.10.2015**: Release 0.3 veröffentlicht
+	 - Features:
+		 - Demo:
+			 - Simulation von beschädigter Signatureinrichtung in Demo, Standard Ergebnis für DEP-Export-Format enthält nun Belege die nicht signiert werden konnten
+			 - Simulation von Zertifikatwechsel, Standard Ergebnis für DEP-Export-Format enthält nun immer zwei Zertifikate
+			 - AES Schlüssel wird bei Demo mitausgegeben, damit ist Prüfung von Umsatzzähler möglich
+		 - Prüfung:
+			 - Prüfung von DEP-Export-Dateien die Belege von ausgefallenen Signatureinrichtungen beinhalten
+			 - Prüfung akzeptiert nun "0,00" und "0.00" als Dezimalformat (Spezifikation sieht nur "0,00" vor)
+			 - Prüfung überprüft nun ob in DEP-Export Kassen-ID/Belegnummer Kombination eindeutig (darf nur einmal vorkommen)
+			 - Prüfung von korrekter Abbildung des Umsatzzählers (AES Schlüssel benötigt)
+			 - Prüfung von DEP-Export-Files die mehr als ein Signaturzertifikat enthalten
+	 - Behobene Bugs:
+		 - Falsche Suite: https://github.com/a-sit-plus/at-registrierkassen-mustercode/issues/6
+		 - Falsches Dezimalformat, Erstellung nun im Format 0,00. Prüfung akzeptiert 0.00 und 0,00 https://github.com/a-sit-plus/at-registrierkassen-mustercode/issues/2
+		 - Falscher Identifier im DEP-Export-Format: https://github.com/a-sit-plus/at-registrierkassen-mustercode/issues/1
+		 - Falsches Runden der MWST-Sätze beim Addieren für den Umsatzzähler https://github.com/a-sit-plus/at-registrierkassen-mustercode/issues/7
+ - **12.10.2015**: Release 0.2 veröffentlicht
 	* **Wichtige Änderungen**:
 		* Erweiterung der Prüfwerkzeuge
 			* Detaillierte Prüfung von einzelnen Belegen (vor allem Format)
@@ -10,11 +28,10 @@
 		* Entfernen des rudimentären Prüf-Codes
 * **02.10.2015**: Release 0.1 auf GitHub veröffentlicht
 
-**Planung für weitere Releases**:
 
- - PKCS11 Integration um Standard-Krypto-Produkte einbinden zu können
- - APDU Integration, um Signaturkarten direkt einbinden zu können
- - Erweiterung Use Cases (Signatureinrichtung ausgefallen, etc.), Erstellung und Prüfung
+**Planung für weitere Releases**:
+ - Qualitätssicherung, Integration von rudimentärer Kartenunterstützung
+ - FAQ-Erstellung und Erweiterung, Qualitätskontrolle, hinzufügen von Hinweisen/Informationen, Erweiterungen
 
 # Überblick
 Dieses Projekt stellt Demo-Code als Begleitung zur Registrierkassensicherheitsverordnung (RKSV) (https://www.bmf.gv.at/steuern/Registrierkassensicherheitsverordnung.html) zur Verfügung. Der Demo-Code zeigt
@@ -26,8 +43,7 @@ Dieses Projekt stellt Demo-Code als Begleitung zur Registrierkassensicherheitsve
 In diesem Projekt werden vorwiegend technische Aspekte der Verordnung betrachtet. Die Informationen und der Code werden laufend erweitert und mit typischen Fragen/Antworten ergänzt.
 
 ## Wichtige Anmerkungen/Einschränkungen
-* *Version 0.1 (02.10.2015) und 0.2 (12.10.2015)*: Mit den Versionen 0.1 und 0.2 werden im Demo-Code die wesentlichen Elemente in Bezug auf Signaturaufbereitung, Signaturerstellung, Erstellung des QR-Codes, Erstellung des OCR-Codes sowie der Export des Daten-Erfassung-Protokolls (DEP) demonstriert. Erweiterte Themen wie z.B. die korrekte Behandlung des Ausfalls der Signatureinheit, werden in späteren Versionen behandelt.
-* *Wichtige Anmerkung*: Die Versionen 0.1 und 0.2 demonstrieren wie mit den unterschiedlichen Elementen (Signature, QR-Code etc.) umgegangen werden muss. Obwohl hier nach bestem Gewissen vorgegangen wurde, kann keine GARANTIE für die korrekte Funktionsweise übernommen werden. Um hier in den nächsten Versionen mehr Klarheit bieten zu können, werden vom aktuellen Code unabhängige Prüfwerkzeuge geschaffen. Diese ermöglichen den Kassaherstellern die jeweiligen Produkte (und auch diesen Demo-Code) so weit wie möglich auf das korrekte Verhalten mit Relevanz für die Verordnung zu überprüfen.
+* *Wichtige Anmerkung*: Die Versionen 0.1 und 0.2 und 0.3 demonstrieren wie mit den unterschiedlichen Elementen (Signature, QR-Code etc.) umgegangen werden muss. Obwohl hier nach bestem Gewissen vorgegangen wurde, kann keine GARANTIE für die korrekte Funktionsweise übernommen werden. Um hier in den nächsten Versionen mehr Klarheit bieten zu können, werden vom aktuellen Code unabhängige Prüfwerkzeuge geschaffen. Diese ermöglichen den Kassaherstellern die jeweiligen Produkte (und auch diesen Demo-Code) so weit wie möglich auf das korrekte Verhalten mit Relevanz für die Verordnung zu überprüfen.
 * *Sprache*: Diese Projektseite verwendet Deutsch als Sprache. In den textuellen Ergänzungen im Source Code wird Englisch verwendet.
 
 ##Weiteres Vorgehen
@@ -65,53 +81,62 @@ Neben dem Source Code wird auch immer eine ZIP Datei der ausführbaren Dateien z
 ###Verwendung des Demo-Codes - Demokassa
 Der Demo Code enthält aktuell eine einfache Testklasse die eine Demokassa ansteuert. Diese Demokassa bietet die Möglichkeit eine angegeben Anzahl von Belegen zu erstellen, diese in das DEP Export Format zu exportieren, und einfache Test-Belege als PDF zu erstellen, die die Daten als QR-Code oder OCR-Code beinhalten.
 
-Download und entpacken von regkassen-demo-release-0.2.zip (siehe https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases).
+Download und entpacken von regkassen-demo-release-0.3.zip (siehe https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases).
 
 Ausführen der Demokasse mit
 
-      java -jar regkassen-demo-0.2.jar -o OUTPUT_DIR -n 20
+      java -jar regkassen-demo-0.3.jar -o OUTPUT_DIR -n 20 -g -s
       
-Wobei "OUTPUT_DIR" ein Verzeichnis ist, in dem die vom Demo-Code erstellten Daten/Belege geschrieben werden. Es wird in der aktuellen Version dazu ein zufällig genierter Signaturschlüssel verwendet. Wenn die Option "o" nicht angegeben wird, dann wird im aktuellen Verzeichnis eines mit dem Prefix CashBox ersteerlällt.
-Die Option "n" gibt die Anzahl der zu erstellenden Belege an. Wenn sie nicht angegeben wird, werden 15 Belege erstellt.
+Wobei 
+
+ - **"OUTPUT_DIR"** ein Verzeichnis ist, in dem die vom Demo-Code erstellten Daten/Belege geschrieben werden. Es wird in der aktuellen Version dazu ein zufällig genierter Signaturschlüssel verwendet. Wenn die Option **-o** nicht angegeben wird, dann wird im aktuellen Verzeichnis eines mit dem Prefix CashBox ersteerlällt.
+ - Die Option **-n** gibt die Anzahl der zu erstellenden Belege an. Wenn sie nicht angegeben wird, werden 15 Belege erstellt.
+ - Die Option **-s** gibt an, dass nur mit einem Signaturzertifikat gearbeitet werden soll. Wird die Option weggelassen wird mit zwei Signaturzertifikaten gearbeitet, um das Handling dieses Falles im Export-Format abbilden zu können.
+ - Die Option **-g** gibt an, dass die Signatureinrichtung nicht ausfallen kann. Wird die Option weggelassen fällt die Signatureinrichtung zufällig aus und die Vorgehensweise bzw. die Recovery-Prozedur wird gezeigt.
+ 
 Das Output-Verzeichnis enthält folgende Dateien/Verzeichnisse:
+
  - **Datei dep-export.txt**: Die generierten Belege im DEP Export Format (Detailspezifikation, Abs 3)
  - **Datei qr-code-rep.txt**: Die textuelle Representation der maschinenlesbaren QR-Codes (der Inhalt der QR-Codes). Eine Zeile der Datei entspricht der QR-Code Repräsentation eines Belegs.
  - **Datei ocr-code-rep.txt**: Die textuelle Representation der maschinenlesbaren OCR-Codes. Eine Zeile der Datei entspricht der OCR-Code Repräsentation eines Belegs.
- - **Datei signatureCertificate.cer**: Das Signatur-Zertifikat im DER-Format
+ - **Datei signatureCertificates.txt**: Die/das verwendete(n) Signatur-Zertifikat(e) im BASE64-kodierten DER-Format
+ - **Datei signatureCertificateChains.txt**: Die zu dem/den Signatur-Zertifikat(en) passende(n) Zertifikatsketten 
+ - **Datei aesKeyBase64.txt:** Der BASE64-kodierte AES-Schlüssel für die Ver/Entschlüsselung des Umsatzzählers im Beleg
  - **Verzeichnis ocr-code-dir**: PDF-Belege die mit dem OCR-Code bedruckt wurden
  - **Verzeichnis qr-code-dir**: PDF-Belege die mit dem QR-Code bedruckt wurden
 
-Ein Beispiel für den Output ist auch direkt verfügbar: example-output-0.2.zip (siehe https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases).
+Ein Beispiel für den Output ist auch direkt verfügbar: example-output-0.3.zip (siehe https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases).
 Code dazu: siehe Klasse [SimpleDemo](https://github.com/a-sit-plus/at-registrierkassen-mustercode/blob/master/regkassen-democashbox/src/main/java/at/asitplus/regkassen/demo/SimpleDemo.java).
 
 ###Verwendung des Prüfwerkzeugs
-In Version 0.2 wurden die Prüfwerkzeuge um detalliertet Formatprüfungen erweitert. Neben dem DEP Export Format können nun auch einzelne QR-Code-Bsp von Belegen geprüft werden.
-Download und entpacken von regkassen-demo-release-0.2.zip (siehe https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases).
+In Version 0.3 wurden die Prüfwerkzeuge um weitere Prüfungen erweitert (Ausgefallene Signatureinrichtung, Veschlüsselter Umsatzzähler, etc.). Neben dem DEP Export Format können nun auch einzelne QR-Code-Bsp von Belegen geprüft werden.
+Download und entpacken von regkassen-demo-release-0.3.zip (siehe https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases).
 
 **DEP-Export Format**
 
-    java -jar regkassen-verification-depformat-0.2.jar -i DEP-EXPORT-FILE
+    java -jar regkassen-verification-depformat-0.3.jar -i DEP-EXPORT-FILE -k AES-KEY-FILE
 	         
 Wobei
 
  - **DEP-EXPORT-FILE** der im vorigen Beispiel erstellten *dep-export.txt* Datei entspricht. Für den schnellen Test kann die Datei *dep-export.txt* aus dem Beipspiel übernommen werden.
+ - **AES-KEY-FILE** der im vorigen Beispiel erstellen "*aesKeyBase64.txt*" Datei entspricht. Für den schnellen Test kann die Datei *aesKeyBase64.txt* aus dem Beipspiel übernommen werden.
 
 **QR-Code-Repräsentation eines einzelnen Belegs oder mehrerer Belege**
 
-    java -jar regkassen-verification-receipts-0.2.jar -i QR-CODE-REP-FILE -s SIGNATURE-CERTIFICATE-FILE
+    java -jar regkassen-verification-receipts-0.3.jar -i QR-CODE-REP-FILE -s SIGNATURE-CERTIFICATES-FILE
 
 Wobei
 
  - **QR-CODE-REP-FILE** der im vorigen Beispiel erstellen *qr-code-rep.txt* Datei Datei entspricht. Für den schnellen Test kann die Datei *qr-code-rep.txt* aus dem Beispiel übernommen werden.
- - **SIGNATURE-CERTIFICATE-FILE** der im vorigen Beispiel erstellen *signature-certificate.cer* Datei entspricht. Für den schnellen Test kann die Datei *signature-certificate.cer* aus dem Beispiel übernommen werden.
+ - **SIGNATURE-CERTIFICATE-FILE** der im vorigen Beispiel erstellen *signatureCertificates.txt* Datei entspricht. Für den schnellen Test kann die Datei *signatureCertificates.txt* aus dem Beispiel übernommen werden.
 
-**Anmerkung**: Sollten sich mehrere Belege in der Datei **QR-CODE-REP-FILE** befinden, so wird deren Verkettung NICHT überprüft. Diese Prüfung wird nur bei der DEP-Export-Format Prüfung durchgeführt.
+**Anmerkung**: Sollten sich mehrere Belege in der Datei **QR-CODE-REP-FILE** befinden, so wird deren Verkettung **NICHT** überprüft. Diese Prüfung wird nur bei der DEP-Export-Format Prüfung durchgeführt.
                     
  
 ##BUILD Prozess, Details zum Code
 Das Projekt ist in drei Maven Module aufgeteilt:
  - **regkassen-core**: Dieses Modul enthält den Code der für die Erstellung und Signatur der Belege notwendig ist.
- - **regkassen-democashbox**: Dieses Modul verwendet das regkassen-core Modul und setzt Demo-Use Cases um. Aktuell (Versionen 0.1 und 0.2) ist dort nur ein Demo enthalten, das Belege erstellt, diese signiert, PDF-Belege erzeugt und die Belege anhand des DEP-Export-Formats ablegt.
+ - **regkassen-democashbox**: Dieses Modul verwendet das regkassen-core Modul und setzt Demo-Use Cases um.
 
 ###Übersicht über den Code
  - [at.sitplus.regkassen.core.base](https://github.com/a-sit-plus/at-registrierkassen-mustercode/tree/master/regkassen-core/src/main/java/at/asitplus/regkassen/core/base): Diese Package enthält Basisdatenstrukturen, Hilfsfunktionen und die in der Detailspezifikation definierten RegKassen Suite. (Detailspezifikation, Abs 2). Link zu Code
