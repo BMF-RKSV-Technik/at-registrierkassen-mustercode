@@ -18,6 +18,7 @@
 package at.asitplus.regkassen.core.modules.signature.jws;
 
 import at.asitplus.regkassen.core.base.rksuite.RKSuite;
+import at.asitplus.regkassen.core.base.util.CashBoxUtils;
 import at.asitplus.regkassen.core.modules.signature.rawsignatureprovider.SignatureModule;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.ECDSASigner;
@@ -32,7 +33,7 @@ import java.util.List;
 public class ComNimbusdsJwsModule implements JWSModule {
 
     protected SignatureModule signatureModule;
-    protected boolean damaged = false;
+    protected boolean damageIsPossible = false;
     protected JWSSigner jwsSigner;
 
     @Override
@@ -54,6 +55,17 @@ public class ComNimbusdsJwsModule implements JWSModule {
     @Override
     public String signMachineCodeRepOfReceipt(String machineCodeRepOfReceipt,
                                               RKSuite rkSuite) {
+        //TODO explain
+        if (damageIsPossible) {
+            double randValue = Math.random();
+            if (randValue>=0.5) {
+                String jwsHeader = "eyJhbGciOiJFUzI1NiJ9";
+                String jwsPayload = CashBoxUtils.base64Encode(machineCodeRepOfReceipt.getBytes(),true);
+                String jwsSignature = CashBoxUtils.base64Encode("Sicherheitseinrichtung ausgefallen".getBytes(),true);
+                String jwsCompactRep = jwsHeader+"."+jwsPayload+"."+jwsSignature;
+                return jwsCompactRep;
+            }
+        }
 
         try {
             // Creates the JWS object with payload
@@ -81,12 +93,17 @@ public class ComNimbusdsJwsModule implements JWSModule {
     }
 
     /**
-     * set damaged flag, only for demonstration purposes
+     * set damageIsPossible flag, only for demonstration purposes
      *
-     * @param damaged set damaged state of signature module
+     * @param damageIsPossible set damageIsPossible state of signature module
      */
-    public void setDamaged(boolean damaged) {
-        this.damaged = damaged;
+    public void setDamageIsPossible(boolean damageIsPossible) {
+        this.damageIsPossible = damageIsPossible;
+    }
+
+    @Override
+    public boolean isDamagePossible() {
+        return damageIsPossible;
     }
 
 }

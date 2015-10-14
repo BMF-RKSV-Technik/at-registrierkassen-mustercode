@@ -77,7 +77,17 @@ public class DemoCashBox {
         //sign the receipt, store the results in the receiptPackage data structure
         String dataToBeSigned = receiptPackage.getReceiptRepresentationForSignature().getDataToBeSigned(cashBoxParameters.getRkSuite());
 
-        String jwsCompactRepresentation = cashBoxParameters.getJwsModule().signMachineCodeRepOfReceipt(dataToBeSigned, cashBoxParameters.getRkSuite());
+        //make sure that DEMO damaged mode of signature creation device is only active after the first receipt
+        String jwsCompactRepresentation;
+        if (retrieveLastStoredReceipt() == null) {
+            boolean allowDamage = cashBoxParameters.getJwsModule().isDamagePossible();
+            cashBoxParameters.getJwsModule().setDamageIsPossible(false);
+            jwsCompactRepresentation = cashBoxParameters.getJwsModule().signMachineCodeRepOfReceipt(dataToBeSigned, cashBoxParameters.getRkSuite());
+            cashBoxParameters.getJwsModule().setDamageIsPossible(allowDamage);
+        } else {
+            jwsCompactRepresentation = cashBoxParameters.getJwsModule().signMachineCodeRepOfReceipt(dataToBeSigned, cashBoxParameters.getRkSuite());
+        }
+
         receiptPackage.setJwsCompactRepresentation(jwsCompactRepresentation);
 
         //store receipt in the DEP module

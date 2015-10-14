@@ -35,6 +35,7 @@ public interface JWSModule {
     List<String> signMachineCodeRepOfReceipt(List<String> machineCodeRepOfReceiptList, RKSuite rkSuite);
 
     //JUST FOR DEMONSTRATION PURPOSES
-    void setDamaged(boolean damaged);
+    void setDamageIsPossible(boolean damageIsPossible);
+    boolean isDamagePossible();
 
 }

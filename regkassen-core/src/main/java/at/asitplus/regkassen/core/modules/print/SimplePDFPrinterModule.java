@@ -19,6 +19,8 @@ package at.asitplus.regkassen.core.modules.print;
 
 import at.asitplus.regkassen.core.base.receiptdata.ReceiptPackage;
 import at.asitplus.regkassen.core.base.receiptdata.TaxType;
+import at.asitplus.regkassen.core.base.util.CashBoxUtils;
+import at.asitplus.regkassen.core.base.util.MachineCodeValue;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.WriterException;
@@ -72,13 +74,28 @@ public class SimplePDFPrinterModule implements PrinterModule {
             addTaxTypeToPDF(cos, rect, line++, receiptPackage.getReceiptRepresentationForSignature().getSumTaxSetNull(), TaxType.SATZ_NULL);
             addTaxTypeToPDF(cos, rect, line++, receiptPackage.getReceiptRepresentationForSignature().getSumTaxSetBesonders(), TaxType.SATZ_BESONDERS);
 
+            //get string that will be encoded as QR-Code
+            String qrCodeRepresentation = receiptPackage.getQRCodeRepresentation();
+
+            String signatureValue = CashBoxUtils.getValueFromMachineCode(qrCodeRepresentation, MachineCodeValue.SIGNATURE_VALUE);
+            String decodedSignatureValue = new String(CashBoxUtils.base64Decode(signatureValue, false));
+            boolean secDeviceWasDamaged = "Sicherheitseinrichtung ausgefallen".equals(decodedSignatureValue);
+            if (secDeviceWasDamaged) {
+                PDFont fontPlain = PDType1Font.HELVETICA;
+                cos.beginText();
+                cos.setFont(fontPlain, 8);
+                cos.moveTextPositionByAmount(20, rect.getHeight() - 20 * (line));
+                cos.drawString("SICHERHEITSEINRICHTUNG AUSGEFALLEN");
+                cos.endText();
+                line++;
+            }
+
             //add OCR code or QR-code
             if (receiptPrintType == ReceiptPrintType.OCR) {
                 addOCRCodeToPDF(document, cos, rect, line++, receiptPackage);
             } else {
                 //create QRCode
                 BufferedImage image = createQRCode(receiptPackage);
-
                 //add QRCode to PDF document
                 PDXObjectImage ximage = new PDPixelMap(document, image);
                 float scale = 2f; // alter this value to set the image size
@@ -151,9 +168,8 @@ public class SimplePDFPrinterModule implements PrinterModule {
 
     protected BufferedImage createQRCode(ReceiptPackage receiptPackage) {
         try {
-            //get string that will be encoded as QR-Code
-            String qrCodeRepresentation = receiptPackage.getQRCodeRepresentation();
 
+            String qrCodeRepresentation = receiptPackage.getQRCodeRepresentation();
             //create QR-Code
             int size = 128;
 
