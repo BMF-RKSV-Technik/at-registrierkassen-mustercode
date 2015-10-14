@@ -50,8 +50,11 @@ public class DemoCashBox {
         currentReceiptIdentifier = cashBoxParameters.getInitialReceiptIdentifier();
     }
 
-
-
+    /**
+     * helper method to create, sign and store receipt
+     * @param rawReceiptData
+     * @param forceSignatureDeviceToWork
+     */
     protected void createStoreAndSignReceiptPackage(RawReceiptData rawReceiptData,boolean forceSignatureDeviceToWork) {
         //create receiptpackage, in this demo cashbox this is a data structure that contains all receipt relevant data
         //for simplicity this data structure is also stored in the DEP

@@ -18,7 +18,7 @@
 package at.asitplus.regkassen.core.base.receiptdata;
 
 /**
- * Tax-type (Steuersatz) "Betrag-Satz-XXX" according to Detailspezifikation Abs 4
+ * Tax-type (Steuersatz) "Betrag-Satz-X" according to Detailspezifikation Abs 4
  */
 public enum TaxType {
     SATZ_NORMAL("Satz-Normal"),

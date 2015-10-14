@@ -17,9 +17,9 @@
 
 package at.asitplus.regkassen.core.modules.signature.rawsignatureprovider;
 
-        import java.security.PrivateKey;
-        import java.security.cert.X509Certificate;
-        import java.util.List;
+import java.security.PrivateKey;
+import java.security.cert.X509Certificate;
+import java.util.List;
 
 /**
  * Simple interface for a raw signature module capable of carrying out a SHA256withECDSA signature (SHA-256 hash, ECDSA

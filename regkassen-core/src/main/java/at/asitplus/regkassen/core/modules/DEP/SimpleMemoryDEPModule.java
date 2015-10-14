@@ -45,12 +45,12 @@ public class SimpleMemoryDEPModule implements DEPModule {
     public DEPExportFormat exportDEP() {
         try {
             //prepare data structures for DEP export
-            //DEP exports are grouped according to the used signature certificate (CURRENTLY NOT USED IN THE DEMO)
+            //DEP exports are grouped according to the used signature certificate
             HashSet<X509Certificate> signatureCertifcates = new HashSet<>();
-
             List<List<ReceiptPackage>> listOfReceiptPackages = new ArrayList<>();
             List<ReceiptPackage> currentReceiptList = new ArrayList<>();
 
+            //categorize receipts according to used signature certificate
             for (ReceiptPackage receiptPackage : receiptPackages) {
                 X509Certificate signingCertificate = receiptPackage.getSigningCertificate();
                 if (!signatureCertifcates.contains(signingCertificate)) {
@@ -89,7 +89,6 @@ public class SimpleMemoryDEPModule implements DEPModule {
                 belegDump[dumpIndex].setCertificateChain(certificateChain);
 
                 dumpIndex++;
-
             }
             return depExportFormat;
         } catch (CertificateEncodingException e) {

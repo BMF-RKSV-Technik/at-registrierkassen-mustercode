@@ -20,10 +20,10 @@ package at.asitplus.regkassen.core.base.receiptdata;
 import org.apache.commons.math3.util.Precision;
 
 /**
- * Simple class that represents an item on a receipt. An item consits of a titel, a value and the taxtype
+ * Simple class that represents an item on a receipt. An item consists of a title, a value and the taxtype
  */
 public class Item {
-    //titel of the item, e.g. Schnitzel
+    //title of the item, e.g. Schnitzel
     protected String titel;
 
     //net value in € of the item, 2 decimal places

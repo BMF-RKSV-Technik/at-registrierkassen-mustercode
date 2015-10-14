@@ -37,8 +37,6 @@ public class OrgBitbucketBcJwsModule implements JWSModule {
     public void setSignatureModule(SignatureModule signatureModule) {
         //init signature module
         this.signatureModule = signatureModule;
-        jws = new JsonWebSignature();
-        jws.setKey(signatureModule.getSigningKey());
     }
 
     /**
@@ -49,13 +47,18 @@ public class OrgBitbucketBcJwsModule implements JWSModule {
      * @return JWS compact representation of signature, according to Detailspezifikation Abs 6
      */
     public String signMachineCodeRepOfReceipt(String machineCodeRepOfReceipt, RKSuite rkSuite) {
-        //TODO explain damageIsPossible flag!
+        jws = new JsonWebSignature();
+        jws.setKey(signatureModule.getSigningKey());
+
+        //FOR DEMONSTRATION PURPOSES
+        //if damage is possible, there is 50% chance that the signature device does not operate correctly
+        //if damage occurs, the signature value is replaced with the term "Sicherheitseinrichtung ausgefallen"
         if (damageIsPossible) {
             double randValue = Math.random();
             if (randValue>=0.5) {
-                String jwsHeader = "eyJhbGciOiJFUzI1NiJ9";
-                String jwsPayload = CashBoxUtils.base64Encode(machineCodeRepOfReceipt.getBytes(),true);
-                String jwsSignature = CashBoxUtils.base64Encode("Sicherheitseinrichtung ausgefallen".getBytes(),true);
+                String jwsHeader = "eyJhbGciOiJFUzI1NiJ9";  //ES256 Header for JWS
+                String jwsPayload = CashBoxUtils.base64Encode(machineCodeRepOfReceipt.getBytes(),true); //get payload
+                String jwsSignature = CashBoxUtils.base64Encode("Sicherheitseinrichtung ausgefallen".getBytes(),true);  //create damaged signature part
                 String jwsCompactRep = jwsHeader+"."+jwsPayload+"."+jwsSignature;
                 return jwsCompactRep;
             }

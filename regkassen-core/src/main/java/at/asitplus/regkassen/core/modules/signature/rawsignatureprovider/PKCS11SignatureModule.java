@@ -21,6 +21,9 @@ import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 import java.util.List;
 
+/**
+ * Work in progress
+ */
 public class PKCS11SignatureModule implements SignatureModule {
     @Override
     public PrivateKey getSigningKey() {

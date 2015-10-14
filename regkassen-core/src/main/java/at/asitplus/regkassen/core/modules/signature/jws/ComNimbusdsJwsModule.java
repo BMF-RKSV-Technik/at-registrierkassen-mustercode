@@ -57,13 +57,15 @@ public class ComNimbusdsJwsModule implements JWSModule {
             e.printStackTrace();
         }
 
-        //TODO explain
+        //FOR DEMONSTRATION PURPOSES
+        //if damage is possible, there is 50% chance that the signature device does not operate correctly
+        //if damage occurs, the signature value is replaced with the term "Sicherheitseinrichtung ausgefallen"
         if (damageIsPossible) {
             double randValue = Math.random();
             if (randValue>=0.5) {
-                String jwsHeader = "eyJhbGciOiJFUzI1NiJ9";
-                String jwsPayload = CashBoxUtils.base64Encode(machineCodeRepOfReceipt.getBytes(),true);
-                String jwsSignature = CashBoxUtils.base64Encode("Sicherheitseinrichtung ausgefallen".getBytes(),true);
+                String jwsHeader = "eyJhbGciOiJFUzI1NiJ9";  //ES256 Header for JWS
+                String jwsPayload = CashBoxUtils.base64Encode(machineCodeRepOfReceipt.getBytes(),true); //get payload
+                String jwsSignature = CashBoxUtils.base64Encode("Sicherheitseinrichtung ausgefallen".getBytes(),true);  //create damaged signature part
                 String jwsCompactRep = jwsHeader+"."+jwsPayload+"."+jwsSignature;
                 return jwsCompactRep;
             }
@@ -82,8 +84,6 @@ public class ComNimbusdsJwsModule implements JWSModule {
             e.printStackTrace();
             return null;
         }
-
-
     }
 
     public List<String> signMachineCodeRepOfReceipt(List<String> machineCodeRepOfReceiptList, RKSuite rkSuite) {

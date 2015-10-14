@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Simple receipt class, that stores various items. Each item has a titel, a value (€) and a TAX-type
+ * Simple receipt class, that stores various items. Each item has a title, a value (€) and a TAX-type
  */
 public class RawReceiptData {
     List<Item> items = new ArrayList<>();
