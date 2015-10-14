@@ -237,12 +237,33 @@ public class CashBoxUtils {
             parseException = e;
         }
         throw parseException;
+    }
 
+    public static boolean checkLastReceiptForDamagedSigatureCreationDevice(String jwsCompactRepresentation) {
+        String encodedSignatureValueBase64 = jwsCompactRepresentation.split("\\.")[2];
+        String decodedSignatureValue = new String(CashBoxUtils.base64Decode(encodedSignatureValueBase64,true));
+        if ("Sicherheitseinrichtung ausgefallen".equals(decodedSignatureValue)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
+    public static double getTaxSetTurnOverSumFromQRMachineCodeRepresentation(String qrMachineCodeRepresentation,boolean calcAbsValue) throws Exception {
+        double currentTaxSetNormal = CashBoxUtils.getDoubleFromTaxSet(CashBoxUtils.getValueFromMachineCode(qrMachineCodeRepresentation, MachineCodeValue.SUM_TAX_SET_NORMAL));
+        double currentTaxSetErmaessigt1 = CashBoxUtils.getDoubleFromTaxSet(CashBoxUtils.getValueFromMachineCode(qrMachineCodeRepresentation, MachineCodeValue.SUM_TAX_SET_ERMAESSIGT1));
+        double currentTaxSetErmaessigt2 = CashBoxUtils.getDoubleFromTaxSet(CashBoxUtils.getValueFromMachineCode(qrMachineCodeRepresentation, MachineCodeValue.SUM_TAX_SET_ERMAESSIGT2));
+        double currentTaxSetBesonders = CashBoxUtils.getDoubleFromTaxSet(CashBoxUtils.getValueFromMachineCode(qrMachineCodeRepresentation, MachineCodeValue.SUM_TAX_SET_BESONDERS));
+        double currentTaxSetNull = CashBoxUtils.getDoubleFromTaxSet(CashBoxUtils.getValueFromMachineCode(qrMachineCodeRepresentation, MachineCodeValue.SUM_TAX_SET_NULL));
+
+        if (calcAbsValue) {
+            return Math.abs(currentTaxSetNormal) + Math.abs(currentTaxSetErmaessigt1) + Math.abs(currentTaxSetErmaessigt2) + Math.abs(currentTaxSetBesonders) + Math.abs(currentTaxSetNull);
+        } else {
+            return currentTaxSetNormal + currentTaxSetErmaessigt1 + currentTaxSetErmaessigt2 + currentTaxSetBesonders + currentTaxSetNull;
+        }
     }
 
     public static X509Certificate parseCertificate(String base64EncodedCertificate) throws CertificateException {
-
         CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
         ByteArrayInputStream bIn = new ByteArrayInputStream(CashBoxUtils.base64Decode(base64EncodedCertificate, false));
         return (X509Certificate) certificateFactory.generateCertificate(bIn);

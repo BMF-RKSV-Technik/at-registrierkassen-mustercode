@@ -129,7 +129,7 @@ public class SimpleDemo {
 
             //JWSModule jwsModule = new OrgBitbucketBcJwsModule();  //requires bouncycastle provider
             JWSModule jwsModule = new ComNimbusdsJwsModule();   //allows for provider independent use cases
-            jwsModule.setDamageIsPossible(false);
+            jwsModule.setDamageIsPossible(true);
             jwsModule.setSignatureModule(new DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule());
             cashBoxParameters.setJwsModule(jwsModule);
 
@@ -237,7 +237,6 @@ public class SimpleDemo {
             bIn = new ByteArrayInputStream(signatureCertificateChainsJSON.getBytes());
             IOUtils.copy(bIn,bufferedOutputStream);
             bufferedOutputStream.close();
-
 
             //store AES key as BASE64 String (for demonstration purposes: to allow decryption of turnover value)
             byte[] aesKey = cashBoxParameters.getTurnoverKeyAESkey().getEncoded();

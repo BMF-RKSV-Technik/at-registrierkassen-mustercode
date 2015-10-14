@@ -50,24 +50,9 @@ public class DemoCashBox {
         currentReceiptIdentifier = cashBoxParameters.getInitialReceiptIdentifier();
     }
 
-    /**
-     * @param rawReceiptData raw receipt data, that contains all the items
-     */
-    public void storeReceipt(RawReceiptData rawReceiptData) {
-        //for demonstration purposes, we change the certificate after a defined number of receipts (specified in the paramters file)
-        if (cashBoxParameters.getChangeSignatureCertificateAfterSoManyReceipts()>=0) {
-            if (receiptCounter >= cashBoxParameters.getChangeSignatureCertificateAfterSoManyReceipts()) {
-                //only change once
-                cashBoxParameters.setChangeSignatureCertificateAfterSoManyReceipts(-1);
-                //only works for the DEMO Signature Module that is based on software certificates
-                if (cashBoxParameters.getJwsModule().getSignatureModule() instanceof DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule) {
-                    DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule do_not_use_in_real_cashbox_demoSoftwareSignatureModule = (DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule)cashBoxParameters.getJwsModule().getSignatureModule();
-                    do_not_use_in_real_cashbox_demoSoftwareSignatureModule.intialise();
-                }
-            }
-        }
 
 
+    protected void createStoreAndSignReceiptPackage(RawReceiptData rawReceiptData,boolean forceSignatureDeviceToWork) {
         //create receiptpackage, in this demo cashbox this is a data structure that contains all receipt relevant data
         //for simplicity this data structure is also stored in the DEP
         ReceiptPackage receiptPackage = new ReceiptPackage();
@@ -95,7 +80,7 @@ public class DemoCashBox {
 
         //make sure that DEMO damaged mode of signature creation device is only active after the first receipt
         String jwsCompactRepresentation;
-        if (retrieveLastStoredReceipt() == null) {
+        if (forceSignatureDeviceToWork) {
             boolean allowDamage = cashBoxParameters.getJwsModule().isDamagePossible();
             cashBoxParameters.getJwsModule().setDamageIsPossible(false);
             jwsCompactRepresentation = cashBoxParameters.getJwsModule().signMachineCodeRepOfReceipt(dataToBeSigned, cashBoxParameters.getRkSuite());
@@ -110,6 +95,46 @@ public class DemoCashBox {
         cashBoxParameters.getDepModul().storeReceipt(receiptPackage);
 
         receiptCounter++;
+    }
+
+    /**
+     * @param rawReceiptData raw receipt data, that contains all the items
+     */
+    public void storeReceipt(RawReceiptData rawReceiptData) {
+        //for demonstration purposes, we change the certificate after a defined number of receipts (specified in the paramters file)
+        if (cashBoxParameters.getChangeSignatureCertificateAfterSoManyReceipts()>=0) {
+            if (receiptCounter >= cashBoxParameters.getChangeSignatureCertificateAfterSoManyReceipts()) {
+                //only change once
+                cashBoxParameters.setChangeSignatureCertificateAfterSoManyReceipts(-1);
+                //only works for the DEMO Signature Module that is based on software certificates
+                if (cashBoxParameters.getJwsModule().getSignatureModule() instanceof DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule) {
+                    DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule do_not_use_in_real_cashbox_demoSoftwareSignatureModule = (DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule)cashBoxParameters.getJwsModule().getSignatureModule();
+                    do_not_use_in_real_cashbox_demoSoftwareSignatureModule.intialise();
+                }
+            }
+        }
+
+        //check whether this is the first receipt, if it is we need to make sure the signature creation device works
+        //THIS IS JUST RELEVANT FOR THIS DEMO CODE, AS WE HAVE A RANDOM VARIABLE THAT CONTROLS THE STATE OF THE SIG
+        //CREATION DEVICE
+        boolean forceSignatureDeviceToWork;
+        if (retrieveLastStoredReceipt()==null) {
+            //make sure that signature creation device works for first receipt
+            forceSignatureDeviceToWork = true;
+        } else {
+            //check whether the signature creation devices was offline for the last receipt
+            //if it was offline, we need to inject a receipt that has 0 turnover for all taxsets
+            //Verordnung/§ 17, Abs 4 (last sentence)
+            if (CashBoxUtils.checkLastReceiptForDamagedSigatureCreationDevice(retrieveLastStoredReceipt().getJwsCompactRepresentation())) {
+                //make sure that this signature creation works for the "null" receipt and the subsequent real receipt
+                forceSignatureDeviceToWork = true;
+                createStoreAndSignReceiptPackage(new RawReceiptData(),true);
+            } else {
+                //not the first receipt, and also not in recovery mode from a damaged sig device, random glitches possible for demo mode
+                forceSignatureDeviceToWork = false;
+            }
+        }
+        createStoreAndSignReceiptPackage(rawReceiptData,forceSignatureDeviceToWork);
     }
 
     public DEPExportFormat exportDEP() {
