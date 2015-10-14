@@ -65,10 +65,16 @@ public class SimpleDemo {
             // add CMD line options
             options.addOption("o", "output-dir", true, "specify base output directory, if none is specified a new directory will be created in the current path");
             options.addOption("n", "number-of-generated-receipts", true, "specify number of receipts to be randomly generated, 15 is default");
+            options.addOption("g", "signature-creation-device-cannot-fail", false, "deactivate glitches in signature-creation-device");
+            options.addOption("s", "no-signature-certificate-switch", false, "deactivate switching of signature certificates after 5 receipts");
+
 
             ///parse CMD line options
             CommandLineParser parser = new DefaultParser();
             CommandLine cmd = parser.parse(options, args);
+
+            boolean signatureCreationDeviceAlwaysWorks = cmd.hasOption("g");
+            boolean deactivateSignatureCertificateSwitching = cmd.hasOption("s");
 
             String outputParentDirectoryString = cmd.getOptionValue("o");
             if (outputParentDirectoryString == null) {
@@ -92,7 +98,13 @@ public class SimpleDemo {
 
             //prepare cashbox init parameters
             CashBoxParameters cashBoxParameters = new CashBoxParameters();
-            cashBoxParameters.setChangeSignatureCertificateAfterSoManyReceipts(5);
+
+            //set paramter for signature certificate switching, if > -1, then switch signature certificate after so many signatures
+            if (deactivateSignatureCertificateSwitching) {
+                cashBoxParameters.setChangeSignatureCertificateAfterSoManyReceipts(-1);
+            } else {
+                cashBoxParameters.setChangeSignatureCertificateAfterSoManyReceipts(-1);
+            }
 
             //generate and set random cash box ID ("Kassen-ID")
             //REF TO SPECIFICATION: Detailspezifikation/Abs 4
@@ -129,7 +141,7 @@ public class SimpleDemo {
 
             //JWSModule jwsModule = new OrgBitbucketBcJwsModule();  //requires bouncycastle provider
             JWSModule jwsModule = new ComNimbusdsJwsModule();   //allows for provider independent use cases
-            jwsModule.setDamageIsPossible(true);
+            jwsModule.setDamageIsPossible(!signatureCreationDeviceAlwaysWorks);
             jwsModule.setSignatureModule(new DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule());
             cashBoxParameters.setJwsModule(jwsModule);
 
