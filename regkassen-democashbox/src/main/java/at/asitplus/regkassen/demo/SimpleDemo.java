@@ -23,6 +23,7 @@ import at.asitplus.regkassen.core.base.receiptdata.ReceiptPackage;
 import at.asitplus.regkassen.core.base.rksuite.RKSuite;
 import at.asitplus.regkassen.core.base.util.CashBoxUtils;
 import at.asitplus.regkassen.core.base.util.RandomReceiptGenerator;
+import at.asitplus.regkassen.core.modules.DEP.DEPBelegDump;
 import at.asitplus.regkassen.core.modules.DEP.DEPExportFormat;
 import at.asitplus.regkassen.core.modules.DEP.SimpleMemoryDEPModule;
 import at.asitplus.regkassen.core.modules.init.CashBoxParameters;
@@ -40,10 +41,10 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import java.io.*;
 import java.security.Security;
-import java.security.cert.CertificateEncodingException;
-import java.security.cert.X509Certificate;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -91,6 +92,7 @@ public class SimpleDemo {
 
             //prepare cashbox init parameters
             CashBoxParameters cashBoxParameters = new CashBoxParameters();
+            cashBoxParameters.setChangeSignatureCertificateAfterSoManyReceipts(5);
 
             //generate and set random cash box ID ("Kassen-ID")
             //REF TO SPECIFICATION: Detailspezifikation/Abs 4
@@ -127,7 +129,7 @@ public class SimpleDemo {
 
             //JWSModule jwsModule = new OrgBitbucketBcJwsModule();  //requires bouncycastle provider
             JWSModule jwsModule = new ComNimbusdsJwsModule();   //allows for provider independent use cases
-            jwsModule.setDamageIsPossible(true);
+            jwsModule.setDamageIsPossible(false);
             jwsModule.setSignatureModule(new DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule());
             cashBoxParameters.setJwsModule(jwsModule);
 
@@ -213,13 +215,29 @@ public class SimpleDemo {
             List<byte[]> printedOCRCodeReceipts = demoCashBox.printReceipt(receiptPackages, ReceiptPrintType.OCR);
             CashBoxUtils.writeReceiptsToFiles(printedOCRCodeReceipts, "OCR-", ocrCodeDumpDirectory);
 
-            //store signature certificate
-            X509Certificate signatureCertificate = cashBoxParameters.getJwsModule().getSignatureModule().getSigningCertificate();
-            File signatureCertificateOutputFile = new File(OUTPUT_PARENT_DIRECTORY,"signatureCertificate.cer");
-            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(signatureCertificateOutputFile));
-            ByteArrayInputStream bIn = new ByteArrayInputStream(signatureCertificate.getEncoded());
+            //store signature certificates
+            List<String> signatureCertificates = new ArrayList<>();
+            List<List<String>> certificateChains = new ArrayList<>();
+            DEPBelegDump[] belegDumps = depExportFormat.getBelegPackage();
+            for (DEPBelegDump depBelegDump:belegDumps) {
+                signatureCertificates.add(depBelegDump.getSignatureCertificate());
+                certificateChains.add(Arrays.asList(depBelegDump.getCertificateChain()));
+            }
+
+            File signatureCertificatesOutputFile = new File(OUTPUT_PARENT_DIRECTORY,"signatureCertificates.txt");
+            String signatureCertificatesJSON = gson.toJson(signatureCertificates);
+            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(signatureCertificatesOutputFile));
+            ByteArrayInputStream bIn = new ByteArrayInputStream(signatureCertificatesJSON.getBytes());
             IOUtils.copy(bIn,bufferedOutputStream);
             bufferedOutputStream.close();
+
+            File signatureCertificateChainsOutputFile = new File(OUTPUT_PARENT_DIRECTORY,"signatureCertificateChains.txt");
+            String signatureCertificateChainsJSON = gson.toJson(certificateChains);
+            bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(signatureCertificateChainsOutputFile));
+            bIn = new ByteArrayInputStream(signatureCertificateChainsJSON.getBytes());
+            IOUtils.copy(bIn,bufferedOutputStream);
+            bufferedOutputStream.close();
+
 
             //store AES key as BASE64 String (for demonstration purposes: to allow decryption of turnover value)
             byte[] aesKey = cashBoxParameters.getTurnoverKeyAESkey().getEncoded();
@@ -231,8 +249,6 @@ public class SimpleDemo {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {
-            e.printStackTrace();
-        } catch (CertificateEncodingException e) {
             e.printStackTrace();
         }
     }

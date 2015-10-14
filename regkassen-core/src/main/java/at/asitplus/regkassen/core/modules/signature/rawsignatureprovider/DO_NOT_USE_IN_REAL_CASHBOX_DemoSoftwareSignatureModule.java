@@ -33,7 +33,6 @@ import java.math.BigInteger;
 import java.security.*;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import java.security.interfaces.ECPrivateKey;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -49,9 +48,7 @@ public class DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule implements S
     protected X509Certificate signingCertificate;
     protected List<X509Certificate> certificateChain;
 
-    //NOTE: NEVER EVER USE IN A REAL CASHBOX, THIS IS JUST FOR DEMONSTRATION PURPOSES
-    //In a real cashbox, this would use a smart card, an HSM or a cloud service
-    public DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule() {
+    public void intialise() {
         try {
             //create random demonstration ECC keys
             KeyPairGenerator kpg = KeyPairGenerator.getInstance("EC");
@@ -64,8 +61,8 @@ public class DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule implements S
             KeyPair signingKeyPair = kpg.generateKeyPair();
 
             //get references to private keys for the CA and the signing key
-            PrivateKey caKey = (ECPrivateKey) caKeyPair.getPrivate();
-            signingKey = (ECPrivateKey) signingKeyPair.getPrivate();
+            PrivateKey caKey = caKeyPair.getPrivate();
+            signingKey = signingKeyPair.getPrivate();
 
             //create CA certificate and add it to the certificate chain
             //NOTE: DO NEVER EVER USE IN A REAL CASHBOX, THIS IS JUST FOR DEMONSTRATION PURPOSES
@@ -108,6 +105,12 @@ public class DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule implements S
         } catch (CertificateException e) {
             e.printStackTrace();
         }
+    }
+
+    //NOTE: NEVER EVER USE IN A REAL CASHBOX, THIS IS JUST FOR DEMONSTRATION PURPOSES
+    //In a real cashbox, this would use a smart card, an HSM or a cloud service
+    public DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule() {
+        intialise();
     }
 
     public PrivateKey getSigningKey() {

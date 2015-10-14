@@ -23,7 +23,7 @@ import at.asitplus.regkassen.core.base.util.CashBoxUtils;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -46,25 +46,28 @@ public class SimpleMemoryDEPModule implements DEPModule {
         try {
             //prepare data structures for DEP export
             //DEP exports are grouped according to the used signature certificate (CURRENTLY NOT USED IN THE DEMO)
-            HashMap<String, List<ReceiptPackage>> certificateToReceiptMap = new HashMap<>();
+            HashSet<X509Certificate> signatureCertifcates = new HashSet<>();
+
+            List<List<ReceiptPackage>> listOfReceiptPackages = new ArrayList<>();
+            List<ReceiptPackage> currentReceiptList = new ArrayList<>();
 
             for (ReceiptPackage receiptPackage : receiptPackages) {
                 X509Certificate signingCertificate = receiptPackage.getSigningCertificate();
-                List<ReceiptPackage> receiptPackagesForSignatureCertificate = certificateToReceiptMap.get(signingCertificate.getSerialNumber() + "");
-                if (receiptPackagesForSignatureCertificate == null) {
-                    receiptPackagesForSignatureCertificate = new ArrayList<>();
-                    certificateToReceiptMap.put(signingCertificate.getSerialNumber() + "", receiptPackagesForSignatureCertificate);
+                if (!signatureCertifcates.contains(signingCertificate)) {
+                    currentReceiptList = new ArrayList<>();
+                    listOfReceiptPackages.add(currentReceiptList);
+                    signatureCertifcates.add(signingCertificate);
                 }
-                receiptPackagesForSignatureCertificate.add(receiptPackage);
+                currentReceiptList.add(receiptPackage);
             }
 
             //create data structure for export format
             DEPExportFormat depExportFormat = new DEPExportFormat();
-            DEPBelegDump[] belegDump = new DEPBelegDump[certificateToReceiptMap.keySet().size()];
+            DEPBelegDump[] belegDump = new DEPBelegDump[listOfReceiptPackages.size()];
 
             //store receipts in export format
             int dumpIndex = 0;
-            for (List<ReceiptPackage> signedReceipts : certificateToReceiptMap.values()) {
+            for (List<ReceiptPackage> signedReceipts : listOfReceiptPackages) {
                 belegDump[dumpIndex] = new DEPBelegDump();
                 depExportFormat.setBelegPackage(belegDump);
 

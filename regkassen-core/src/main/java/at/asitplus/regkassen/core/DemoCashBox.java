@@ -23,6 +23,7 @@ import at.asitplus.regkassen.core.base.util.CashBoxUtils;
 import at.asitplus.regkassen.core.modules.DEP.DEPExportFormat;
 import at.asitplus.regkassen.core.modules.init.CashBoxParameters;
 import at.asitplus.regkassen.core.modules.print.ReceiptPrintType;
+import at.asitplus.regkassen.core.modules.signature.rawsignatureprovider.DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule;
 import org.apache.commons.math3.util.Precision;
 
 import javax.crypto.BadPaddingException;
@@ -42,6 +43,7 @@ public class DemoCashBox {
     protected CashBoxParameters cashBoxParameters;
     protected long currentReceiptIdentifier;
     protected long turnoverCounter;
+    protected int receiptCounter = 0;
 
     public DemoCashBox(CashBoxParameters cashBoxParameters) {
         this.cashBoxParameters = cashBoxParameters;
@@ -52,6 +54,20 @@ public class DemoCashBox {
      * @param rawReceiptData raw receipt data, that contains all the items
      */
     public void storeReceipt(RawReceiptData rawReceiptData) {
+        //for demonstration purposes, we change the certificate after a defined number of receipts (specified in the paramters file)
+        if (cashBoxParameters.getChangeSignatureCertificateAfterSoManyReceipts()>=0) {
+            if (receiptCounter >= cashBoxParameters.getChangeSignatureCertificateAfterSoManyReceipts()) {
+                //only change once
+                cashBoxParameters.setChangeSignatureCertificateAfterSoManyReceipts(-1);
+                //only works for the DEMO Signature Module that is based on software certificates
+                if (cashBoxParameters.getJwsModule().getSignatureModule() instanceof DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule) {
+                    DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule do_not_use_in_real_cashbox_demoSoftwareSignatureModule = (DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule)cashBoxParameters.getJwsModule().getSignatureModule();
+                    do_not_use_in_real_cashbox_demoSoftwareSignatureModule.intialise();
+                }
+            }
+        }
+
+
         //create receiptpackage, in this demo cashbox this is a data structure that contains all receipt relevant data
         //for simplicity this data structure is also stored in the DEP
         ReceiptPackage receiptPackage = new ReceiptPackage();
@@ -92,6 +108,8 @@ public class DemoCashBox {
 
         //store receipt in the DEP module
         cashBoxParameters.getDepModul().storeReceipt(receiptPackage);
+
+        receiptCounter++;
     }
 
     public DEPExportFormat exportDEP() {

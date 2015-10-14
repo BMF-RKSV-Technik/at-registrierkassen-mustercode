@@ -28,9 +28,13 @@ import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.security.*;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -235,6 +239,22 @@ public class CashBoxUtils {
         throw parseException;
 
 
+    }
+
+    public static X509Certificate parseCertificate(String base64EncodedCertificate) throws CertificateException {
+
+        CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
+        ByteArrayInputStream bIn = new ByteArrayInputStream(CashBoxUtils.base64Decode(base64EncodedCertificate, false));
+        return (X509Certificate) certificateFactory.generateCertificate(bIn);
+    }
+
+
+    public static List<X509Certificate> parseCertificates(String[] base64EncodedCertificates) throws CertificateException {
+        List<X509Certificate> certificates = new ArrayList<>();
+        for (String base64EncodedCertificate : base64EncodedCertificates) {
+            certificates.add(parseCertificate(base64EncodedCertificate));
+        }
+        return certificates;
     }
 
 }

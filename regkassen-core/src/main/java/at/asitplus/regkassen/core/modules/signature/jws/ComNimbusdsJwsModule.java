@@ -39,12 +39,6 @@ public class ComNimbusdsJwsModule implements JWSModule {
     @Override
     public void setSignatureModule(SignatureModule signatureModule) {
         this.signatureModule = signatureModule;
-        ECPrivateKey key = (ECPrivateKey) signatureModule.getSigningKey();
-        try {
-            this.jwsSigner = new ECDSASigner(key);
-        } catch (JOSEException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -55,6 +49,14 @@ public class ComNimbusdsJwsModule implements JWSModule {
     @Override
     public String signMachineCodeRepOfReceipt(String machineCodeRepOfReceipt,
                                               RKSuite rkSuite) {
+
+        ECPrivateKey key = (ECPrivateKey) signatureModule.getSigningKey();
+        try {
+            this.jwsSigner = new ECDSASigner(key);
+        } catch (JOSEException e) {
+            e.printStackTrace();
+        }
+
         //TODO explain
         if (damageIsPossible) {
             double randValue = Math.random();
