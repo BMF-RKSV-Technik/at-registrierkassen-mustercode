@@ -18,6 +18,7 @@
 package at.asitplus.regkassen.core.modules.signature.jws;
 
 import at.asitplus.regkassen.core.base.rksuite.RKSuite;
+import at.asitplus.regkassen.core.base.util.CashBoxUtils;
 import at.asitplus.regkassen.core.modules.signature.rawsignatureprovider.SignatureModule;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.ECDSASigner;
@@ -32,18 +33,12 @@ import java.util.List;
 public class ComNimbusdsJwsModule implements JWSModule {
 
     protected SignatureModule signatureModule;
-    protected boolean damaged = false;
+    protected boolean damageIsPossible = false;
     protected JWSSigner jwsSigner;
 
     @Override
     public void setSignatureModule(SignatureModule signatureModule) {
         this.signatureModule = signatureModule;
-        ECPrivateKey key = (ECPrivateKey) signatureModule.getSigningKey();
-        try {
-            this.jwsSigner = new ECDSASigner(key);
-        } catch (JOSEException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -54,6 +49,27 @@ public class ComNimbusdsJwsModule implements JWSModule {
     @Override
     public String signMachineCodeRepOfReceipt(String machineCodeRepOfReceipt,
                                               RKSuite rkSuite) {
+
+        ECPrivateKey key = (ECPrivateKey) signatureModule.getSigningKey();
+        try {
+            this.jwsSigner = new ECDSASigner(key);
+        } catch (JOSEException e) {
+            e.printStackTrace();
+        }
+
+        //FOR DEMONSTRATION PURPOSES
+        //if damage is possible, there is 50% chance that the signature device does not operate correctly
+        //if damage occurs, the signature value is replaced with the term "Sicherheitseinrichtung ausgefallen"
+        if (damageIsPossible) {
+            double randValue = Math.random();
+            if (randValue>=0.5) {
+                String jwsHeader = "eyJhbGciOiJFUzI1NiJ9";  //ES256 Header for JWS
+                String jwsPayload = CashBoxUtils.base64Encode(machineCodeRepOfReceipt.getBytes(),true); //get payload
+                String jwsSignature = CashBoxUtils.base64Encode("Sicherheitseinrichtung ausgefallen".getBytes(),true);  //create damaged signature part
+                String jwsCompactRep = jwsHeader+"."+jwsPayload+"."+jwsSignature;
+                return jwsCompactRep;
+            }
+        }
 
         try {
             // Creates the JWS object with payload
@@ -68,8 +84,6 @@ public class ComNimbusdsJwsModule implements JWSModule {
             e.printStackTrace();
             return null;
         }
-
-
     }
 
     public List<String> signMachineCodeRepOfReceipt(List<String> machineCodeRepOfReceiptList, RKSuite rkSuite) {
@@ -81,12 +95,17 @@ public class ComNimbusdsJwsModule implements JWSModule {
     }
 
     /**
-     * set damaged flag, only for demonstration purposes
+     * set damageIsPossible flag, only for demonstration purposes
      *
-     * @param damaged set damaged state of signature module
+     * @param damageIsPossible set damageIsPossible state of signature module
      */
-    public void setDamaged(boolean damaged) {
-        this.damaged = damaged;
+    public void setDamageIsPossible(boolean damageIsPossible) {
+        this.damageIsPossible = damageIsPossible;
+    }
+
+    @Override
+    public boolean isDamagePossible() {
+        return damageIsPossible;
     }
 
 }

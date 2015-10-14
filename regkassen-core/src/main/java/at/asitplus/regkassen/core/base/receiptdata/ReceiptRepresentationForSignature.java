@@ -24,8 +24,10 @@ import org.apache.commons.math3.util.Precision;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * This class represents the data structure that is specified in Detailspezifikation Abs 4
@@ -74,9 +76,14 @@ public class ReceiptRepresentationForSignature {
      */
     public String getDataToBeSigned(RKSuite rkSuite) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        //set decimal format to "0,00"
+        NumberFormat nf = NumberFormat.getNumberInstance(Locale.GERMAN);
+        nf.setMinimumFractionDigits(2);
+        nf.setMaximumFractionDigits(2);
+        DecimalFormat decimalFormat = (DecimalFormat) nf;
+
         //prepare signature payload string for signature creation (Detailspezifikation/ABS 5
-        return rkSuite.getSuiteID() + "_" + cashBoxID + "_" + receiptIdentifier + "_" + dateFormat.format(receiptDateAndTime) + "_" + decimalFormat.format(sumTaxSetNormal) + "_" + decimalFormat.format(sumTaxSetErmaessigt1) + "_" + decimalFormat.format(sumTaxSetErmaessigt2) + "_" + decimalFormat.format(sumTaxSetNull) + "_" + decimalFormat.format(sumTaxSetBesonders) + "_" + encryptedTurnoverValue + "_" + signatureCertificateSerialNumber + "_" + signatureValuePreviousReceipt;
+        return "_" + rkSuite.getSuiteID() + "_" + cashBoxID + "_" + receiptIdentifier + "_" + dateFormat.format(receiptDateAndTime) + "_" + decimalFormat.format(sumTaxSetNormal) + "_" + decimalFormat.format(sumTaxSetErmaessigt1) + "_" + decimalFormat.format(sumTaxSetErmaessigt2) + "_" + decimalFormat.format(sumTaxSetNull) + "_" + decimalFormat.format(sumTaxSetBesonders) + "_" + encryptedTurnoverValue + "_" + signatureCertificateSerialNumber + "_" + signatureValuePreviousReceipt;
     }
 
     /**
@@ -84,16 +91,21 @@ public class ReceiptRepresentationForSignature {
      *
      * @param rkSuite RK suite according to Detailspezifikation Abs 2
      * @return first part of OCR code representation (without the signature value)
-     * difference to getDataToBeSigned: BASE64 values are reencoded to BASE32 to simplify OCR process
+     * difference to getDataToBeSigned: BASE64 values are re-encoded to BASE32 to simplify OCR process
      */
     public String getOCRCodeRepresentationWithoutSignature(RKSuite rkSuite) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        //set decimal format to "0,00"
+        NumberFormat nf = NumberFormat.getNumberInstance(Locale.GERMAN);
+        nf.setMinimumFractionDigits(2);
+        nf.setMaximumFractionDigits(2);
+        DecimalFormat decimalFormat = (DecimalFormat) nf;
+
         //prepare signature payload string for signature creation (Detailspezifikation/ABS 5
         String base32RepOfSignatureValuePreviousReceipt = CashBoxUtils.base32Encode(CashBoxUtils.base64Decode(signatureValuePreviousReceipt, false));
         String base32EncryptedTurnoverValue = CashBoxUtils.base32Encode(CashBoxUtils.base64Decode(signatureValuePreviousReceipt, false));
 
-        return rkSuite.getSuiteID() + "_" + cashBoxID + "_" + receiptIdentifier + "_" + dateFormat.format(receiptDateAndTime) + "_" + decimalFormat.format(sumTaxSetNormal) + "_" + decimalFormat.format(sumTaxSetErmaessigt1) + "_" + decimalFormat.format(sumTaxSetErmaessigt2) + "_" + decimalFormat.format(sumTaxSetNull) + "_" + decimalFormat.format(sumTaxSetBesonders) + "_" + base32EncryptedTurnoverValue + "_" + signatureCertificateSerialNumber + "_" + base32RepOfSignatureValuePreviousReceipt;
+        return "_" + rkSuite.getSuiteID() + "_" + cashBoxID + "_" + receiptIdentifier + "_" + dateFormat.format(receiptDateAndTime) + "_" + decimalFormat.format(sumTaxSetNormal) + "_" + decimalFormat.format(sumTaxSetErmaessigt1) + "_" + decimalFormat.format(sumTaxSetErmaessigt2) + "_" + decimalFormat.format(sumTaxSetNull) + "_" + decimalFormat.format(sumTaxSetBesonders) + "_" + base32EncryptedTurnoverValue + "_" + signatureCertificateSerialNumber + "_" + base32RepOfSignatureValuePreviousReceipt;
     }
 
     public String getCashBoxID() {

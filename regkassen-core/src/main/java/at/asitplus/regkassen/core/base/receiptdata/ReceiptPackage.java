@@ -41,7 +41,7 @@ public class ReceiptPackage {
         //get signature value from JWS compact representation
         String signatureValueBASE64URL = jwsCompactRepresentation.split("\\.")[2];
 
-        //reencode from BASE64-URL to BASE64
+        //re-encode from BASE64-URL to BASE64
         String signatureValueBASE64 = CashBoxUtils.base64Encode(CashBoxUtils.base64Decode(signatureValueBASE64URL,true),false);
 
         //get QR code rep
@@ -56,7 +56,7 @@ public class ReceiptPackage {
         //get signature value from JWS compact representation
         String signatureValueBASE64URL = jwsCompactRepresentation.split("\\.")[2];
 
-        //reencode from BASE64-URL to BASE64
+        //re-encode from BASE64-URL to BASE64
         String signatureValueBASE64 = CashBoxUtils.base32Encode(CashBoxUtils.base64Decode(signatureValueBASE64URL, true));
 
         //get OCR code rep

@@ -22,14 +22,21 @@ import java.security.cert.X509Certificate;
 import java.util.List;
 
 /**
- * Simple interface for a raw signature module capable of carrying out a SHA256withECDSA signature (SHA-256 hash, ECDSA
- * signature.)
- * //REF TO SPECIFICATION: Detailspezifikation/Abs 2
+ * Work in progress
  */
-public interface SignatureModule {
-    PrivateKey getSigningKey();
+public class PKCS11SignatureModule implements SignatureModule {
+    @Override
+    public PrivateKey getSigningKey() {
+        return null;
+    }
 
-    X509Certificate getSigningCertificate();
+    @Override
+    public X509Certificate getSigningCertificate() {
+        return null;
+    }
 
-    List<X509Certificate> getCertificateChain();
+    @Override
+    public List<X509Certificate> getCertificateChain() {
+        return null;
+    }
 }

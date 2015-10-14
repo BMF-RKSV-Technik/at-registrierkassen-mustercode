@@ -26,6 +26,5 @@ import java.util.List;
  */
 public interface PrinterModule {
     List<byte[]> printReceipt(java.util.List<ReceiptPackage> receiptPackages, ReceiptPrintType receiptPrintType);
-
     byte[] printReceipt(ReceiptPackage receiptPackage, ReceiptPrintType receiptPrintType);
 }

@@ -7,7 +7,7 @@
 
     <groupId>at.asitplus.regkassen</groupId>
     <artifactId>registrierkassen-core</artifactId>
-    <version>0.2</version>
+    <version>0.3</version>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -80,9 +80,6 @@
             <artifactId>commons-codec</artifactId>
             <version>1.10</version>
         </dependency>
-
-
-
 
         <!-- library for generating QR-Codes
            REF: http://zxing.github.io/zxing/project-info.html

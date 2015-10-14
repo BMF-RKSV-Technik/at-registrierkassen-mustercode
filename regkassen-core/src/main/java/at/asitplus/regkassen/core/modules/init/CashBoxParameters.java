@@ -35,11 +35,20 @@ public class CashBoxParameters {
     protected long initialReceiptIdentifier;
     protected SecretKey turnoverKeyAESkey;
     protected RKSuite rkSuite;
+    protected int changeSignatureCertificateAfterSoManyReceipts = -1; //-1 never change sig certificate, this value is used for demonstration purposes
 
     //modules
     protected DEPModule depModul;
     protected JWSModule jwsModule;
     protected PrinterModule printerModule;
+
+    public int getChangeSignatureCertificateAfterSoManyReceipts() {
+        return changeSignatureCertificateAfterSoManyReceipts;
+    }
+
+    public void setChangeSignatureCertificateAfterSoManyReceipts(int changeSignatureCertificateAfterSoManyReceipts) {
+        this.changeSignatureCertificateAfterSoManyReceipts = changeSignatureCertificateAfterSoManyReceipts;
+    }
 
     public String getCashBoxID() {
         return cashBoxID;

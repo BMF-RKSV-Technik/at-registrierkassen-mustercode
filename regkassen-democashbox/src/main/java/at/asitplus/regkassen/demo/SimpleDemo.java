@@ -23,6 +23,7 @@ import at.asitplus.regkassen.core.base.receiptdata.ReceiptPackage;
 import at.asitplus.regkassen.core.base.rksuite.RKSuite;
 import at.asitplus.regkassen.core.base.util.CashBoxUtils;
 import at.asitplus.regkassen.core.base.util.RandomReceiptGenerator;
+import at.asitplus.regkassen.core.modules.DEP.DEPBelegDump;
 import at.asitplus.regkassen.core.modules.DEP.DEPExportFormat;
 import at.asitplus.regkassen.core.modules.DEP.SimpleMemoryDEPModule;
 import at.asitplus.regkassen.core.modules.init.CashBoxParameters;
@@ -40,10 +41,10 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import java.io.*;
 import java.security.Security;
-import java.security.cert.CertificateEncodingException;
-import java.security.cert.X509Certificate;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -64,10 +65,15 @@ public class SimpleDemo {
             // add CMD line options
             options.addOption("o", "output-dir", true, "specify base output directory, if none is specified a new directory will be created in the current path");
             options.addOption("n", "number-of-generated-receipts", true, "specify number of receipts to be randomly generated, 15 is default");
+            options.addOption("g", "signature-creation-device-cannot-fail", false, "deactivate glitches in signature-creation-device");
+            options.addOption("s", "no-signature-certificate-switch", false, "deactivate switching of signature certificates after 5 receipts");
 
             ///parse CMD line options
             CommandLineParser parser = new DefaultParser();
             CommandLine cmd = parser.parse(options, args);
+
+            boolean signatureCreationDeviceAlwaysWorks = cmd.hasOption("g");
+            boolean deactivateSignatureCertificateSwitching = cmd.hasOption("s");
 
             String outputParentDirectoryString = cmd.getOptionValue("o");
             if (outputParentDirectoryString == null) {
@@ -76,6 +82,7 @@ public class SimpleDemo {
             }
             File OUTPUT_PARENT_DIRECTORY = new File(outputParentDirectoryString);
             OUTPUT_PARENT_DIRECTORY.mkdirs();
+            System.out.println("Setting workdir to " + OUTPUT_PARENT_DIRECTORY.getAbsolutePath());
 
             String numberOfReceiptsString = cmd.getOptionValue("n");
             int NUMBER_OF_RECEIPTS = 15;
@@ -83,14 +90,22 @@ public class SimpleDemo {
                 NUMBER_OF_RECEIPTS = new Integer(numberOfReceiptsString);
             }
 
-            System.out.println("Setting workdir to " + OUTPUT_PARENT_DIRECTORY.getAbsolutePath());
-
             //TODO add provider independent functionality
             //initialise cryptographic providers
             Security.addProvider(new BouncyCastleProvider());
 
             //prepare cashbox init parameters
             CashBoxParameters cashBoxParameters = new CashBoxParameters();
+
+            //set parameter for signature certificate switching
+            //if > 0 then switch signature certificate after so many signatures
+            //this is important for demonstrating the handling of the DEP export format
+            //when receipts where signed with multiple signature certificates
+            if (deactivateSignatureCertificateSwitching) {
+                cashBoxParameters.setChangeSignatureCertificateAfterSoManyReceipts(-1);
+            } else {
+                cashBoxParameters.setChangeSignatureCertificateAfterSoManyReceipts(5);
+            }
 
             //generate and set random cash box ID ("Kassen-ID")
             //REF TO SPECIFICATION: Detailspezifikation/Abs 4
@@ -105,7 +120,7 @@ public class SimpleDemo {
             //set initial receipt identifier
             //in this demo cashbox integer values are used as receipt identifiers ("Belegnummer"), however the specification does not
             //impose that limit. An arbitrary UTF-8 String could be used, the only requirement is that the same combination of
-            //the cashBox ID ("Kassen-ID") and the receipt identifiert ("Belegnummer") is NEVER used for more than one receipt
+            //the cashBox ID ("Kassen-ID") and the receipt identifier ("Belegnummer") is NEVER used for more than one receipt
             //using the same multiple times compromises the security of the encrypted turnover value, which might lead
             //to leaked turnover data.
             //REF TO SPECIFICATION: Detailspezifikation/Abs 4, Abs 8, Abs 9, Abs 10
@@ -127,6 +142,9 @@ public class SimpleDemo {
 
             //JWSModule jwsModule = new OrgBitbucketBcJwsModule();  //requires bouncycastle provider
             JWSModule jwsModule = new ComNimbusdsJwsModule();   //allows for provider independent use cases
+            //set damage flag, which simulates the failure of the signature creation device and the correct handling
+            //of this case, obviously this is only suitable for demonstration purposes
+            jwsModule.setDamageIsPossible(!signatureCreationDeviceAlwaysWorks);
             jwsModule.setSignatureModule(new DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule());
             cashBoxParameters.setJwsModule(jwsModule);
 
@@ -142,7 +160,7 @@ public class SimpleDemo {
             //create random receipt data that will be handled by the cashbox
             List<RawReceiptData> receipts = RandomReceiptGenerator.generateRandomReceipts(NUMBER_OF_RECEIPTS);
 
-            //store first receipt (Starbeleg) in cashbox
+            //store first receipt (Startbeleg) in cashbox
             //all taxtype values are set to zero (per default in this demo)
             RawReceiptData firstReceipt = new RawReceiptData();
             demoCashBox.storeReceipt(firstReceipt);
@@ -166,7 +184,6 @@ public class SimpleDemo {
             }
             System.out.println("");
             writer.close();
-
 
             //dump OCR code of receipts
             //REF TO SPECIFICATION: Detailspezifikation/Abs 14
@@ -200,31 +217,53 @@ public class SimpleDemo {
 
             //export receipts as PDF (QR-CODE)
             //REF TO SPECIFICATION: Detailspezifikation/Abs 12, Abs 13
-            File qrCodeDumpDirectory = new File(OUTPUT_PARENT_DIRECTORY, "qr-code-dir");
+            File qrCodeDumpDirectory = new File(OUTPUT_PARENT_DIRECTORY, "qr-code-dir-pdf");
             qrCodeDumpDirectory.mkdirs();
             List<byte[]> printedQRCodeReceipts = demoCashBox.printReceipt(receiptPackages, ReceiptPrintType.QR_CODE);
             CashBoxUtils.writeReceiptsToFiles(printedQRCodeReceipts, "QR-", qrCodeDumpDirectory);
 
             //export receipts as PDF (OCR)
             //REF TO SPECIFICATION: Detailspezifikation/Abs 14, Abs 15
-            File ocrCodeDumpDirectory = new File(OUTPUT_PARENT_DIRECTORY, "ocr-code-dir");
+            File ocrCodeDumpDirectory = new File(OUTPUT_PARENT_DIRECTORY, "ocr-code-dir-pdf");
             ocrCodeDumpDirectory.mkdirs();
             List<byte[]> printedOCRCodeReceipts = demoCashBox.printReceipt(receiptPackages, ReceiptPrintType.OCR);
             CashBoxUtils.writeReceiptsToFiles(printedOCRCodeReceipts, "OCR-", ocrCodeDumpDirectory);
 
-            //store signature certificate
-            X509Certificate signatureCertificate = cashBoxParameters.getJwsModule().getSignatureModule().getSigningCertificate();
-            File signatureCertificateOutputFile = new File(OUTPUT_PARENT_DIRECTORY,"signatureCertificate.cer");
-            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(signatureCertificateOutputFile));
-            ByteArrayInputStream bIn = new ByteArrayInputStream(signatureCertificate.getEncoded());
-            IOUtils.copy(bIn,bufferedOutputStream);
+            //store signature certificates (so that they can be used for verification purposes)
+            //only for demonstration purposes
+            List<String> signatureCertificates = new ArrayList<>();
+            List<List<String>> certificateChains = new ArrayList<>();
+            DEPBelegDump[] belegDumps = depExportFormat.getBelegPackage();
+            for (DEPBelegDump depBelegDump : belegDumps) {
+                signatureCertificates.add(depBelegDump.getSignatureCertificate());
+                certificateChains.add(Arrays.asList(depBelegDump.getCertificateChain()));
+            }
+            File signatureCertificatesOutputFile = new File(OUTPUT_PARENT_DIRECTORY, "signatureCertificates.txt");
+            String signatureCertificatesJSON = gson.toJson(signatureCertificates);
+            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(signatureCertificatesOutputFile));
+            ByteArrayInputStream bIn = new ByteArrayInputStream(signatureCertificatesJSON.getBytes());
+            IOUtils.copy(bIn, bufferedOutputStream);
             bufferedOutputStream.close();
 
+            //store certificate chains (so that they can be used for verification purposes)
+            //only for demonstration purposes
+            File signatureCertificateChainsOutputFile = new File(OUTPUT_PARENT_DIRECTORY, "signatureCertificateChains.txt");
+            String signatureCertificateChainsJSON = gson.toJson(certificateChains);
+            bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(signatureCertificateChainsOutputFile));
+            bIn = new ByteArrayInputStream(signatureCertificateChainsJSON.getBytes());
+            IOUtils.copy(bIn, bufferedOutputStream);
+            bufferedOutputStream.close();
+
+            //store AES key as BASE64 String (for demonstration purposes: to allow decryption of turnover value)
+            //ATTENTION, this is only for demonstration purposes, the AES key must be stored in a secure area
+            byte[] aesKey = cashBoxParameters.getTurnoverKeyAESkey().getEncoded();
+            String aesKeyBase64 = CashBoxUtils.base64Encode(aesKey, false);
+            writer = new PrintWriter(new File(OUTPUT_PARENT_DIRECTORY, "aesKeyBase64.txt"));
+            writer.print(aesKeyBase64);
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {
-            e.printStackTrace();
-        } catch (CertificateEncodingException e) {
             e.printStackTrace();
         }
     }
