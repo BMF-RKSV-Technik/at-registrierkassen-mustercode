@@ -275,7 +275,10 @@ public class DemoCashBox {
             double sumTaxTypeNull = Precision.round(receiptRepresentationForSignature.getSumTaxSetNull(), 2);
             double sumTayTypeBesonders = Precision.round(receiptRepresentationForSignature.getSumTaxSetBesonders(), 2);
 
-            //round and add values to turnover counter
+            //ATTENTION: changes made to procedure on how to sum up/round values for turnover counter
+            //PREV: sum up values, round them, add them to turnover counter
+            //NOW: to simplyfy procedures: turnover counter changed to €-cent. before: 100€ were represented as 100, now
+            //they are represented as 10000
             double tempSum = 0.0;
             tempSum += sumTaxTypeNormal;
             tempSum += sumTaxTypeErmaessigt1;
@@ -283,7 +286,11 @@ public class DemoCashBox {
             tempSum += sumTaxTypeNull;
             tempSum += sumTayTypeBesonders;
 
-            turnoverCounter += Math.round(tempSum);
+            //NEW METHOD: convert sum to €-cent and add to turnover counter
+            turnoverCounter += (tempSum*100);
+
+            //OLD METHOD: DO NOT USE
+            //turnoverCounter += Math.round(tempSum);
 
             //encrypt turnover counter and store the encrypted value in the data-to-be-signed package
 
