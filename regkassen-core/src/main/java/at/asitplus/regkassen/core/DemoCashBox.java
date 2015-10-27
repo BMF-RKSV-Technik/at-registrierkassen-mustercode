@@ -277,13 +277,12 @@ public class DemoCashBox {
 
             //ATTENTION: changes made to procedure on how to sum up/round values for turnover counter
             //PREV: sum up values, round them, add them to turnover counter
-            //NOW: to simplyfy procedures: turnover counter changed to €-cent. before: 100€ were represented as 100, now
+            //NOW: to simplify procedures: turnover counter changed to €-cent. before: 100€ were represented as 100, now
             //they are represented as 10000
             double tempSum = 0.0;
             tempSum += sumTaxTypeNormal;
             tempSum += sumTaxTypeErmaessigt1;
             tempSum += sumTaxTypeErmaessigt2;
-            tempSum += sumTaxTypeNull;
             tempSum += sumTayTypeBesonders;
 
             //NEW METHOD: convert sum to €-cent and add to turnover counter
