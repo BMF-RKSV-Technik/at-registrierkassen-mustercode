@@ -295,10 +295,10 @@ public class CashBoxUtils {
     /**
      * check whether the JWS compact representation of signed receipt contains indicator for damaged signature creation device
      *
-     * @param jwsCompactRepresentation
-     * @return
+     * @param jwsCompactRepresentation JWS compact representation of signed receipt
+     * @return signature device was damanged?
      */
-    public static boolean checkLastReceiptForDamagedSigatureCreationDevice(String jwsCompactRepresentation) {
+    public static boolean checkReceiptForDamagedSigatureCreationDevice(String jwsCompactRepresentation) {
         String encodedSignatureValueBase64 = jwsCompactRepresentation.split("\\.")[2];
         String decodedSignatureValue = new String(CashBoxUtils.base64Decode(encodedSignatureValueBase64, true));
         return "Sicherheitseinrichtung ausgefallen".equals(decodedSignatureValue);
@@ -356,13 +356,23 @@ public class CashBoxUtils {
         return certificates;
     }
 
+    /**
+     * determine wheter current receipt is "Trainingsbuchung", check via encrypted turnover value, (BASE64 encoding of TRAINING)
+     * @param jwsCompactRepresentation JWS compact representation of signed receipt
+     * @return is "Trainingsbuchung"?
+     */
     public static boolean isJWSCompactRepTrainingReceipt(String jwsCompactRepresentation) {
         return isQRCodeRepTrainingReceipt(CashBoxUtils.getQRCodeRepresentationFromJWSCompactRepresentation(jwsCompactRepresentation));
     }
 
+    /**
+     * see above, same method, here: for machine code rep
+     * @param qrMachineCodeRepresentation
+     * @return
+     */
     public static boolean isQRCodeRepTrainingReceipt(String qrMachineCodeRepresentation) {
         String encryptedTurnOverCounter = CashBoxUtils.getValueFromMachineCode(qrMachineCodeRepresentation,MachineCodeValue.ENCRYPTED_TURN_OVER_VALUE);
         String decodedTurnOverCounter = new String(CashBoxUtils.base64Decode(encryptedTurnOverCounter,false));
-        return "TRAINING".equals(decodedTurnOverCounter);
+        return "TRAIN".equals(decodedTurnOverCounter);
     }
 }

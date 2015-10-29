@@ -38,4 +38,7 @@ public interface JWSModule {
     void setDamageIsPossible(boolean damageIsPossible);
     boolean isDamagePossible();
 
+    void setProbabilityOfDamagedSignatureDevice(double probabilityOfDamagedSignatureDevice);
+    double getProbabilityOfDamagedSignatureDevice();
+
 }

@@ -33,6 +33,7 @@ public class OrgBitbucketBcJwsModule implements JWSModule {
     protected JsonWebSignature jws;
     protected SignatureModule signatureModule;
     protected boolean damageIsPossible = false;
+    protected double probabilityOfDamagedSignatureDevice;
 
     public void setSignatureModule(SignatureModule signatureModule) {
         //init signature module
@@ -55,7 +56,7 @@ public class OrgBitbucketBcJwsModule implements JWSModule {
         //if damage occurs, the signature value is replaced with the term "Sicherheitseinrichtung ausgefallen"
         if (damageIsPossible) {
             double randValue = Math.random();
-            if (randValue>=0.5) {
+            if (randValue<=probabilityOfDamagedSignatureDevice) {
                 String jwsHeader = "eyJhbGciOiJFUzI1NiJ9";  //ES256 Header for JWS
                 String jwsPayload = CashBoxUtils.base64Encode(machineCodeRepOfReceipt.getBytes(),true); //get payload
                 String jwsSignature = CashBoxUtils.base64Encode("Sicherheitseinrichtung ausgefallen".getBytes(),true);  //create damaged signature part
@@ -122,6 +123,16 @@ public class OrgBitbucketBcJwsModule implements JWSModule {
     @Override
     public boolean isDamagePossible() {
         return damageIsPossible;
+    }
+
+    @Override
+    public void setProbabilityOfDamagedSignatureDevice(double probabilityOfDamagedSignatureDevice) {
+        this.probabilityOfDamagedSignatureDevice = probabilityOfDamagedSignatureDevice;
+    }
+
+    @Override
+    public double getProbabilityOfDamagedSignatureDevice() {
+        return probabilityOfDamagedSignatureDevice;
     }
 
     public SignatureModule getSignatureModule() {

@@ -130,7 +130,7 @@ public class DemoCashBox {
             //check whether the signature creation devices was offline for the last receipt
             //if it was offline, we need to inject a receipt that has 0 turnover for all taxsets
             //Verordnung/§ 17, Abs 4 (last sentence)
-            if (CashBoxUtils.checkLastReceiptForDamagedSigatureCreationDevice(retrieveLastStoredReceipt().getJwsCompactRepresentation())) {
+            if (CashBoxUtils.checkReceiptForDamagedSigatureCreationDevice(retrieveLastStoredReceipt().getJwsCompactRepresentation())) {
                 //make sure that this signature creation works for the "null" receipt and the subsequent real receipt
                 forceSignatureDeviceToWork = true;
                 createStoreAndSignReceiptPackage(new RawReceiptData(), true, false);
@@ -215,7 +215,7 @@ public class DemoCashBox {
         if (!justTraining) {
             updateTurnOverCounterAndAddToDataToBeSigned(receiptRepresentationForSignature);
         } else {
-            receiptRepresentationForSignature.setEncryptedTurnoverValue(CashBoxUtils.base64Encode("TRAINING".getBytes(), false));
+            receiptRepresentationForSignature.setEncryptedTurnoverValue(CashBoxUtils.base64Encode("TRAIN".getBytes(), false));
         }
         //store UTF-8 String representation of serial number of signing certificate (Zertifikat-Seriennummer) (here signatureCertificateSerialNumber)
         receiptRepresentationForSignature.setSignatureCertificateSerialNumber(cashBoxParameters.getJwsModule().getSignatureModule().getSigningCertificate().getSerialNumber() + "");
