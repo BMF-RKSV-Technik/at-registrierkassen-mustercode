@@ -244,7 +244,7 @@ public class DemoCashBox {
             if (receiptPackage == null) {
                 inputForChainCalculation = cashBoxParameters.getCashBoxID();
             } else {
-                inputForChainCalculation = receiptPackage.getQRCodeRepresentation();
+                inputForChainCalculation = receiptPackage.getJwsCompactRepresentation();
             }
 
             //set hash algorithm from RK suite, in this case SHA-256
