@@ -30,8 +30,8 @@ import at.asitplus.regkassen.core.modules.init.CashBoxParameters;
 import at.asitplus.regkassen.core.modules.print.PrinterModule;
 import at.asitplus.regkassen.core.modules.print.ReceiptPrintType;
 import at.asitplus.regkassen.core.modules.print.SimplePDFPrinterModule;
-import at.asitplus.regkassen.core.modules.signature.jws.ComNimbusdsJwsModule;
 import at.asitplus.regkassen.core.modules.signature.jws.JWSModule;
+import at.asitplus.regkassen.core.modules.signature.jws.ManualJWSModule;
 import at.asitplus.regkassen.core.modules.signature.rawsignatureprovider.DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -148,7 +148,7 @@ public class SimpleDemo {
             //REF TO SPECIFICATION: Detailspezifikation/Abs 2, Abs 4, Abs 5, Abs 6
 
             //JWSModule jwsModule = new OrgBitbucketBcJwsModule();  //requires bouncycastle provider
-            JWSModule jwsModule = new ComNimbusdsJwsModule();   //allows for provider independent use cases
+            JWSModule jwsModule = new ManualJWSModule();   //allows for provider independent use cases
             //set damage flag, which simulates the failure of the signature creation device and the correct handling
             //of this case, obviously this is only suitable for demonstration purposes
             jwsModule.setDamageIsPossible(!signatureCreationDeviceAlwaysWorks);
