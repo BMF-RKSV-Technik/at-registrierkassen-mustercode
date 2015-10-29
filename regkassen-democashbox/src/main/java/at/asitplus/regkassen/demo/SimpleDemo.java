@@ -52,7 +52,7 @@ public class SimpleDemo {
 
     public static double PROPABILITY_TRAINING_RECEIPT = 0.7;
     public static double PROPABILITY_DAMAGED_SIGNATURE_DEVICE = 0.7;
-    public static int DEFAULT_NUMBER_OF_GENERATED_RECEIPTS = 5;
+    public static int DEFAULT_NUMBER_OF_GENERATED_RECEIPTS = 50;
 
 
     public static void main(String[] args) {
@@ -69,7 +69,7 @@ public class SimpleDemo {
 
             // add CMD line options
             options.addOption("o", "output-dir", true, "specify base output directory, if none is specified a new directory will be created in the current path");
-            options.addOption("n", "number-of-generated-receipts", true, "specify number of receipts to be randomly generated, 15 is default");
+            options.addOption("n", "number-of-generated-receipts", true, "specify number of receipts to be randomly generated, 50 is default");
             options.addOption("g", "signature-creation-device-cannot-fail", false, "deactivate glitches in signature-creation-device");
             options.addOption("s", "no-signature-certificate-switch", false, "deactivate switching of signature certificates after 5 receipts");
             options.addOption("t", "no-training-receipts", false, "deactivate random generation of training-receipts");

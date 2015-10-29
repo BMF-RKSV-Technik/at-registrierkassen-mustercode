@@ -17,20 +17,16 @@
 
 package at.asitplus.regkassen.core.modules.signature.rawsignatureprovider;
 
+import sun.security.pkcs11.SunPKCS11;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.Security;
-import java.security.UnrecoverableKeyException;
+import java.security.*;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import sun.security.pkcs11.SunPKCS11;
 
 /**
  * Work in progress
@@ -132,7 +128,7 @@ public class PKCS11SignatureModule implements SignatureModule {
 		try {
 
 			Certificate[] chain = ks.getCertificateChain(KEY_ALIAS);
-			return new ArrayList<Certificate>(Arrays.asList(chain));
+			return new ArrayList<>(Arrays.asList(chain));
 
 		} catch (KeyStoreException e) {
 			e.printStackTrace();
