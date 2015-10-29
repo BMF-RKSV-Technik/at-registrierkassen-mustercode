@@ -355,4 +355,14 @@ public class CashBoxUtils {
         }
         return certificates;
     }
+
+    public static boolean isJWSCompactRepTrainingReceipt(String jwsCompactRepresentation) {
+        return isQRCodeRepTrainingReceipt(CashBoxUtils.getQRCodeRepresentationFromJWSCompactRepresentation(jwsCompactRepresentation));
+    }
+
+    public static boolean isQRCodeRepTrainingReceipt(String qrMachineCodeRepresentation) {
+        String encryptedTurnOverCounter = CashBoxUtils.getValueFromMachineCode(qrMachineCodeRepresentation,MachineCodeValue.ENCRYPTED_TURN_OVER_VALUE);
+        String decodedTurnOverCounter = new String(CashBoxUtils.base64Decode(encryptedTurnOverCounter,false));
+        return "TRAINING".equals(decodedTurnOverCounter);
+    }
 }

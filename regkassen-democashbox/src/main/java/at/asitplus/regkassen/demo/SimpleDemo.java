@@ -67,6 +67,7 @@ public class SimpleDemo {
             options.addOption("n", "number-of-generated-receipts", true, "specify number of receipts to be randomly generated, 15 is default");
             options.addOption("g", "signature-creation-device-cannot-fail", false, "deactivate glitches in signature-creation-device");
             options.addOption("s", "no-signature-certificate-switch", false, "deactivate switching of signature certificates after 5 receipts");
+            options.addOption("t", "no-training-receipts", false, "deactivate random generation of training-receipts");
 
             ///parse CMD line options
             CommandLineParser parser = new DefaultParser();
@@ -74,6 +75,7 @@ public class SimpleDemo {
 
             boolean signatureCreationDeviceAlwaysWorks = cmd.hasOption("g");
             boolean deactivateSignatureCertificateSwitching = cmd.hasOption("s");
+            boolean deactivateTraningReceipts = cmd.hasOption("t");
 
             String outputParentDirectoryString = cmd.getOptionValue("o");
             if (outputParentDirectoryString == null) {
@@ -163,12 +165,19 @@ public class SimpleDemo {
             //store first receipt (Startbeleg) in cashbox
             //all taxtype values are set to zero (per default in this demo)
             RawReceiptData firstReceipt = new RawReceiptData();
-            demoCashBox.storeReceipt(firstReceipt);
+            demoCashBox.storeReceipt(firstReceipt,false);
 
             //now store the other receipts
             for (RawReceiptData rawReceiptData : receipts) {
                 //store receipt within cashbox: (prepare data-to-be-signed, sign with JWS, store signed receipt in DEP)
-                demoCashBox.storeReceipt(rawReceiptData);
+
+                //30% change of training receipt (just for demo purposes)
+                if (Math.random()<0.3 && !deactivateTraningReceipts) {
+                    demoCashBox.storeReceipt(rawReceiptData,true);
+                } else {
+                    demoCashBox.storeReceipt(rawReceiptData,false);
+                }
+
             }
 
             //dump machine readable code of receipts (this "code" is used for the QR-codes)
