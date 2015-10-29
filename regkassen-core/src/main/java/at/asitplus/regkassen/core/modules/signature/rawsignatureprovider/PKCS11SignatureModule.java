@@ -38,14 +38,14 @@ import sun.security.pkcs11.SunPKCS11;
 @SuppressWarnings("restriction")
 public class PKCS11SignatureModule implements SignatureModule {
 
-	/* Define absolute path to PKCS#11 library (x64)*/
-	public static final String DLL_64 = "F:/pkcs11/p11_64.dll";
+	/* Define absolute path to PKCS#11 library (x64) */
+	public static final String DLL_64 = "ENTER_PATH_TO_P11_LIB_64_HERE";
 	
-	/* Define absolute path to PKCS#11 library (x86)*/
-	public static final String DLL = "F:/pkcs11/p11.dll";
+	/* Define absolute path to PKCS#11 library (x86) */
+	public static final String DLL = "ENTER_PATH_TO_P11_LIB_HERE";
 	
-	
-	public static final String KEY_ALIAS = "C.CH.SIG";
+	/* Define alias of key to be used */
+	public static final String KEY_ALIAS = "ENTER_KEY_ALIAS_HERE";
 
 	private KeyStore ks;
 
