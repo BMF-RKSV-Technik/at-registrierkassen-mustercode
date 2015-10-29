@@ -111,7 +111,7 @@ public class SimpleDemo {
             if (deactivateSignatureCertificateSwitching) {
                 cashBoxParameters.setChangeSignatureCertificateAfterSoManyReceipts(-1);
             } else {
-                cashBoxParameters.setChangeSignatureCertificateAfterSoManyReceipts(5);
+                cashBoxParameters.setChangeSignatureCertificateAfterSoManyReceipts(10);
             }
 
             //generate and set random cash box ID ("Kassen-ID")
