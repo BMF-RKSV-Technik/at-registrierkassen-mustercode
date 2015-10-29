@@ -33,6 +33,8 @@ import at.asitplus.regkassen.core.modules.print.SimplePDFPrinterModule;
 import at.asitplus.regkassen.core.modules.signature.jws.JWSModule;
 import at.asitplus.regkassen.core.modules.signature.jws.ManualJWSModule;
 import at.asitplus.regkassen.core.modules.signature.rawsignatureprovider.DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule;
+import at.asitplus.regkassen.core.modules.signature.rawsignatureprovider.PKCS11SignatureModule;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.apache.commons.cli.*;
@@ -52,7 +54,7 @@ public class SimpleDemo {
 
     public static double PROPABILITY_TRAINING_RECEIPT = 0.7;
     public static double PROPABILITY_DAMAGED_SIGNATURE_DEVICE = 0.7;
-    public static int DEFAULT_NUMBER_OF_GENERATED_RECEIPTS = 50;
+    public static int DEFAULT_NUMBER_OF_GENERATED_RECEIPTS = 5;
 
 
     public static void main(String[] args) {
@@ -153,7 +155,10 @@ public class SimpleDemo {
             //of this case, obviously this is only suitable for demonstration purposes
             jwsModule.setDamageIsPossible(!signatureCreationDeviceAlwaysWorks);
             jwsModule.setProbabilityOfDamagedSignatureDevice(PROPABILITY_DAMAGED_SIGNATURE_DEVICE);
-            jwsModule.setSignatureModule(new DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule());
+            
+            //jwsModule.setSignatureModule(new DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule());
+            jwsModule.setSignatureModule(new PKCS11SignatureModule());
+            
             cashBoxParameters.setJwsModule(jwsModule);
 
             //set printer module
