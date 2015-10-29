@@ -38,6 +38,17 @@ public class ManualJWSModule extends AbstractJWSModule {
     public String signMachineCodeRepOfReceipt(String machineCodeRepOfReceipt, RKSuite rkSuite) {
         try {
 
+            if (damageIsPossible) {
+                double randValue = Math.random();
+                if (randValue<=probabilityOfDamagedSignatureDevice) {
+                    String jwsHeader = "eyJhbGciOiJFUzI1NiJ9";  //ES256 Header for JWS
+                    String jwsPayload = CashBoxUtils.base64Encode(machineCodeRepOfReceipt.getBytes(),true); //get payload
+                    String jwsSignature = CashBoxUtils.base64Encode("Sicherheitseinrichtung ausgefallen".getBytes(),true);  //create damaged signature part
+                    String jwsCompactRep = jwsHeader+"."+jwsPayload+"."+jwsSignature;
+                    return jwsCompactRep;
+                }
+            }
+
             //prepare data to be signed, "ES256 JWS header" fixed (currently the only relevant signature/hash method (RK1)
             String jwsHeaderBase64Url = "eyJhbGciOiJFUzI1NiJ9";
             String jwsPayloadBase64Url = CashBoxUtils.base64Encode(machineCodeRepOfReceipt.getBytes(), true);
