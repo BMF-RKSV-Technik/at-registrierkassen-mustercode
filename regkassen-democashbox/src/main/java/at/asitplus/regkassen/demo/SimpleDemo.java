@@ -50,6 +50,11 @@ import java.util.List;
 
 public class SimpleDemo {
 
+    public static double PROPABILITY_TRAINING_RECEIPT = 0.7;
+    public static double PROPABILITY_DAMAGED_SIGNATURE_DEVICE = 0.7;
+    public static int DEFAULT_NUMBER_OF_GENERATED_RECEIPTS = 50;
+
+
     public static void main(String[] args) {
         try {
 
@@ -87,7 +92,7 @@ public class SimpleDemo {
             System.out.println("Setting workdir to " + OUTPUT_PARENT_DIRECTORY.getAbsolutePath());
 
             String numberOfReceiptsString = cmd.getOptionValue("n");
-            int NUMBER_OF_RECEIPTS = 15;
+            int NUMBER_OF_RECEIPTS = DEFAULT_NUMBER_OF_GENERATED_RECEIPTS;
             if (numberOfReceiptsString != null) {
                 NUMBER_OF_RECEIPTS = new Integer(numberOfReceiptsString);
             }
@@ -147,6 +152,7 @@ public class SimpleDemo {
             //set damage flag, which simulates the failure of the signature creation device and the correct handling
             //of this case, obviously this is only suitable for demonstration purposes
             jwsModule.setDamageIsPossible(!signatureCreationDeviceAlwaysWorks);
+            jwsModule.setProbabilityOfDamagedSignatureDevice(PROPABILITY_DAMAGED_SIGNATURE_DEVICE);
             jwsModule.setSignatureModule(new DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule());
             cashBoxParameters.setJwsModule(jwsModule);
 
@@ -172,12 +178,11 @@ public class SimpleDemo {
                 //store receipt within cashbox: (prepare data-to-be-signed, sign with JWS, store signed receipt in DEP)
 
                 //30% change of training receipt (just for demo purposes)
-                if (Math.random()<0.3 && !deactivateTraningReceipts) {
-                    demoCashBox.storeReceipt(rawReceiptData,true);
-                } else {
-                    demoCashBox.storeReceipt(rawReceiptData,false);
+                boolean isTrainingReceipt = false;
+                if (Math.random()<PROPABILITY_TRAINING_RECEIPT && !deactivateTraningReceipts) {
+                    isTrainingReceipt = true;
                 }
-
+                demoCashBox.storeReceipt(rawReceiptData,isTrainingReceipt);
             }
 
             //dump machine readable code of receipts (this "code" is used for the QR-codes)
