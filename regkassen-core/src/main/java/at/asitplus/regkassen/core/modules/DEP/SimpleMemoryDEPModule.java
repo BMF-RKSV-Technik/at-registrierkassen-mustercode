@@ -20,8 +20,8 @@ package at.asitplus.regkassen.core.modules.DEP;
 import at.asitplus.regkassen.core.base.receiptdata.ReceiptPackage;
 import at.asitplus.regkassen.core.base.util.CashBoxUtils;
 
+import java.security.cert.Certificate;
 import java.security.cert.CertificateEncodingException;
-import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -46,13 +46,13 @@ public class SimpleMemoryDEPModule implements DEPModule {
         try {
             //prepare data structures for DEP export
             //DEP exports are grouped according to the used signature certificate
-            HashSet<X509Certificate> signatureCertifcates = new HashSet<>();
+            HashSet<Certificate> signatureCertifcates = new HashSet<>();
             List<List<ReceiptPackage>> listOfReceiptPackages = new ArrayList<>();
             List<ReceiptPackage> currentReceiptList = new ArrayList<>();
 
             //categorize receipts according to used signature certificate
             for (ReceiptPackage receiptPackage : receiptPackages) {
-                X509Certificate signingCertificate = receiptPackage.getSigningCertificate();
+                Certificate signingCertificate = receiptPackage.getSigningCertificate();
                 if (!signatureCertifcates.contains(signingCertificate)) {
                     currentReceiptList = new ArrayList<>();
                     listOfReceiptPackages.add(currentReceiptList);
@@ -80,10 +80,10 @@ public class SimpleMemoryDEPModule implements DEPModule {
                 String base64EncodedSignatureCertificate = CashBoxUtils.base64Encode(signedReceipts.get(0).getSigningCertificate().getEncoded(), false);
                 belegDump[dumpIndex].setSignatureCertificate(base64EncodedSignatureCertificate);
 
-                List<X509Certificate> base64EncodedCertificateChain = signedReceipts.get(0).getCertificateChain();
+                List<Certificate> base64EncodedCertificateChain = signedReceipts.get(0).getCertificateChain();
                 String[] certificateChain = new String[base64EncodedCertificateChain.size()];
                 for (int i = 0; i < base64EncodedCertificateChain.size(); i++) {
-                    X509Certificate base64EncodedChainCertificate = base64EncodedCertificateChain.get(i);
+                    Certificate base64EncodedChainCertificate = base64EncodedCertificateChain.get(i);
                     certificateChain[i] = CashBoxUtils.base64Encode(base64EncodedChainCertificate.getEncoded(), false);
                 }
                 belegDump[dumpIndex].setCertificateChain(certificateChain);

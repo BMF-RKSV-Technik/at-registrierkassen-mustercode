@@ -18,7 +18,7 @@
 package at.asitplus.regkassen.core.modules.signature.rawsignatureprovider;
 
 import java.security.PrivateKey;
-import java.security.cert.X509Certificate;
+import java.security.cert.Certificate;
 import java.util.List;
 
 /**
@@ -29,7 +29,7 @@ import java.util.List;
 public interface SignatureModule {
     PrivateKey getSigningKey();
 
-    X509Certificate getSigningCertificate();
+    Certificate getSigningCertificate();
 
-    List<X509Certificate> getCertificateChain();
+    List<Certificate> getCertificateChain();
 }

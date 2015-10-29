@@ -33,6 +33,7 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import java.nio.ByteBuffer;
 import java.security.*;
+import java.security.cert.X509Certificate;
 import java.util.Date;
 import java.util.List;
 
@@ -218,8 +219,9 @@ public class DemoCashBox {
             receiptRepresentationForSignature.setEncryptedTurnoverValue(CashBoxUtils.base64Encode("TRAIN".getBytes(), false));
         }
         //store UTF-8 String representation of serial number of signing certificate (Zertifikat-Seriennummer) (here signatureCertificateSerialNumber)
-        receiptRepresentationForSignature.setSignatureCertificateSerialNumber(cashBoxParameters.getJwsModule().getSignatureModule().getSigningCertificate().getSerialNumber() + "");
-
+        //receiptRepresentationForSignature.setSignatureCertificateSerialNumber(cashBoxParameters.getJwsModule().getSignatureModule().getSigningCertificate().getSerialNumber() + "");
+        receiptRepresentationForSignature.setSignatureCertificateSerialNumber(((X509Certificate)(cashBoxParameters.getJwsModule().getSignatureModule().getSigningCertificate())).getSerialNumber() + "");
+        
         //create a chain between the last receipt entry and the current receipt
         //Sig-Voriger-Beleg (here signatureValuePreviousReceiptBASE64)
         String signatureValuePreviousReceiptBASE64 = calculateSignatureValuePreviousReceipt(lastStoredReceipt);
