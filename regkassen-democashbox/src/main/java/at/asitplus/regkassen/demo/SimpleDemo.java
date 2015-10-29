@@ -33,8 +33,6 @@ import at.asitplus.regkassen.core.modules.print.SimplePDFPrinterModule;
 import at.asitplus.regkassen.core.modules.signature.jws.JWSModule;
 import at.asitplus.regkassen.core.modules.signature.jws.ManualJWSModule;
 import at.asitplus.regkassen.core.modules.signature.rawsignatureprovider.DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule;
-import at.asitplus.regkassen.core.modules.signature.rawsignatureprovider.PKCS11SignatureModule;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.apache.commons.cli.*;
@@ -156,8 +154,8 @@ public class SimpleDemo {
             jwsModule.setDamageIsPossible(!signatureCreationDeviceAlwaysWorks);
             jwsModule.setProbabilityOfDamagedSignatureDevice(PROPABILITY_DAMAGED_SIGNATURE_DEVICE);
             
-            //jwsModule.setSignatureModule(new DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule());
-            jwsModule.setSignatureModule(new PKCS11SignatureModule());
+            jwsModule.setSignatureModule(new DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule());
+            //jwsModule.setSignatureModule(new PKCS11SignatureModule());
             
             cashBoxParameters.setJwsModule(jwsModule);
 
