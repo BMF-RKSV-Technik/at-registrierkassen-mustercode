@@ -33,6 +33,7 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import java.nio.ByteBuffer;
 import java.security.*;
+import java.security.cert.X509Certificate;
 import java.util.Date;
 import java.util.List;
 
@@ -52,10 +53,11 @@ public class DemoCashBox {
 
     /**
      * helper method to create, sign and store receipt
+     *
      * @param rawReceiptData
      * @param forceSignatureDeviceToWork
      */
-    protected void createStoreAndSignReceiptPackage(RawReceiptData rawReceiptData,boolean forceSignatureDeviceToWork) {
+    protected void createStoreAndSignReceiptPackage(RawReceiptData rawReceiptData, boolean forceSignatureDeviceToWork, boolean justTraining) {
         //create receiptpackage, in this demo cashbox this is a data structure that contains all receipt relevant data
         //for simplicity this data structure is also stored in the DEP
         ReceiptPackage receiptPackage = new ReceiptPackage();
@@ -76,7 +78,7 @@ public class DemoCashBox {
 
         //prepare raw receipt data for signing
         //the prepared data is stored in the receiptPackage data structure
-        prepareSignatureData(receiptPackage);
+        prepareSignatureData(receiptPackage, justTraining);
 
         //sign the receipt, store the results in the receiptPackage data structure
         String dataToBeSigned = receiptPackage.getReceiptRepresentationForSignature().getDataToBeSigned(cashBoxParameters.getRkSuite());
@@ -103,15 +105,16 @@ public class DemoCashBox {
     /**
      * @param rawReceiptData raw receipt data, that contains all the items
      */
-    public void storeReceipt(RawReceiptData rawReceiptData) {
+    public void storeReceipt(RawReceiptData rawReceiptData, boolean justTraining) {
+
         //for demonstration purposes, we change the certificate after a defined number of receipts (specified in the paramters file)
-        if (cashBoxParameters.getChangeSignatureCertificateAfterSoManyReceipts()>=0) {
+        if (cashBoxParameters.getChangeSignatureCertificateAfterSoManyReceipts() >= 0) {
             if (receiptCounter >= cashBoxParameters.getChangeSignatureCertificateAfterSoManyReceipts()) {
                 //only change once
                 cashBoxParameters.setChangeSignatureCertificateAfterSoManyReceipts(-1);
                 //only works for the DEMO Signature Module that is based on software certificates
                 if (cashBoxParameters.getJwsModule().getSignatureModule() instanceof DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule) {
-                    DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule do_not_use_in_real_cashbox_demoSoftwareSignatureModule = (DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule)cashBoxParameters.getJwsModule().getSignatureModule();
+                    DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule do_not_use_in_real_cashbox_demoSoftwareSignatureModule = (DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule) cashBoxParameters.getJwsModule().getSignatureModule();
                     do_not_use_in_real_cashbox_demoSoftwareSignatureModule.intialise();
                 }
             }
@@ -121,23 +124,23 @@ public class DemoCashBox {
         //THIS IS JUST RELEVANT FOR THIS DEMO CODE, AS WE HAVE A RANDOM VARIABLE THAT CONTROLS THE STATE OF THE SIG
         //CREATION DEVICE
         boolean forceSignatureDeviceToWork;
-        if (retrieveLastStoredReceipt()==null) {
+        if (retrieveLastStoredReceipt() == null) {
             //make sure that signature creation device works for first receipt
             forceSignatureDeviceToWork = true;
         } else {
             //check whether the signature creation devices was offline for the last receipt
             //if it was offline, we need to inject a receipt that has 0 turnover for all taxsets
             //Verordnung/§ 17, Abs 4 (last sentence)
-            if (CashBoxUtils.checkLastReceiptForDamagedSigatureCreationDevice(retrieveLastStoredReceipt().getJwsCompactRepresentation())) {
+            if (CashBoxUtils.checkReceiptForDamagedSigatureCreationDevice(retrieveLastStoredReceipt().getJwsCompactRepresentation())) {
                 //make sure that this signature creation works for the "null" receipt and the subsequent real receipt
                 forceSignatureDeviceToWork = true;
-                createStoreAndSignReceiptPackage(new RawReceiptData(),true);
+                createStoreAndSignReceiptPackage(new RawReceiptData(), true, false);
             } else {
                 //not the first receipt, and also not in recovery mode from a damaged sig device, random glitches possible for demo mode
                 forceSignatureDeviceToWork = false;
             }
         }
-        createStoreAndSignReceiptPackage(rawReceiptData,forceSignatureDeviceToWork);
+        createStoreAndSignReceiptPackage(rawReceiptData, forceSignatureDeviceToWork, justTraining);
     }
 
     public DEPExportFormat exportDEP() {
@@ -167,7 +170,7 @@ public class DemoCashBox {
      * @param receiptPackage receipt package that contains all the information of the receipt, and the signed receipt
      */
 
-    protected void prepareSignatureData(ReceiptPackage receiptPackage) {
+    protected void prepareSignatureData(ReceiptPackage receiptPackage, boolean justTraining) {
         //preparation of data-to-be-signed according to Detailspezifikation/Abs 4
         ReceiptPackage lastStoredReceipt = cashBoxParameters.getDepModul().getLastStoredReceipt();
 
@@ -210,11 +213,15 @@ public class DemoCashBox {
         //the sums for each tax type are now added to the cashbox turnover value
         //then the turnover value is encrypted and stored in the data-to-be-signed data structure
         //Stand-Umsatz-Zaehler-AES256-ICM (here encryptedTurnoverValue)
-        updateTurnOverCounterAndAddToDataToBeSigned(receiptRepresentationForSignature);
-
+        if (!justTraining) {
+            updateTurnOverCounterAndAddToDataToBeSigned(receiptRepresentationForSignature);
+        } else {
+            receiptRepresentationForSignature.setEncryptedTurnoverValue(CashBoxUtils.base64Encode("TRAIN".getBytes(), false));
+        }
         //store UTF-8 String representation of serial number of signing certificate (Zertifikat-Seriennummer) (here signatureCertificateSerialNumber)
-        receiptRepresentationForSignature.setSignatureCertificateSerialNumber(cashBoxParameters.getJwsModule().getSignatureModule().getSigningCertificate().getSerialNumber() + "");
-
+        //receiptRepresentationForSignature.setSignatureCertificateSerialNumber(cashBoxParameters.getJwsModule().getSignatureModule().getSigningCertificate().getSerialNumber() + "");
+        receiptRepresentationForSignature.setSignatureCertificateSerialNumber(((X509Certificate)(cashBoxParameters.getJwsModule().getSignatureModule().getSigningCertificate())).getSerialNumber() + "");
+        
         //create a chain between the last receipt entry and the current receipt
         //Sig-Voriger-Beleg (here signatureValuePreviousReceiptBASE64)
         String signatureValuePreviousReceiptBASE64 = calculateSignatureValuePreviousReceipt(lastStoredReceipt);
@@ -236,10 +243,10 @@ public class DemoCashBox {
             //Detailspezifikation Abs 4 "Sig-Voriger-Beleg"
             //if the first receipt is stored, then the cashbox-identifier is hashed and is used as chaining value
             //otherwise the complete last receipt is hased and the result is used as chaining value
-             if (receiptPackage == null) {
+            if (receiptPackage == null) {
                 inputForChainCalculation = cashBoxParameters.getCashBoxID();
             } else {
-                inputForChainCalculation = receiptPackage.getQRCodeRepresentation();
+                inputForChainCalculation = receiptPackage.getJwsCompactRepresentation();
             }
 
             //set hash algorithm from RK suite, in this case SHA-256
@@ -265,25 +272,32 @@ public class DemoCashBox {
 
     /**
      * encrypt turnovercounter ("Stand-Umsatz-Zaehler-AES256-ICM"), according to Detailspezifikation Abs. 8 and Abs. 9
+     *
      * @param receiptRepresentationForSignature receipt data
      */
     protected void updateTurnOverCounterAndAddToDataToBeSigned(ReceiptRepresentationForSignature receiptRepresentationForSignature) {
         try {
+            //if we have a receipt for training purposes, we don't change the turnover counter
             double sumTaxTypeNormal = Precision.round(receiptRepresentationForSignature.getSumTaxSetNormal(), 2);
             double sumTaxTypeErmaessigt1 = Precision.round(receiptRepresentationForSignature.getSumTaxSetErmaessigt1(), 2);
             double sumTaxTypeErmaessigt2 = Precision.round(receiptRepresentationForSignature.getSumTaxSetErmaessigt2(), 2);
-            double sumTaxTypeNull = Precision.round(receiptRepresentationForSignature.getSumTaxSetNull(), 2);
             double sumTayTypeBesonders = Precision.round(receiptRepresentationForSignature.getSumTaxSetBesonders(), 2);
 
-            //round and add values to turnover counter
+            //ATTENTION: changes made to procedure on how to sum up/round values for turnover counter
+            //PREV: sum up values, round them, add them to turnover counter
+            //NOW: to simplify procedures: turnover counter changed to €-cent. before: 100€ were represented as 100, now
+            //they are represented as 10000
             double tempSum = 0.0;
             tempSum += sumTaxTypeNormal;
             tempSum += sumTaxTypeErmaessigt1;
             tempSum += sumTaxTypeErmaessigt2;
-            tempSum += sumTaxTypeNull;
             tempSum += sumTayTypeBesonders;
 
-            turnoverCounter += Math.round(tempSum);
+            //NEW METHOD: convert sum to €-cent and add to turnover counter
+            turnoverCounter += (tempSum * 100);
+
+            //OLD METHOD: DO NOT USE
+            //turnoverCounter += Math.round(tempSum);
 
             //encrypt turnover counter and store the encrypted value in the data-to-be-signed package
 
@@ -367,7 +381,7 @@ public class DemoCashBox {
             //create java LONG out of ByteArray
             ByteBuffer testPlainTurnOverValueByteBuffer = ByteBuffer.wrap(testPlainTurnOverValue);
             long testPlainOverTurnOverReconstructed = testPlainTurnOverValueByteBuffer.getLong();
-            if (turnoverCounter!=testPlainOverTurnOverReconstructed) {
+            if (turnoverCounter != testPlainOverTurnOverReconstructed) {
                 System.out.println("DECRYPTION ERROR IN METHOD updateTurnOverCounterAndAddToDataToBeSigned, MUST NOT HAPPEN");
             }
         } catch (NoSuchProviderException | IllegalBlockSizeException | NoSuchPaddingException | InvalidKeyException | NoSuchAlgorithmException | InvalidAlgorithmParameterException | BadPaddingException e) {

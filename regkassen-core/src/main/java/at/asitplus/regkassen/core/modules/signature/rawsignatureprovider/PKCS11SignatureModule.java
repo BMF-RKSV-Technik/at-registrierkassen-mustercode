@@ -17,26 +17,123 @@
 
 package at.asitplus.regkassen.core.modules.signature.rawsignatureprovider;
 
-import java.security.PrivateKey;
-import java.security.cert.X509Certificate;
+import sun.security.pkcs11.SunPKCS11;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.security.*;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * Work in progress
  */
+@SuppressWarnings("restriction")
 public class PKCS11SignatureModule implements SignatureModule {
-    @Override
-    public PrivateKey getSigningKey() {
-        return null;
-    }
 
-    @Override
-    public X509Certificate getSigningCertificate() {
-        return null;
-    }
+	/* Define absolute path to PKCS#11 library (x64) */
+	public static final String DLL_64 = "ENTER_PATH_TO_P11_LIB_64_HERE";
+	
+	/* Define absolute path to PKCS#11 library (x86) */
+	public static final String DLL = "ENTER_PATH_TO_P11_LIB_HERE";
+	
+	/* Define alias of key to be used */
+	public static final String KEY_ALIAS = "ENTER_KEY_ALIAS_HERE";
 
-    @Override
-    public List<X509Certificate> getCertificateChain() {
-        return null;
-    }
+	private KeyStore ks;
+
+	public PKCS11SignatureModule() {
+
+		initialize();
+	}
+
+	private void initialize() {
+
+		String arch = System.getProperty("sun.arch.data.model");
+
+		String pkcs11ConfigSettings = null;
+		if (arch.equalsIgnoreCase("64")) {
+			pkcs11ConfigSettings = "name=pkcs11\n" + "library=" + DLL_64;
+		} else if (arch.equalsIgnoreCase("86")) {
+			pkcs11ConfigSettings = "name=pkcs11\n" + "library=" + DLL;
+		} else {
+			System.err.println("Error: unknown architecture: " + arch);
+			return;
+		}
+
+		byte[] pkcs11ConfigBytes = pkcs11ConfigSettings.getBytes();
+		ByteArrayInputStream confStream = new ByteArrayInputStream(pkcs11ConfigBytes);
+
+		SunPKCS11 pkcs11 = new SunPKCS11(confStream);
+		Security.addProvider(pkcs11);
+
+		try {
+			ks = KeyStore.getInstance("PKCS11");
+
+			ks.load(null, null);
+
+		} catch (KeyStoreException e) {
+			e.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (CertificateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	@Override
+	public PrivateKey getSigningKey() {
+
+		try {
+
+			return (PrivateKey) ks.getKey(KEY_ALIAS, null);
+
+		} catch (KeyStoreException e) {
+			e.printStackTrace();
+			return null;
+		} catch (UnrecoverableKeyException e) {
+			e.printStackTrace();
+			return null;
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+
+	@Override
+	public Certificate getSigningCertificate() {
+
+		try {
+			
+			Certificate c = ks.getCertificate(KEY_ALIAS); 
+			return c;
+
+		} catch (KeyStoreException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+
+	@Override
+	public List<Certificate> getCertificateChain() {
+
+		try {
+
+			Certificate[] chain = ks.getCertificateChain(KEY_ALIAS);
+			return new ArrayList<>(Arrays.asList(chain));
+
+		} catch (KeyStoreException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
 }

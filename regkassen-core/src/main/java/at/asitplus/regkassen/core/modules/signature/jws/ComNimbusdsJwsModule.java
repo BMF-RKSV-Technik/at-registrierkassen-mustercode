@@ -19,32 +19,17 @@ package at.asitplus.regkassen.core.modules.signature.jws;
 
 import at.asitplus.regkassen.core.base.rksuite.RKSuite;
 import at.asitplus.regkassen.core.base.util.CashBoxUtils;
-import at.asitplus.regkassen.core.modules.signature.rawsignatureprovider.SignatureModule;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.ECDSASigner;
 
 import java.security.interfaces.ECPrivateKey;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * JWS Signature module based on JWS library http://connect2id.com/products/nimbus-jose-jwt
  */
-public class ComNimbusdsJwsModule implements JWSModule {
+public class ComNimbusdsJwsModule extends AbstractJWSModule {
 
-    protected SignatureModule signatureModule;
-    protected boolean damageIsPossible = false;
     protected JWSSigner jwsSigner;
-
-    @Override
-    public void setSignatureModule(SignatureModule signatureModule) {
-        this.signatureModule = signatureModule;
-    }
-
-    @Override
-    public SignatureModule getSignatureModule() {
-        return signatureModule;
-    }
 
     @Override
     public String signMachineCodeRepOfReceipt(String machineCodeRepOfReceipt,
@@ -62,7 +47,7 @@ public class ComNimbusdsJwsModule implements JWSModule {
         //if damage occurs, the signature value is replaced with the term "Sicherheitseinrichtung ausgefallen"
         if (damageIsPossible) {
             double randValue = Math.random();
-            if (randValue>=0.5) {
+            if (randValue<=probabilityOfDamagedSignatureDevice) {
                 String jwsHeader = "eyJhbGciOiJFUzI1NiJ9";  //ES256 Header for JWS
                 String jwsPayload = CashBoxUtils.base64Encode(machineCodeRepOfReceipt.getBytes(),true); //get payload
                 String jwsSignature = CashBoxUtils.base64Encode("Sicherheitseinrichtung ausgefallen".getBytes(),true);  //create damaged signature part
@@ -86,19 +71,8 @@ public class ComNimbusdsJwsModule implements JWSModule {
         }
     }
 
-    public List<String> signMachineCodeRepOfReceipt(List<String> machineCodeRepOfReceiptList, RKSuite rkSuite) {
-        List<String> signedReceipts = new ArrayList<>();
-        for (String receiptRepresentationForSignature : machineCodeRepOfReceiptList) {
-            signedReceipts.add(signMachineCodeRepOfReceipt(receiptRepresentationForSignature, rkSuite));
-        }
-        return signedReceipts;
-    }
 
-    /**
-     * set damageIsPossible flag, only for demonstration purposes
-     *
-     * @param damageIsPossible set damageIsPossible state of signature module
-     */
+
     public void setDamageIsPossible(boolean damageIsPossible) {
         this.damageIsPossible = damageIsPossible;
     }
@@ -107,5 +81,18 @@ public class ComNimbusdsJwsModule implements JWSModule {
     public boolean isDamagePossible() {
         return damageIsPossible;
     }
+
+
+    @Override
+    public void setProbabilityOfDamagedSignatureDevice(double probabilityOfDamagedSignatureDevice) {
+        this.probabilityOfDamagedSignatureDevice = probabilityOfDamagedSignatureDevice;
+    }
+
+    @Override
+    public double getProbabilityOfDamagedSignatureDevice() {
+        return probabilityOfDamagedSignatureDevice;
+    }
+
+
 
 }

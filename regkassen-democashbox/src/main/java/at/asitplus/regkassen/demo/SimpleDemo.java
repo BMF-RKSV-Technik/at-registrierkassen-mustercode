@@ -30,8 +30,8 @@ import at.asitplus.regkassen.core.modules.init.CashBoxParameters;
 import at.asitplus.regkassen.core.modules.print.PrinterModule;
 import at.asitplus.regkassen.core.modules.print.ReceiptPrintType;
 import at.asitplus.regkassen.core.modules.print.SimplePDFPrinterModule;
-import at.asitplus.regkassen.core.modules.signature.jws.ComNimbusdsJwsModule;
 import at.asitplus.regkassen.core.modules.signature.jws.JWSModule;
+import at.asitplus.regkassen.core.modules.signature.jws.ManualJWSModule;
 import at.asitplus.regkassen.core.modules.signature.rawsignatureprovider.DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -50,6 +50,11 @@ import java.util.List;
 
 public class SimpleDemo {
 
+    public static double PROPABILITY_TRAINING_RECEIPT = 0.4;
+    public static double PROPABILITY_DAMAGED_SIGNATURE_DEVICE = 0.4;
+    public static int DEFAULT_NUMBER_OF_GENERATED_RECEIPTS = 50;
+
+
     public static void main(String[] args) {
         try {
 
@@ -64,9 +69,10 @@ public class SimpleDemo {
 
             // add CMD line options
             options.addOption("o", "output-dir", true, "specify base output directory, if none is specified a new directory will be created in the current path");
-            options.addOption("n", "number-of-generated-receipts", true, "specify number of receipts to be randomly generated, 15 is default");
+            options.addOption("n", "number-of-generated-receipts", true, "specify number of receipts to be randomly generated, 50 is default");
             options.addOption("g", "signature-creation-device-cannot-fail", false, "deactivate glitches in signature-creation-device");
             options.addOption("s", "no-signature-certificate-switch", false, "deactivate switching of signature certificates after 5 receipts");
+            options.addOption("t", "no-training-receipts", false, "deactivate random generation of training-receipts");
 
             ///parse CMD line options
             CommandLineParser parser = new DefaultParser();
@@ -74,6 +80,7 @@ public class SimpleDemo {
 
             boolean signatureCreationDeviceAlwaysWorks = cmd.hasOption("g");
             boolean deactivateSignatureCertificateSwitching = cmd.hasOption("s");
+            boolean deactivateTraningReceipts = cmd.hasOption("t");
 
             String outputParentDirectoryString = cmd.getOptionValue("o");
             if (outputParentDirectoryString == null) {
@@ -85,7 +92,7 @@ public class SimpleDemo {
             System.out.println("Setting workdir to " + OUTPUT_PARENT_DIRECTORY.getAbsolutePath());
 
             String numberOfReceiptsString = cmd.getOptionValue("n");
-            int NUMBER_OF_RECEIPTS = 15;
+            int NUMBER_OF_RECEIPTS = DEFAULT_NUMBER_OF_GENERATED_RECEIPTS;
             if (numberOfReceiptsString != null) {
                 NUMBER_OF_RECEIPTS = new Integer(numberOfReceiptsString);
             }
@@ -104,7 +111,7 @@ public class SimpleDemo {
             if (deactivateSignatureCertificateSwitching) {
                 cashBoxParameters.setChangeSignatureCertificateAfterSoManyReceipts(-1);
             } else {
-                cashBoxParameters.setChangeSignatureCertificateAfterSoManyReceipts(5);
+                cashBoxParameters.setChangeSignatureCertificateAfterSoManyReceipts(10);
             }
 
             //generate and set random cash box ID ("Kassen-ID")
@@ -141,11 +148,15 @@ public class SimpleDemo {
             //REF TO SPECIFICATION: Detailspezifikation/Abs 2, Abs 4, Abs 5, Abs 6
 
             //JWSModule jwsModule = new OrgBitbucketBcJwsModule();  //requires bouncycastle provider
-            JWSModule jwsModule = new ComNimbusdsJwsModule();   //allows for provider independent use cases
+            JWSModule jwsModule = new ManualJWSModule();   //allows for provider independent use cases
             //set damage flag, which simulates the failure of the signature creation device and the correct handling
             //of this case, obviously this is only suitable for demonstration purposes
             jwsModule.setDamageIsPossible(!signatureCreationDeviceAlwaysWorks);
+            jwsModule.setProbabilityOfDamagedSignatureDevice(PROPABILITY_DAMAGED_SIGNATURE_DEVICE);
+            
             jwsModule.setSignatureModule(new DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule());
+            //jwsModule.setSignatureModule(new PKCS11SignatureModule());
+            
             cashBoxParameters.setJwsModule(jwsModule);
 
             //set printer module
@@ -163,12 +174,18 @@ public class SimpleDemo {
             //store first receipt (Startbeleg) in cashbox
             //all taxtype values are set to zero (per default in this demo)
             RawReceiptData firstReceipt = new RawReceiptData();
-            demoCashBox.storeReceipt(firstReceipt);
+            demoCashBox.storeReceipt(firstReceipt,false);
 
             //now store the other receipts
             for (RawReceiptData rawReceiptData : receipts) {
                 //store receipt within cashbox: (prepare data-to-be-signed, sign with JWS, store signed receipt in DEP)
-                demoCashBox.storeReceipt(rawReceiptData);
+
+                //30% change of training receipt (just for demo purposes)
+                boolean isTrainingReceipt = false;
+                if (Math.random()<PROPABILITY_TRAINING_RECEIPT && !deactivateTraningReceipts) {
+                    isTrainingReceipt = true;
+                }
+                demoCashBox.storeReceipt(rawReceiptData,isTrainingReceipt);
             }
 
             //dump machine readable code of receipts (this "code" is used for the QR-codes)

@@ -20,7 +20,7 @@ package at.asitplus.regkassen.core.base.receiptdata;
 import at.asitplus.regkassen.core.base.rksuite.RKSuite;
 import at.asitplus.regkassen.core.base.util.CashBoxUtils;
 
-import java.security.cert.X509Certificate;
+import java.security.cert.Certificate;
 import java.util.List;
 
 public class ReceiptPackage {
@@ -28,8 +28,8 @@ public class ReceiptPackage {
     protected RawReceiptData rawReceiptData;
     protected ReceiptRepresentationForSignature receiptRepresentationForSignature;
     protected String jwsCompactRepresentation;
-    protected X509Certificate signingCertificate;
-    protected List<X509Certificate> certificateChain;
+    protected Certificate signingCertificate;
+    protected List<Certificate> certificateChain;
 
     protected String getDataToBeSigned() {
         return receiptRepresentationForSignature.getDataToBeSigned(rkSuite);
@@ -97,19 +97,19 @@ public class ReceiptPackage {
         this.receiptRepresentationForSignature = receiptRepresentationForSignature;
     }
 
-    public X509Certificate getSigningCertificate() {
+    public Certificate getSigningCertificate() {
         return signingCertificate;
     }
 
-    public void setSigningCertificate(X509Certificate signingCertificate) {
+    public void setSigningCertificate(Certificate signingCertificate) {
         this.signingCertificate = signingCertificate;
     }
 
-    public List<X509Certificate> getCertificateChain() {
+    public List<Certificate> getCertificateChain() {
         return certificateChain;
     }
 
-    public void setCertificateChain(List<X509Certificate> certificateChain) {
+    public void setCertificateChain(List<Certificate> certificateChain) {
         this.certificateChain = certificateChain;
     }
 

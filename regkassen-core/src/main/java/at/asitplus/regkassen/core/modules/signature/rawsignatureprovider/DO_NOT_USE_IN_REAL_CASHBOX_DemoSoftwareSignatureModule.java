@@ -45,8 +45,8 @@ import java.util.List;
 public class DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule implements SignatureModule {
 
     protected PrivateKey signingKey;
-    protected X509Certificate signingCertificate;
-    protected List<X509Certificate> certificateChain;
+    protected java.security.cert.Certificate signingCertificate;
+    protected List<java.security.cert.Certificate> certificateChain;
 
     public void intialise() {
         try {
@@ -117,11 +117,11 @@ public class DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule implements S
         return signingKey;
     }
 
-    public X509Certificate getSigningCertificate() {
+    public java.security.cert.Certificate getSigningCertificate() {
         return signingCertificate;
     }
 
-    public List<X509Certificate> getCertificateChain() {
+    public List<java.security.cert.Certificate> getCertificateChain() {
         return certificateChain;
     }
 }

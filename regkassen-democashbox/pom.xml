@@ -7,13 +7,13 @@
 
     <groupId>at.asitplus.regkassen</groupId>
     <artifactId>regkassen-demo</artifactId>
-    <version>0.3</version>
+    <version>0.4</version>
 
     <dependencies>
         <dependency>
             <groupId>at.asitplus.regkassen</groupId>
             <artifactId>registrierkassen-core</artifactId>
-            <version>0.3</version>
+            <version>0.4</version>
         </dependency>
 
         <!-- Apache commons libraries for BASE64, BASE64, math operations etc.
