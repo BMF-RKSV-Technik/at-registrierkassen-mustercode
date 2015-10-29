@@ -50,8 +50,8 @@ import java.util.List;
 
 public class SimpleDemo {
 
-    public static double PROPABILITY_TRAINING_RECEIPT = 0.7;
-    public static double PROPABILITY_DAMAGED_SIGNATURE_DEVICE = 0.7;
+    public static double PROPABILITY_TRAINING_RECEIPT = 0.4;
+    public static double PROPABILITY_DAMAGED_SIGNATURE_DEVICE = 0.4;
     public static int DEFAULT_NUMBER_OF_GENERATED_RECEIPTS = 50;
 
 
