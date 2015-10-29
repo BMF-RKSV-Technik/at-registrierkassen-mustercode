@@ -35,7 +35,7 @@ public class RandomReceiptGenerator {
         List<RawReceiptData> rawReceipts = new ArrayList<>();
         for (int i = 0; i < maxNumberOfReceipts; i++) {
             RawReceiptData rawReceiptData = new RawReceiptData();
-            List<Item> randomItems = generateRandomItems(1, 10, 0.1, 50.2);
+            List<Item> randomItems = generateRandomItems(1, 10, -10, 50.2);
             for (Item item : randomItems) {
                 rawReceiptData.addItem(item);
             }
