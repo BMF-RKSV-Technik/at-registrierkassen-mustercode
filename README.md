@@ -1,5 +1,23 @@
 # Change Log
 
+ - **29.10.2015**: Release 0.4 veröffentlicht
+	 - Features:
+		 - Demo:
+			 - Trainingsbuchungen sind nun inkludiert (siehe **FAQ**)
+			 - Stornobuchungen sind nun inkludiert: erkennbar durch negative Werte (siehe **FAQ**)
+			 - "Manuelles JWS" Modul hinzugefügt: Dieses Modul zeigt wie die JWS Signatur sehr einfach ohne externe Libs erstellt werden kann (siehe **CODE**)
+			 - Basis PKCS11 Signatureinheit hinzugefügt. PKCS11 ist ein Standard der weite Verwendung in Signaturprodukten findet. Um PKCS11 verwenden zu können müssen die Parameter im Modul angepasst werden (Pfad, Key Alias) (siehe **CODE**)
+		 - Prüfung:
+			 - Prüfungsmodul kann nun Trainingsbuchungen überprüfen
+		 - Änderungen nach Absprache mit BMF:
+			 - Umsatzzähler repräsentiert nun €-Cent (vorher €). Damit entfällt die Problematik der Rundung (siehe **FAQ**)
+		 - Kleine Änderungen
+			 - Demo Code generiert jetzt 50 statt 15 Belege um die Wahrscheinlichkeit zu erhöhen alle Fälle abzudecken
+		 - Behobene Bugs (Demo und Prüfung)
+			 - Verkettung: Es wurde fäschlicherweise im Demo-Code der rohe QR-Code des letzten Belegs für die Verkettung verwendet. In Übereinstimmung mit der Detailspezifikation muss dies die JWS-Kompakt-Repräsentation sein.
+			 - MWST-Satz-Null: Dieser Betrag wurde fäschlicherweise zum Umsatzzähler addiert.
+			 - OCR-Rep: Die OCR-Bsps enthielten den gleichen Wert für Umsatzzähler und Verkettungswert
+		 -
  - **14.10.2015**: Release 0.3 veröffentlicht
 	 - Features:
 		 - Demo:
@@ -43,11 +61,11 @@ Dieses Projekt stellt Demo-Code als Begleitung zur Registrierkassensicherheitsve
 In diesem Projekt werden vorwiegend technische Aspekte der Verordnung betrachtet. Die Informationen und der Code werden laufend erweitert und mit typischen Fragen/Antworten ergänzt.
 
 ## Wichtige Anmerkungen/Einschränkungen
-* *Wichtige Anmerkung*: Die Versionen 0.1 und 0.2 und 0.3 demonstrieren wie mit den unterschiedlichen Elementen (Signature, QR-Code etc.) umgegangen werden muss. Obwohl hier nach bestem Gewissen vorgegangen wurde, kann keine GARANTIE für die korrekte Funktionsweise übernommen werden. Um hier in den nächsten Versionen mehr Klarheit bieten zu können, werden vom aktuellen Code unabhängige Prüfwerkzeuge geschaffen. Diese ermöglichen den Kassaherstellern die jeweiligen Produkte (und auch diesen Demo-Code) so weit wie möglich auf das korrekte Verhalten mit Relevanz für die Verordnung zu überprüfen.
+* *Wichtige Anmerkung*: Die Versionen 0.1 bis 0.4 demonstrieren wie mit den unterschiedlichen Elementen (Signature, QR-Code etc.) umgegangen werden muss. Obwohl hier nach bestem Gewissen vorgegangen wurde, kann keine GARANTIE für die korrekte Funktionsweise übernommen werden. Um hier in den nächsten Versionen mehr Klarheit bieten zu können, werden vom aktuellen Code unabhängige Prüfwerkzeuge geschaffen. Diese ermöglichen den Kassaherstellern die jeweiligen Produkte (und auch diesen Demo-Code) so weit wie möglich auf das korrekte Verhalten mit Relevanz für die Verordnung zu überprüfen.
 * *Sprache*: Diese Projektseite verwendet Deutsch als Sprache. In den textuellen Ergänzungen im Source Code wird Englisch verwendet.
 
 ##Weiteres Vorgehen
-Diese Plattform wird für die weitere Bereitstellung von Demo-Code, für das Bereitstellen von Prüfwerkzeugen und für die Erstellung von FAQs verwendet. Die weiteren Versionen des Codes werden demnächst veröffentlicht und fokussieren sich auf erweiterte Verwendungsmuster (z.B. Ausfall Sicherheitseinrichtung) und das Bereitstellen von Prüfwerkzeugen die es ermöglichen erstellte Belege, DEP-Export-Dateien auf Ihre Korrektheit zu prüfen. Auch wird dieses Projekt laufend um Antworten zu häufig gestellten Fragen ergänzt.
+Diese Plattform wird für die weitere Bereitstellung von Demo-Code, für das Bereitstellen von Prüfwerkzeugen und für die Erstellung von FAQs verwendet. Die weiteren Versionen des Codes werden demnächst veröffentlicht und fokussieren sich auf erweiterte Verwendungsmuster und das Bereitstellen bzw. die Erweiterung von Prüfwerkzeugen die es ermöglichen erstellte Belege, DEP-Export-Dateien auf Ihre Korrektheit zu prüfen. Auch wird dieses Projekt laufend um Antworten zu häufig gestellten Fragen ergänzt.
 
 ##Kontakt/Fragen
 Es wurde dazu eine Projektseite von der WKO eingerichtet. Es ist dazu eine Registrierung bei der WKO notwendig.
@@ -81,16 +99,16 @@ Neben dem Source Code wird auch immer eine ZIP Datei der ausführbaren Dateien z
 ###Verwendung des Demo-Codes - Demokassa
 Der Demo Code enthält aktuell eine einfache Testklasse die eine Demokassa ansteuert. Diese Demokassa bietet die Möglichkeit eine angegeben Anzahl von Belegen zu erstellen, diese in das DEP Export Format zu exportieren, und einfache Test-Belege als PDF zu erstellen, die die Daten als QR-Code oder OCR-Code beinhalten.
 
-Download und entpacken von regkassen-demo-release-0.3.zip (siehe https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases).
+Download und entpacken von regkassen-demo-release-0.4.zip (siehe https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases).
 
 Ausführen der Demokasse mit
 
-      java -jar regkassen-demo-0.3.jar -o OUTPUT_DIR -n 20 -g -s
+      java -jar regkassen-demo-0.4.jar -o OUTPUT_DIR -n 20 -g -s
       
 Wobei 
 
  - **"OUTPUT_DIR"** ein Verzeichnis ist, in dem die vom Demo-Code erstellten Daten/Belege geschrieben werden. Es wird in der aktuellen Version dazu ein zufällig genierter Signaturschlüssel verwendet. Wenn die Option **-o** nicht angegeben wird, dann wird im aktuellen Verzeichnis eines mit dem Prefix CashBox ersteerlällt.
- - Die Option **-n** gibt die Anzahl der zu erstellenden Belege an. Wenn sie nicht angegeben wird, werden 15 Belege erstellt.
+ - Die Option **-n** gibt die Anzahl der zu erstellenden Belege an. Wenn sie nicht angegeben wird, werden 50 Belege erstellt.
  - Die Option **-s** gibt an, dass nur mit einem Signaturzertifikat gearbeitet werden soll. Wird die Option weggelassen wird mit zwei Signaturzertifikaten gearbeitet, um das Handling dieses Falles im Export-Format abbilden zu können.
  - Die Option **-g** gibt an, dass die Signatureinrichtung nicht ausfallen kann. Wird die Option weggelassen fällt die Signatureinrichtung zufällig aus und die Vorgehensweise bzw. die Recovery-Prozedur wird gezeigt.
  
@@ -105,16 +123,16 @@ Das Output-Verzeichnis enthält folgende Dateien/Verzeichnisse:
  - **Verzeichnis ocr-code-dir**: PDF-Belege die mit dem OCR-Code bedruckt wurden
  - **Verzeichnis qr-code-dir**: PDF-Belege die mit dem QR-Code bedruckt wurden
 
-Ein Beispiel für den Output ist auch direkt verfügbar: example-output-0.3.zip (siehe https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases).
+Ein Beispiel für den Output ist auch direkt verfügbar: example-output-0.4.zip (siehe https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases).
 Code dazu: siehe Klasse [SimpleDemo](https://github.com/a-sit-plus/at-registrierkassen-mustercode/blob/master/regkassen-democashbox/src/main/java/at/asitplus/regkassen/demo/SimpleDemo.java).
 
 ###Verwendung des Prüfwerkzeugs
 In Version 0.3 wurden die Prüfwerkzeuge um weitere Prüfungen erweitert (Ausgefallene Signatureinrichtung, Veschlüsselter Umsatzzähler, etc.). Neben dem DEP Export Format können nun auch einzelne QR-Code-Bsp von Belegen geprüft werden.
-Download und entpacken von regkassen-demo-release-0.3.zip (siehe https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases).
+Download und entpacken von regkassen-demo-release-0.4.zip (siehe https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases).
 
 **DEP-Export Format**
 
-    java -jar regkassen-verification-depformat-0.3.jar -i DEP-EXPORT-FILE -k AES-KEY-FILE
+    java -jar regkassen-verification-depformat-0.4.jar -i DEP-EXPORT-FILE -k AES-KEY-FILE
 	         
 Wobei
 
@@ -123,7 +141,7 @@ Wobei
 
 **QR-Code-Repräsentation eines einzelnen Belegs oder mehrerer Belege**
 
-    java -jar regkassen-verification-receipts-0.3.jar -i QR-CODE-REP-FILE -s SIGNATURE-CERTIFICATES-FILE
+    java -jar regkassen-verification-receipts-0.4.jar -i QR-CODE-REP-FILE -s SIGNATURE-CERTIFICATES-FILE
 
 Wobei
 
@@ -145,8 +163,10 @@ Das Projekt ist in drei Maven Module aufgeteilt:
 	 - [init](https://github.com/a-sit-plus/at-registrierkassen-mustercode/tree/master/regkassen-core/src/main/java/at/asitplus/regkassen/core/modules/init): Parameter für die Initialisierung der Registrierkasse
 	 - [print](https://github.com/a-sit-plus/at-registrierkassen-mustercode/tree/master/regkassen-core/src/main/java/at/asitplus/regkassen/core/modules/print): Einfache Version eines PDF Druckers, der QR-Codes und OCR-Codes auf Belege druckt.
 	 - [signature](https://github.com/a-sit-plus/at-registrierkassen-mustercode/tree/master/regkassen-core/src/main/java/at/asitplus/regkassen/core/modules/signature): Dieses Package besteht aus zwei Hauptkomponenten:
-		 - [jws](https://github.com/a-sit-plus/at-registrierkassen-mustercode/tree/master/regkassen-core/src/main/java/at/asitplus/regkassen/core/modules/signature/jws): Mit dem Modul [OrgBitbucketBcJwsModule](https://github.com/a-sit-plus/at-registrierkassen-mustercode/blob/master/regkassen-core/src/main/java/at/asitplus/regkassen/core/modules/signature/jws/OrgBitbucketBcJwsModule.java) oder [ComNimbusdsJwsModule](https://github.com/a-sit-plus/at-registrierkassen-mustercode/blob/master/regkassen-core/src/main/java/at/asitplus/regkassen/core/modules/signature/jws/ComNimbusdsJwsModule.java) werden die JWS Signaturen erstellt. Die Module greifen auf das folgende Package zu:
-		 - [rawsignatureprovider](https://github.com/a-sit-plus/at-registrierkassen-mustercode/tree/master/regkassen-core/src/main/java/at/asitplus/regkassen/core/modules/signature/rawsignatureprovider): Dieses Modul erstellt die wirkliche Signatur und kann eine Smartcard, ein HSM, ein Cloud-Dienst oder ein anderes Modul (im geschlossenen System) darstellen. Wichtige Anmerkung: In der aktuellen DEMO-Kassa ist nur ein simples Software-basiertes Modul enthalten ([DemoSoftwareSignatureModule](https://github.com/a-sit-plus/at-registrierkassen-mustercode/blob/master/regkassen-core/src/main/java/at/asitplus/regkassen/core/modules/signature/rawsignatureprovider/DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule.java)). Dieses DARF AUF KEINEN FALL in einer echten Kasse verwendet werden. In weiteren Demo-Code Versionen wird hier die Ansteuerung der Karte gezeigt.
+		 - [jws](https://github.com/a-sit-plus/at-registrierkassen-mustercode/tree/master/regkassen-core/src/main/java/at/asitplus/regkassen/core/modules/signature/jws): Mit dem Modul [OrgBitbucketBcJwsModule](https://github.com/a-sit-plus/at-registrierkassen-mustercode/blob/master/regkassen-core/src/main/java/at/asitplus/regkassen/core/modules/signature/jws/OrgBitbucketBcJwsModule.java) oder [ComNimbusdsJwsModule](https://github.com/a-sit-plus/at-registrierkassen-mustercode/blob/master/regkassen-core/src/main/java/at/asitplus/regkassen/core/modules/signature/jws/ComNimbusdsJwsModule.java) werden die JWS Signaturen erstellt. Neu hinzugekommen ist das Modul [ManualJWSModule](https://github.com/a-sit-plus/at-registrierkassen-mustercode/blob/master/regkassen-core/src/main/java/at/asitplus/regkassen/core/modules/signature/jws/ManualJWSModule.java), das keine externe Bibliothek für das Erstellen der JWS-Signatur benötigt. Die Module greifen auf das folgende Package zu:
+		 - [rawsignatureprovider](https://github.com/a-sit-plus/at-registrierkassen-mustercode/tree/master/regkassen-core/src/main/java/at/asitplus/regkassen/core/modules/signature/rawsignatureprovider): Dieses Modul erstellt die wirkliche Signatur und kann eine Smartcard, ein HSM, ein Cloud-Dienst oder ein anderes Modul (im geschlossenen System) darstellen. In der aktuellen DEMO-Kassa sind zwei Module enthalten:
+		 - [DemoSoftwareSignatureModule](https://github.com/a-sit-plus/at-registrierkassen-mustercode/blob/master/regkassen-core/src/main/java/at/asitplus/regkassen/core/modules/signature/rawsignatureprovider/DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule.java): Hierbei handelt es sich um ein simples Software-basiertes Modul. Dieses DARF AUF KEINEN FALL in einer echten Kasse verwendet werden. In weiteren Demo-Code Versionen wird hier die Ansteuerung der Karte gezeigt.
+		 - [PKCS11SignatureModule](https://github.com/a-sit-plus/at-registrierkassen-mustercode/blob/master/regkassen-core/src/main/java/at/asitplus/regkassen/core/modules/signature/rawsignatureprovider/DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule.java): Hierbei handelt es sich um ein Modul das den weit verbreiteten PKCS11 Standard für das Ansprechen von Krypto-Hardware unterstützt. Im Modul müssen noch die Paramter für die verwendete PKCS11-Bibliothek und die jeweiligen Schlüsselnamen angegeben werden.
  - [at.sitplus.regkassen.core](https://github.com/a-sit-plus/at-registrierkassen-mustercode/tree/master/regkassen-core/src/main/java/at/asitplus/regkassen/core): In diesem Package befindet sich Demo-Registrierkasse (DemoCashBox). Diese Klasse verwendet die oben genannten Module um Belege zu speichern, zu signieren und zu drucken (als PDF).
 
 ###Maven Build
@@ -170,5 +190,3 @@ Seidlgasse 22 / 9
 1030 Wien
 FN 436920 f,
 Handelsgericht Wien
-
-
