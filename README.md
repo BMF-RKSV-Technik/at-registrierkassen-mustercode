@@ -6,7 +6,7 @@
 			 - Trainingsbuchungen sind nun inkludiert (siehe [FAQ](https://github.com/a-sit-plus/at-registrierkassen-mustercode/wiki/Erl%C3%A4uterungen-FAQ))
 			 - Stornobuchungen sind nun inkludiert: erkennbar durch negative Werte (siehe [FAQ](https://github.com/a-sit-plus/at-registrierkassen-mustercode/wiki/Erl%C3%A4uterungen-FAQ))
 			 - "Manuelles JWS" Modul hinzugefügt: Dieses Modul zeigt wie die JWS Signatur sehr einfach ohne externe Libs erstellt werden kann (siehe [ManualJWSModule](https://github.com/a-sit-plus/at-registrierkassen-mustercode/blob/master/regkassen-core/src/main/java/at/asitplus/regkassen/core/modules/signature/jws/ManualJWSModule.java))
-			 - Basis PKCS11-Signatureinheit hinzugefügt. PKCS11 ist ein Standard der weite Verwendung in Signaturprodukten findet. Um PKCS11 verwenden zu können müssen die Parameter im Modul angepasst werden (Pfad, Key Alias) (siehe [PKCS11SignatureModule](https://github.com/a-sit-plus/at-registrierkassen-mustercode/blob/master/regkassen-core/src/main/java/at/asitplus/regkassen/core/modules/signature/rawsignatureprovider/DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule.java))
+			 - Basis PKCS11-Signatureinheit hinzugefügt. PKCS11 ist ein Standard der weite Verwendung in Signaturprodukten findet. Um PKCS11 verwenden zu können müssen die Parameter im Modul angepasst werden (Pfad, Key Alias) (siehe [PKCS11SignatureModule](https://github.com/a-sit-plus/at-registrierkassen-mustercode/blob/master/regkassen-core/src/main/java/at/asitplus/regkassen/core/modules/signature/rawsignatureprovider/PKCS11SignatureModule.java))
 		 - Prüfung:
 			 - Prüfungsmodul kann nun Trainingsbuchungen überprüfen
 		 - Änderungen nach Absprache mit BMF:
@@ -43,7 +43,7 @@
 	* Detailänderungen
 		* Hinzufügen von Provider-unabhängigen [Nimbus JWS Library](https://bitbucket.org/connect2id/nimbus-jose-jwt/wiki/Home) (Demo-Code noch nicht Provider-unabhängig)
 		* Entfernen des rudimentären Prüf-Codes
-* **02.10.2015**: Release 0.1 auf GitHub veröffentlicht
+- **02.10.2015**: Release 0.1 auf GitHub veröffentlicht
 
 
 **Planung für weitere Releases**:
@@ -164,8 +164,8 @@ Das Projekt ist in drei Maven Module aufgeteilt:
 	 - [signature](https://github.com/a-sit-plus/at-registrierkassen-mustercode/tree/master/regkassen-core/src/main/java/at/asitplus/regkassen/core/modules/signature): Dieses Package besteht aus zwei Hauptkomponenten:
 		 - [jws](https://github.com/a-sit-plus/at-registrierkassen-mustercode/tree/master/regkassen-core/src/main/java/at/asitplus/regkassen/core/modules/signature/jws): Mit dem Modul [OrgBitbucketBcJwsModule](https://github.com/a-sit-plus/at-registrierkassen-mustercode/blob/master/regkassen-core/src/main/java/at/asitplus/regkassen/core/modules/signature/jws/OrgBitbucketBcJwsModule.java) oder [ComNimbusdsJwsModule](https://github.com/a-sit-plus/at-registrierkassen-mustercode/blob/master/regkassen-core/src/main/java/at/asitplus/regkassen/core/modules/signature/jws/ComNimbusdsJwsModule.java) werden die JWS Signaturen erstellt. Neu hinzugekommen ist das Modul [ManualJWSModule](https://github.com/a-sit-plus/at-registrierkassen-mustercode/blob/master/regkassen-core/src/main/java/at/asitplus/regkassen/core/modules/signature/jws/ManualJWSModule.java), das keine externe Bibliothek für das Erstellen der JWS-Signatur benötigt. Die Module greifen auf das folgende Package zu:
 		 - [rawsignatureprovider](https://github.com/a-sit-plus/at-registrierkassen-mustercode/tree/master/regkassen-core/src/main/java/at/asitplus/regkassen/core/modules/signature/rawsignatureprovider): Dieses Modul erstellt die wirkliche Signatur und kann eine Smartcard, ein HSM, ein Cloud-Dienst oder ein anderes Modul (im geschlossenen System) darstellen. In der aktuellen DEMO-Kassa sind zwei Module enthalten:
-		 - [DemoSoftwareSignatureModule](https://github.com/a-sit-plus/at-registrierkassen-mustercode/blob/master/regkassen-core/src/main/java/at/asitplus/regkassen/core/modules/signature/rawsignatureprovider/DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule.java): Hierbei handelt es sich um ein simples Software-basiertes Modul. Dieses DARF AUF KEINEN FALL in einer echten Kasse verwendet werden. In weiteren Demo-Code Versionen wird hier die Ansteuerung der Karte gezeigt.
-		 - [PKCS11SignatureModule](https://github.com/a-sit-plus/at-registrierkassen-mustercode/blob/master/regkassen-core/src/main/java/at/asitplus/regkassen/core/modules/signature/rawsignatureprovider/DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule.java): Hierbei handelt es sich um ein Modul das den weit verbreiteten PKCS11 Standard für das Ansprechen von Krypto-Hardware unterstützt. Im Modul müssen noch die Paramter für die verwendete PKCS11-Bibliothek und die jeweiligen Schlüsselnamen angegeben werden.
+			 - [DemoSoftwareSignatureModule](https://github.com/a-sit-plus/at-registrierkassen-mustercode/blob/master/regkassen-core/src/main/java/at/asitplus/regkassen/core/modules/signature/rawsignatureprovider/DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule.java): Hierbei handelt es sich um ein simples Software-basiertes Modul. Dieses DARF AUF KEINEN FALL in einer echten Kasse verwendet werden. In weiteren Demo-Code Versionen wird hier die Ansteuerung der Karte gezeigt.
+			 - [PKCS11SignatureModule](https://github.com/a-sit-plus/at-registrierkassen-mustercode/blob/master/regkassen-core/src/main/java/at/asitplus/regkassen/core/modules/signature/rawsignatureprovider/PKCS11SignatureModule.java): Hierbei handelt es sich um ein Modul das den weit verbreiteten PKCS11 Standard für das Ansprechen von Krypto-Hardware unterstützt. Im Modul müssen noch die Parameter für die verwendete PKCS11-Bibliothek und die jeweiligen Schlüsselnamen angegeben werden.
  - [at.sitplus.regkassen.core](https://github.com/a-sit-plus/at-registrierkassen-mustercode/tree/master/regkassen-core/src/main/java/at/asitplus/regkassen/core): In diesem Package befindet sich Demo-Registrierkasse (DemoCashBox). Diese Klasse verwendet die oben genannten Module um Belege zu speichern, zu signieren und zu drucken (als PDF).
 
 ###Maven Build
@@ -189,3 +189,5 @@ Seidlgasse 22 / 9
 1030 Wien
 FN 436920 f,
 Handelsgericht Wien
+
+
