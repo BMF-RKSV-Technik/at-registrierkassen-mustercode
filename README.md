@@ -3,8 +3,11 @@
  - **29.10.2015**: Release 0.4 veröffentlicht
 	 - Features:
 		 - Demo:
-			 - Trainingsbuchungen sind nun inkludiert (siehe [FAQ](https://github.com/a-sit-plus/at-registrierkassen-mustercode/wiki/Erl%C3%A4uterungen-FAQ))
-			 - Stornobuchungen sind nun inkludiert: erkennbar durch negative Werte (siehe [FAQ](https://github.com/a-sit-plus/at-registrierkassen-mustercode/wiki/Erl%C3%A4uterungen-FAQ)): **ACHTUNG** in der aktuellen Version werden Stornos und Buchungen vermischt. Diese Vermischung darf nicht vorkommen. Das aktuelle Beispiel zeigt nur wie der Umsatzzähler davon betroffen ist. Korrekte Stornobuchungen werden in der nächsten Version hinzugefügt bzw. auch on den Prüfwerkzeugen unterstützt.
+			 - Trainingsbuchungen sind nun inkludiert (siehe [FAQ](https://github.com/a-sit-plus/at-registrierkassen-mustercode/wiki/Erl%C3%A4uterungen-FAQ)):
+				 - **WICHTIGER HINWEIS 30.10.2015**: Aktuelle Vorgehensweise wird noch bis nächste Woche abgestimmt, da die Verordnung die Kennzeichung des maschinelesbaren Codes mit "Trainingsbuchung" fordert, dies aber bei der aktuellen Lösung genau genommen nicht der Fall ist. ("TRAIN" statt Umsatzzähler).
+			 - Stornobuchungen sind nun inkludiert: erkennbar durch negative Werte (siehe [FAQ](https://github.com/a-sit-plus/at-registrierkassen-mustercode/wiki/Erl%C3%A4uterungen-FAQ)): 
+				 - **WICHTIGER HINWEIS 30.10.2015** in der aktuellen Version werden Stornos und Buchungen vermischt. Diese Vermischung darf nicht vorkommen. Das aktuelle Beispiel zeigt nur wie der Umsatzzähler davon betroffen ist. Korrekte Stornobuchungen werden in der nächsten Version hinzugefügt bzw. auch on den Prüfwerkzeugen unterstützt.
+				 - **WICHTIGER HINWEIS 30.10.2014** Eine Stornobuchung kann durch ein negative Vorzeichen eindeutig erkannt werden. Allerdings ist bei der in 0.4 demonstrierten Lösung nicht die in der Verordnung geforderte Kennzeichnung "Stornobuchung" enthalten. Vorgehen wird geklärt und bis nächste Woche abgestimmt.
 			 - "Manuelles JWS" Modul hinzugefügt: Dieses Modul zeigt wie die JWS Signatur sehr einfach ohne externe Libs erstellt werden kann (siehe [ManualJWSModule](https://github.com/a-sit-plus/at-registrierkassen-mustercode/blob/master/regkassen-core/src/main/java/at/asitplus/regkassen/core/modules/signature/jws/ManualJWSModule.java))
 			 - Basis PKCS11-Signatureinheit hinzugefügt. PKCS11 ist ein Standard der weite Verwendung in Signaturprodukten findet. Um PKCS11 verwenden zu können müssen die Parameter im Modul angepasst werden (Pfad, Key Alias) (siehe [PKCS11SignatureModule](https://github.com/a-sit-plus/at-registrierkassen-mustercode/blob/master/regkassen-core/src/main/java/at/asitplus/regkassen/core/modules/signature/rawsignatureprovider/PKCS11SignatureModule.java))
 		 - Prüfung:
