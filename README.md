@@ -1,6 +1,5 @@
 # Change Log
-
- - **29.10.2015**: Release 0.4 veröffentlicht
+ - **29.10.2015**: Release 0.4 veröffentlicht (Bitte **unbedingt die Hinweise vom 30.10.2015** beachten, wurden einen Tag nach Veröffentlichung der Release hinzugefügt).
 	 - Features:
 		 - Demo:
 			 - Trainingsbuchungen sind nun inkludiert (siehe [FAQ](https://github.com/a-sit-plus/at-registrierkassen-mustercode/wiki/Erl%C3%A4uterungen-FAQ)):
