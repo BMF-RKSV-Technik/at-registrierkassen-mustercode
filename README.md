@@ -1,5 +1,5 @@
 # Change Log
-ACHTUNG: Wichtige Informationen zu Trainingsbuchungen, Stornonuchungen bzw. weiteren Verwendungszwecken werden demnächst zur Verfügung stehen.
+ACHTUNG: Wichtige Informationen zu Trainingsbuchungen, Stornobuchungen bzw. weiteren Verwendungszwecken werden demnächst zur Verfügung stehen.
 
  - **29.10.2015**: Release 0.4 veröffentlicht (Bitte **unbedingt die Hinweise vom 30.10.2015** beachten, wurden einen Tag nach Veröffentlichung der Release hinzugefügt).
 	 - Features:
