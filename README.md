@@ -1,6 +1,17 @@
-# Change Log
-ACHTUNG: Wichtige Informationen zu Trainingsbuchungen, Stornobuchungen bzw. weiteren Verwendungszwecken werden demnächst zur Verfügung stehen.
+# Wichtige Informationen
+Die aus Release 0.4 offenen Punkte sind so weit geklärt. Da die Umsetzung im Demo-Code noch nicht zur Verfügung steht, hier eine Zusammenfassung der wichtigsten Informationen:
 
+ - **Steuer Satz "Null"** muss in Umsatzzähler eingehen, es gibt also keinen Unterschied zu den anderen Steuersätzen (In Release 0.4 hatte dieser Satz keinen Einfluss auf den Umsatzzähler).
+ - **Brutto/Netto Beträge im Steuersatz:** Es werden Netto-Beträge in den Feldern für die Steuer-Sätze verwendet. Somit werden auch Netto-Beträge zum Umsatzzähler addiert/subtrahiert. Hier gab es noch Interpretationsspielraum.
+ - **Storno**: 
+	 - Dazu wird es eine ähnliche Lösung wie bei Trainingsbuchungen geben: Storno-Belege werden im Feld Umsatzzähler markiert. Statt dem Umsatzzähler wird hier der BASE64 kodierte Wert der Zeichenkette "STO" verwendet. Damit ist eine eindeutige Erkennung von Stornobelegen möglich.
+	 - Ein Stornobeleg darf nicht mit normalen Buchungen vermischt werden, es können aber mehere Steuersätze gleichzeitig in einem Beleg storniert werden. Storno-Beträge können positive/negative Werte enthalten, wobei ein negativer Wert wohl der gängige Fall sein wird.
+	 - Umsatzzähler wird bei einem Stornobeleg natürlich beeinflusst (im Gegensatz zu einer Trainingsbuchung). 
+ - **Training**: Hier wird eine Aktualisierung vorgenommen. Statt "TRAIN" wird die Zeichenkette "TRA" Base64-kodiert im Umsatzzähler abgelegt. Damit ist es nun aufgrund der Länge eindeutig zwischen einem echtem verschlüsselten Umsatzzähler und STO/TRA Belegen zu unterscheiden (Umsatzzähler muss min. 5 byte lang sein, daher ist diese Unterscheidung mit diesen kurzen Zeichenketten möglich).
+ - **Weitere wichtige Punkte**:
+	 - Es wird für die Hersteller neben dem Prüfwerkzeug auch eine Sammlung von Test-Fällen geben, die die möglichen Kombinationen aus unterschiedlichen Belegen und das korrekte Verhalten abdecken (z.B. Verhalten bei Trainingsbuchung, Verhalten bei ausgefallener Signatureinrichtung, Verhalten bei Startbeleg, Verhalten bei Wechsel von Signaturzertifikat). Die Hersteller sollen sich an diesen Testfällen orientieren, Belege anhand der Testfälle erstellen und dann über das Prüfwerkzeug überprüfen.
+
+# Change Log
  - **29.10.2015**: Release 0.4 veröffentlicht (Bitte **unbedingt die Hinweise vom 30.10.2015** beachten, wurden einen Tag nach Veröffentlichung der Release hinzugefügt).
 	 - Features:
 		 - Demo:
