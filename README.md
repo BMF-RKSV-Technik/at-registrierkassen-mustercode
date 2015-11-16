@@ -10,6 +10,7 @@ Die aus Release 0.4 offenen Punkte sind so weit geklärt. Da die Umsetzung im De
  - **Training**: Hier wird eine Aktualisierung vorgenommen. Statt "TRAIN" wird die Zeichenkette "TRA" Base64-kodiert im Umsatzzähler abgelegt. Damit ist es nun aufgrund der Länge eindeutig zwischen einem echtem verschlüsselten Umsatzzähler und STO/TRA Belegen zu unterscheiden (Umsatzzähler muss min. 5 byte lang sein, daher ist diese Unterscheidung mit diesen kurzen Zeichenketten möglich).
  - **Weitere wichtige Punkte**:
 	 - Es wird für die Hersteller neben dem Prüfwerkzeug auch eine Sammlung von Test-Fällen geben, die die möglichen Kombinationen aus unterschiedlichen Belegen und das korrekte Verhalten abdecken (z.B. Verhalten bei Trainingsbuchung, Verhalten bei ausgefallener Signatureinrichtung, Verhalten bei Startbeleg, Verhalten bei Wechsel von Signaturzertifikat). Die Hersteller sollen sich an diesen Testfällen orientieren, Belege anhand der Testfälle erstellen und dann über das Prüfwerkzeug überprüfen.
+	 - Es werden Methoden gezeigt die es ermöglichen den AES-CTR Modus mit AES-CFB oder AES-ECB zu emulieren, damit sind die Beispiele dann auch als Basis für andere Programmiersprachen geeignet die die CTR Variante nicht bieten.
 
 # Change Log
  - **29.10.2015**: Release 0.4 veröffentlicht (Bitte **unbedingt die Hinweise vom 30.10.2015** beachten, wurden einen Tag nach Veröffentlichung der Release hinzugefügt).
