@@ -81,7 +81,7 @@ public class SimpleDemo {
 
             boolean signatureCreationDeviceAlwaysWorks = cmd.hasOption("g");
             boolean deactivateSignatureCertificateSwitching = cmd.hasOption("s");
-            boolean deactivateTraningReceipts = cmd.hasOption("t");
+            boolean deactivateTrainingReceipts = cmd.hasOption("t");
 
             String outputParentDirectoryString = cmd.getOptionValue("o");
             if (outputParentDirectoryString == null) {
@@ -183,7 +183,7 @@ public class SimpleDemo {
 
                 //pre-defined chance for a training receipt (just for demo purposes)
                 boolean isTrainingReceipt = false;
-                if (Math.random()<PROPABILITY_TRAINING_RECEIPT && !deactivateTraningReceipts) {
+                if (Math.random()<PROPABILITY_TRAINING_RECEIPT && !deactivateTrainingReceipts) {
                     isTrainingReceipt = true;
                 }
 
