@@ -57,7 +57,7 @@ public class DemoCashBox {
      * @param rawReceiptData
      * @param forceSignatureDeviceToWork
      */
-    protected void createStoreAndSignReceiptPackage(RawReceiptData rawReceiptData, boolean forceSignatureDeviceToWork, boolean justTraining) {
+    protected void createStoreAndSignReceiptPackage(RawReceiptData rawReceiptData, boolean forceSignatureDeviceToWork, boolean justTraining, boolean isStornoReceipt) {
         //create receiptpackage, in this demo cashbox this is a data structure that contains all receipt relevant data
         //for simplicity this data structure is also stored in the DEP
         ReceiptPackage receiptPackage = new ReceiptPackage();
@@ -78,7 +78,7 @@ public class DemoCashBox {
 
         //prepare raw receipt data for signing
         //the prepared data is stored in the receiptPackage data structure
-        prepareSignatureData(receiptPackage, justTraining);
+        prepareSignatureData(receiptPackage, justTraining, isStornoReceipt);
 
         //sign the receipt, store the results in the receiptPackage data structure
         String dataToBeSigned = receiptPackage.getReceiptRepresentationForSignature().getDataToBeSigned(cashBoxParameters.getRkSuite());
@@ -105,7 +105,7 @@ public class DemoCashBox {
     /**
      * @param rawReceiptData raw receipt data, that contains all the items
      */
-    public void storeReceipt(RawReceiptData rawReceiptData, boolean justTraining) {
+    public void storeReceipt(RawReceiptData rawReceiptData, boolean justTraining, boolean isStornoReceipt) {
 
         //for demonstration purposes, we change the certificate after a defined number of receipts (specified in the paramters file)
         if (cashBoxParameters.getChangeSignatureCertificateAfterSoManyReceipts() >= 0) {
@@ -134,13 +134,13 @@ public class DemoCashBox {
             if (CashBoxUtils.checkReceiptForDamagedSigatureCreationDevice(retrieveLastStoredReceipt().getJwsCompactRepresentation())) {
                 //make sure that this signature creation works for the "null" receipt and the subsequent real receipt
                 forceSignatureDeviceToWork = true;
-                createStoreAndSignReceiptPackage(new RawReceiptData(), true, false);
+                createStoreAndSignReceiptPackage(new RawReceiptData(), true, false, false);
             } else {
                 //not the first receipt, and also not in recovery mode from a damaged sig device, random glitches possible for demo mode
                 forceSignatureDeviceToWork = false;
             }
         }
-        createStoreAndSignReceiptPackage(rawReceiptData, forceSignatureDeviceToWork, justTraining);
+        createStoreAndSignReceiptPackage(rawReceiptData, forceSignatureDeviceToWork, justTraining, isStornoReceipt);
     }
 
     public DEPExportFormat exportDEP() {
@@ -170,7 +170,7 @@ public class DemoCashBox {
      * @param receiptPackage receipt package that contains all the information of the receipt, and the signed receipt
      */
 
-    protected void prepareSignatureData(ReceiptPackage receiptPackage, boolean justTraining) {
+    protected void prepareSignatureData(ReceiptPackage receiptPackage, boolean justTraining, boolean isStornoReceipt) {
         //preparation of data-to-be-signed according to Detailspezifikation/Abs 4
         ReceiptPackage lastStoredReceipt = cashBoxParameters.getDepModul().getLastStoredReceipt();
 
@@ -215,6 +215,10 @@ public class DemoCashBox {
         //Stand-Umsatz-Zaehler-AES256-ICM (here encryptedTurnoverValue)
         if (!justTraining) {
             updateTurnOverCounterAndAddToDataToBeSigned(receiptRepresentationForSignature);
+            if (isStornoReceipt) {
+                //mark receipt with "STO" tag
+                receiptRepresentationForSignature.setEncryptedTurnoverValue(CashBoxUtils.base64Encode("STO".getBytes(), false));
+            }
         } else {
             receiptRepresentationForSignature.setEncryptedTurnoverValue(CashBoxUtils.base64Encode("TRA".getBytes(), false));
         }
