@@ -281,7 +281,8 @@ public class DemoCashBox {
             double sumTaxTypeNormal = Precision.round(receiptRepresentationForSignature.getSumTaxSetNormal(), 2);
             double sumTaxTypeErmaessigt1 = Precision.round(receiptRepresentationForSignature.getSumTaxSetErmaessigt1(), 2);
             double sumTaxTypeErmaessigt2 = Precision.round(receiptRepresentationForSignature.getSumTaxSetErmaessigt2(), 2);
-            double sumTayTypeBesonders = Precision.round(receiptRepresentationForSignature.getSumTaxSetBesonders(), 2);
+            double sumTaxTypeBesonders = Precision.round(receiptRepresentationForSignature.getSumTaxSetBesonders(), 2);
+            double sumTaxTypeNull = Precision.round(receiptRepresentationForSignature.getSumTaxSetNull(), 2);
 
             //ATTENTION: changes made to procedure on how to sum up/round values for turnover counter
             //PREV: sum up values, round them, add them to turnover counter
@@ -291,7 +292,8 @@ public class DemoCashBox {
             tempSum += sumTaxTypeNormal;
             tempSum += sumTaxTypeErmaessigt1;
             tempSum += sumTaxTypeErmaessigt2;
-            tempSum += sumTayTypeBesonders;
+            tempSum += sumTaxTypeBesonders;
+            tempSum += sumTaxTypeNull;
 
             //NEW METHOD: convert sum to €-cent and add to turnover counter
             turnoverCounter += (tempSum * 100);
