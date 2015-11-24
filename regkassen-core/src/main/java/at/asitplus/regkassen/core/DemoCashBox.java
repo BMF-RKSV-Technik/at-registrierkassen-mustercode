@@ -216,7 +216,7 @@ public class DemoCashBox {
         if (!justTraining) {
             updateTurnOverCounterAndAddToDataToBeSigned(receiptRepresentationForSignature);
         } else {
-            receiptRepresentationForSignature.setEncryptedTurnoverValue(CashBoxUtils.base64Encode("TRAIN".getBytes(), false));
+            receiptRepresentationForSignature.setEncryptedTurnoverValue(CashBoxUtils.base64Encode("TRA".getBytes(), false));
         }
         //store UTF-8 String representation of serial number of signing certificate (Zertifikat-Seriennummer) (here signatureCertificateSerialNumber)
         //receiptRepresentationForSignature.setSignatureCertificateSerialNumber(cashBoxParameters.getJwsModule().getSignatureModule().getSigningCertificate().getSerialNumber() + "");

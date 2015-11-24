@@ -373,6 +373,6 @@ public class CashBoxUtils {
     public static boolean isQRCodeRepTrainingReceipt(String qrMachineCodeRepresentation) {
         String encryptedTurnOverCounter = CashBoxUtils.getValueFromMachineCode(qrMachineCodeRepresentation,MachineCodeValue.ENCRYPTED_TURN_OVER_VALUE);
         String decodedTurnOverCounter = new String(CashBoxUtils.base64Decode(encryptedTurnOverCounter,false));
-        return "TRAIN".equals(decodedTurnOverCounter);
+        return "TRA".equals(decodedTurnOverCounter);
     }
 }
