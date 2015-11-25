@@ -19,6 +19,7 @@ package at.asitplus.regkassen.core;
 
 import at.asitplus.regkassen.core.base.receiptdata.*;
 import at.asitplus.regkassen.core.base.rksuite.RKSuite;
+import at.asitplus.regkassen.core.base.util.AESUtil;
 import at.asitplus.regkassen.core.base.util.CashBoxUtils;
 import at.asitplus.regkassen.core.modules.DEP.DEPExportFormat;
 import at.asitplus.regkassen.core.modules.init.CashBoxParameters;
@@ -27,11 +28,8 @@ import at.asitplus.regkassen.core.modules.signature.rawsignatureprovider.DO_NOT_
 import org.apache.commons.math3.util.Precision;
 
 import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
-import javax.crypto.spec.IvParameterSpec;
-import java.nio.ByteBuffer;
 import java.security.*;
 import java.security.cert.X509Certificate;
 import java.util.Date;
@@ -290,7 +288,7 @@ public class DemoCashBox {
 
             //ATTENTION: changes made to procedure on how to sum up/round values for turnover counter
             //PREV: sum up values, round them, add them to turnover counter
-            //NOW: to simplify procedures: turnover counter changed to â‚¬-cent. before: 100â‚¬ were represented as 100, now
+            //NOW: to simplify procedures: turnover counter changed to €-cent. before: 100€ were represented as 100, now
             //they are represented as 10000
             double tempSum = 0.0;
             tempSum += sumTaxTypeNormal;
@@ -299,7 +297,7 @@ public class DemoCashBox {
             tempSum += sumTaxTypeBesonders;
             tempSum += sumTaxTypeNull;
 
-            //NEW METHOD: convert sum to â‚¬-cent and add to turnover counter
+            //NEW METHOD: convert sum to €-cent and add to turnover counter
             turnoverCounter += (tempSum * 100);
 
             //OLD METHOD: DO NOT USE
@@ -324,41 +322,21 @@ public class DemoCashBox {
             byte[] hashValue = messageDigest.digest(IVUTF8StringRepresentation.getBytes());
             byte[] concatenatedHashValue = new byte[16];
             System.arraycopy(hashValue, 0, concatenatedHashValue, 0, 16);
+            
+            //encrypt the turnover counter using the AES key
+            //Note: 3 AES encryption methods are provided for demonstration purposes,
+            //which all use a different mode of operation (CTR, CFB, or ECB).
+            //All three methods provided yield the same result. Still, they are provided here to
+            //demonstrate the use of different modes of operation for encryption. This can be useful, 
+            //if AES functionality is re-implemented in another programming language that does
+            //support selected AES modes of operation only. Please refer to 
+            //https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation for more details
+            //on different modes of operation for block ciphers
+            String base64EncryptedTurnOverValue = AESUtil.encryptCTR(concatenatedHashValue, turnoverCounter, cashBoxParameters.getTurnoverKeyAESkey());
+            //String base64EncryptedTurnOverValue = AESUtil.encryptCFB(concatenatedHashValue, turnoverCounter, cashBoxParameters.getTurnoverKeyAESkey());
+            //String base64EncryptedTurnOverValue = AESUtil.encryptECB(concatenatedHashValue, turnoverCounter, cashBoxParameters.getTurnoverKeyAESkey());
 
-            //extract bytes 0-15 from hash value
-            ByteBuffer byteBufferIV = ByteBuffer.allocate(16);
-            byteBufferIV.put(concatenatedHashValue);
-            byte[] IV = byteBufferIV.array();
-
-            //prepare data
-            //here, 8 bytes are used for the turnover counter (more then enough for every possible turnover...), however
-            //the specification only requires 5 bytes at a minimum
-            //bytes 0-7 are used for the turnover counter, which is represented by 8-byte
-            //two-complement, Big Endian representation (equal to Java LONG), bytes 8-15 are set to 0
-            //negative values are possible (very rare)
-            ByteBuffer byteBufferData = ByteBuffer.allocate(16);
-            byteBufferData.putLong(turnoverCounter);
-            byte[] data = byteBufferData.array();
-
-            //prepare AES cipher with CTR/ICM mode, NoPadding is essential for the decryption process. Padding could not be reconstructed due
-            //to storing only 8 bytes of the cipher text (not the full 16 bytes) (or 5 bytes if the mininum turnover length is used)
-            IvParameterSpec ivSpec = new IvParameterSpec(IV);
-
-            //TODO provider independent
-            Cipher cipher = Cipher.getInstance("AES/CTR/NoPadding", "BC");
-            cipher.init(Cipher.ENCRYPT_MODE, cashBoxParameters.getTurnoverKeyAESkey(), ivSpec);
-
-            //encrypt the turnover value with the prepared cipher
-            byte[] encryptedTurnOverValueComplete = cipher.doFinal(data);
-
-            //extract bytes that will be stored in the receipt (only bytes 0-7)
-            //cryptographic NOTE: this is only possible due to the use of the CTR mode, would not work for ECB/CBC etc. modes
-            byte[] encryptedTurnOverValue = new byte[8];    //or 5 bytes if min. turnover length is used
-            System.arraycopy(encryptedTurnOverValueComplete, 0, encryptedTurnOverValue, 0, encryptedTurnOverValue.length);
-
-            //encode result as BASE64
-            String base64EncryptedTurnOverValue = CashBoxUtils.base64Encode(encryptedTurnOverValue, false);
-
+            
             //set encrypted turnovervalue in data-to-be-signed datastructure
             receiptRepresentationForSignature.setEncryptedTurnoverValue(base64EncryptedTurnOverValue);
 
@@ -367,26 +345,20 @@ public class DemoCashBox {
             //this is just here for demonstration purposes (so that the whole encryption/decryption process can be found in one place)
             //and not needed for that function
             //IV needs to be setup the same way as above
-            //encryptedTurnOverValue needs to be reconstructed in the following way:
-
-            //preparing the cipher text: AES needs 128 bit (16 byte) blocks
-            ByteBuffer testEncryptedTurnOverValueComplete = ByteBuffer.allocate(16);
-
-            //store encrypted turnover value (which would be reconstructed from a receipt) in the create byte buffer
-            //note the lenght of the value stored in the receipt has at a min. 5 bytes, the actual length depends on the size of the turnover value
-            byte[] testEncryptedTurnOverValue = CashBoxUtils.base64Decode(base64EncryptedTurnOverValue, false);
-            int lengthOfEncryptedTurnOverValue = testEncryptedTurnOverValue.length;
-            testEncryptedTurnOverValueComplete.put(testEncryptedTurnOverValue); //result after decoding the BASE64 value in Beleg
-            cipher = Cipher.getInstance("AES/CTR/NoPadding", "BC");
-            cipher.init(Cipher.DECRYPT_MODE, cashBoxParameters.getTurnoverKeyAESkey(), ivSpec);
-            byte[] testPlainTurnOverValueComplete = cipher.doFinal(testEncryptedTurnOverValue);
-
-            byte[] testPlainTurnOverValue = new byte[lengthOfEncryptedTurnOverValue];
-            System.arraycopy(testPlainTurnOverValueComplete, 0, testPlainTurnOverValue, 0, lengthOfEncryptedTurnOverValue);
-
-            //create java LONG out of ByteArray
-            ByteBuffer testPlainTurnOverValueByteBuffer = ByteBuffer.wrap(testPlainTurnOverValue);
-            long testPlainOverTurnOverReconstructed = testPlainTurnOverValueByteBuffer.getLong();
+            //encryptedTurnOverValue needs to be reconstructed as described in the used utility method           
+            //Note: 3 AES decryption methods are provided for demonstration purposes,
+            //which all use a different mode of operation (CTR, CFB, or ECB).
+            //All three methods provided yield the same result. Still, they are provided here to
+            //demonstrate the use of different modes of operation for decryption. This can be useful, if
+            //AES functionality is re-implemented in another programming language that does
+            //support selected AES modes of operation only. Please refer to 
+            //https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation for more details
+            //on different modes of operation for block ciphers
+            long testPlainOverTurnOverReconstructed = AESUtil.decryptCTR(concatenatedHashValue, base64EncryptedTurnOverValue, cashBoxParameters.getTurnoverKeyAESkey());            
+            //long testPlainOverTurnOverReconstructed = AESUtil.decryptCFB(concatenatedHashValue, base64EncryptedTurnOverValue, cashBoxParameters.getTurnoverKeyAESkey());            
+            //long testPlainOverTurnOverReconstructed = AESUtil.decryptECB(concatenatedHashValue, base64EncryptedTurnOverValue, cashBoxParameters.getTurnoverKeyAESkey());
+            
+            
             if (turnoverCounter != testPlainOverTurnOverReconstructed) {
                 System.out.println("DECRYPTION ERROR IN METHOD updateTurnOverCounterAndAddToDataToBeSigned, MUST NOT HAPPEN");
             }
