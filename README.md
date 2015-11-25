@@ -1,5 +1,6 @@
 # Wichtige Informationen
  - **Testfälle**: Es wird für die Hersteller neben dem Prüfwerkzeug auch eine Sammlung von Test-Fällen geben, die die möglichen Kombinationen aus unterschiedlichen Belegen und das korrekte Verhalten abdecken (z.B. Verhalten bei Trainingsbuchung, Verhalten bei ausgefallener Signatureinrichtung, Verhalten bei Startbeleg, Verhalten bei Wechsel von Signaturzertifikat). Die Hersteller sollen sich an diesen Testfällen orientieren, Belege anhand der Testfälle erstellen und dann über das Prüfwerkzeug überprüfen.
+- **Korrekte Implementierung in diesem DEMO-Projekt**: Beim Demo-Code wurde nach bestem Gewissen vorgegangen, dennoch können Fehler nicht ausgeschlossen werden. Um hier eine sehr hohe Qualität erreichen zu können, werden für die nächsten Versionen (und natürlich auch für die Hersteller) die im vorigen Punkt angesprochenen Testfälle erstellt und auch im Muster-Code umgesetzt. Damit kann auch die Korrektheit dieses Mustercodes, zusätzlich zu bereits vorhanden Überprüfungen in den Prüftools, noch detallierter überprüft werden.
 
 # Change Log
  - **25.11.2015**: Release 0.5 veröffentlicht
