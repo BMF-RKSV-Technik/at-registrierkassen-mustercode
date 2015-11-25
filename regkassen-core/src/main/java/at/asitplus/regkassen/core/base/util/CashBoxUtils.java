@@ -357,7 +357,7 @@ public class CashBoxUtils {
     }
 
     /**
-     * determine wheter current receipt is "Trainingsbuchung", check via encrypted turnover value, (BASE64 encoding of TRAINING)
+     * determine wheter current receipt is "Trainingsbuchung", check via encrypted turnover value, (BASE64 encoding of TRA)
      * @param jwsCompactRepresentation JWS compact representation of signed receipt
      * @return is "Trainingsbuchung"?
      */
@@ -373,6 +373,21 @@ public class CashBoxUtils {
     public static boolean isQRCodeRepTrainingReceipt(String qrMachineCodeRepresentation) {
         String encryptedTurnOverCounter = CashBoxUtils.getValueFromMachineCode(qrMachineCodeRepresentation,MachineCodeValue.ENCRYPTED_TURN_OVER_VALUE);
         String decodedTurnOverCounter = new String(CashBoxUtils.base64Decode(encryptedTurnOverCounter,false));
-        return "TRAIN".equals(decodedTurnOverCounter);
+        return "TRA".equals(decodedTurnOverCounter);
+    }
+
+    /**
+     * determine wheter current receipt is "Stornobuchung", check via encrypted turnover value, (BASE64 encoding of STO)
+     * @param jwsCompactRepresentation JWS compact representation of signed receipt
+     * @return is "Stornobuchung"?
+     */
+    public static boolean isJWSCompactRepStornoReceipt(String jwsCompactRepresentation) {
+        return isQRCodeRepStornoReceipt(CashBoxUtils.getQRCodeRepresentationFromJWSCompactRepresentation(jwsCompactRepresentation));
+    }
+
+    public static boolean isQRCodeRepStornoReceipt(String qrMachineCodeRepresentation) {
+        String encryptedTurnOverCounter = CashBoxUtils.getValueFromMachineCode(qrMachineCodeRepresentation,MachineCodeValue.ENCRYPTED_TURN_OVER_VALUE);
+        String decodedTurnOverCounter = new String(CashBoxUtils.base64Decode(encryptedTurnOverCounter,false));
+        return "STO".equals(decodedTurnOverCounter);
     }
 }

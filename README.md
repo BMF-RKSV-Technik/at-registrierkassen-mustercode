@@ -1,18 +1,16 @@
 # Wichtige Informationen
-Die aus Release 0.4 offenen Punkte sind so weit geklärt. Da die Umsetzung im Demo-Code noch nicht zur Verfügung steht, hier eine Zusammenfassung der wichtigsten Informationen:
-
- - **Steuer Satz "Null"** muss in Umsatzzähler eingehen, es gibt also keinen Unterschied zu den anderen Steuersätzen (In Release 0.4 hatte dieser Satz keinen Einfluss auf den Umsatzzähler).
- - **Brutto/Netto Beträge im Steuersatz:** Es werden Netto-Beträge in den Feldern für die Steuer-Sätze verwendet. Somit werden auch Netto-Beträge zum Umsatzzähler addiert/subtrahiert. Hier gab es noch Interpretationsspielraum.
- - **Storno**: 
-	 - Dazu wird es eine ähnliche Lösung wie bei Trainingsbuchungen geben: Storno-Belege werden im Feld Umsatzzähler markiert. Statt dem Umsatzzähler wird hier der BASE64 kodierte Wert der Zeichenkette "STO" verwendet. Damit ist eine eindeutige Erkennung von Stornobelegen möglich.
-	 - Ein Stornobeleg darf nicht mit normalen Buchungen vermischt werden, es können aber mehere Steuersätze gleichzeitig in einem Beleg storniert werden. Storno-Beträge können positive/negative Werte enthalten, wobei ein negativer Wert wohl der gängige Fall sein wird.
-	 - Umsatzzähler wird bei einem Stornobeleg natürlich beeinflusst (im Gegensatz zu einer Trainingsbuchung). 
- - **Training**: Hier wird eine Aktualisierung vorgenommen. Statt "TRAIN" wird die Zeichenkette "TRA" Base64-kodiert im Umsatzzähler abgelegt. Damit ist es nun aufgrund der Länge eindeutig zwischen einem echtem verschlüsselten Umsatzzähler und STO/TRA Belegen zu unterscheiden (Umsatzzähler muss min. 5 byte lang sein, daher ist diese Unterscheidung mit diesen kurzen Zeichenketten möglich).
- - **Weitere wichtige Punkte**:
-	 - Es wird für die Hersteller neben dem Prüfwerkzeug auch eine Sammlung von Test-Fällen geben, die die möglichen Kombinationen aus unterschiedlichen Belegen und das korrekte Verhalten abdecken (z.B. Verhalten bei Trainingsbuchung, Verhalten bei ausgefallener Signatureinrichtung, Verhalten bei Startbeleg, Verhalten bei Wechsel von Signaturzertifikat). Die Hersteller sollen sich an diesen Testfällen orientieren, Belege anhand der Testfälle erstellen und dann über das Prüfwerkzeug überprüfen.
-	 - Es werden Methoden gezeigt die es ermöglichen den AES-CTR Modus mit AES-CFB oder AES-ECB zu emulieren, damit sind die Beispiele dann auch als Basis für andere Programmiersprachen geeignet die die CTR Variante nicht bieten.
+ - **Testfälle**: Es wird für die Hersteller neben dem Prüfwerkzeug auch eine Sammlung von Test-Fällen geben, die die möglichen Kombinationen aus unterschiedlichen Belegen und das korrekte Verhalten abdecken (z.B. Verhalten bei Trainingsbuchung, Verhalten bei ausgefallener Signatureinrichtung, Verhalten bei Startbeleg, Verhalten bei Wechsel von Signaturzertifikat). Die Hersteller sollen sich an diesen Testfällen orientieren, Belege anhand der Testfälle erstellen und dann über das Prüfwerkzeug überprüfen.
 
 # Change Log
+ - **25.11.2015**: Release 0.5 veröffentlicht
+	 - **Information**:
+		 - **Brutto/Netto Beträge im Steuersatz:** Es werden Netto-Beträge in den Feldern für die Steuer-Sätze verwendet. Somit werden auch Netto-Beträge zum Umsatzzähler addiert/subtrahiert.
+	 - **Änderungen**:
+		 - **Trainingsbuchungen**: tatt "TRAIN" wird die Zeichenkette "TRA" Base64-kodiert im Umsatzzähler abgelegt. Damit ist es nun aufgrund der Länge eindeutig zwischen einem echtem verschlüsselten Umsatzzähler und Storno/Trainings-Belegen zu unterscheiden (Der Umsatzzähler muss min. 5 byte lang sein, daher ist diese eindeutige Unterscheidung mit diesen kurzen Zeichenketten möglich).
+		 - **Steuer Satz "Null"** muss in Umsatzzähler eingehen, es gibt also keinen Unterschied zu den anderen Steuersätzen (In Release 0.4 hatte dieser Satz keinen Einfluss auf den Umsatzzähler).
+	 - **Features**:
+		 - **Storno**:  Storno-Belege werden im Feld Umsatzzähler markiert. Statt dem Umsatzzähler wird hier der BASE64 kodierte Wert der Zeichenkette "STO" verwendet. Damit ist eine eindeutige Erkennung von Stornobelegen möglich. Ein Stornobeleg darf nicht mit normalen Buchungen vermischt werden, es können aber mehere Steuersätze gleichzeitig in einem Beleg storniert werden. Storno-Beträge können positive/negative Werte enthalten, wobei ein negativer Wert wohl der gängige Fall sein wird. Der Umsatzzähler wird bei einem Stornobeleg natürlich beeinflusst (im Gegensatz zu einer Trainingsbuchung). 
+		 - **Verschlüsselung**: Da der CTR Modus nicht in allen Programmiersprachen verfügbar ist, wurden zwei weitere Varianten hingefügt, die zeigen wie die Ver/Entschlüsselung mit AES-CFB oder AES-ECB durchgeführt werden kann. Siehe Methode *updateTurnOverCounterAndAddToDataToBeSigned* in Klasse [DemoCashBox](https://github.com/a-sit-plus/at-registrierkassen-mustercode/blob/master/regkassen-core/src/main/java/at/asitplus/regkassen/core/DemoCashBox.java) 
  - **29.10.2015**: Release 0.4 veröffentlicht (Bitte **unbedingt die Hinweise vom 30.10.2015** beachten, wurden einen Tag nach Veröffentlichung der Release hinzugefügt).
 	 - Features:
 		 - Demo:
@@ -77,7 +75,7 @@ Dieses Projekt stellt Demo-Code als Begleitung zur Registrierkassensicherheitsve
 In diesem Projekt werden vorwiegend technische Aspekte der Verordnung betrachtet. Die Informationen und der Code werden laufend erweitert und mit typischen Fragen/Antworten ergänzt.
 
 ## Wichtige Anmerkungen/Einschränkungen
-* *Wichtige Anmerkung*: Die Versionen 0.1 bis 0.4 demonstrieren wie mit den unterschiedlichen Elementen (Signature, QR-Code etc.) umgegangen werden muss. Obwohl hier nach bestem Gewissen vorgegangen wurde, kann keine GARANTIE für die korrekte Funktionsweise übernommen werden. Um hier in den nächsten Versionen mehr Klarheit bieten zu können, werden vom aktuellen Code unabhängige Prüfwerkzeuge geschaffen. Diese ermöglichen den Kassaherstellern die jeweiligen Produkte (und auch diesen Demo-Code) so weit wie möglich auf das korrekte Verhalten mit Relevanz für die Verordnung zu überprüfen.
+* *Wichtige Anmerkung*: Die Versionen 0.1 bis 0.5 demonstrieren wie mit den unterschiedlichen Elementen (Signature, QR-Code etc.) umgegangen werden muss. Obwohl hier nach bestem Gewissen vorgegangen wurde, kann keine GARANTIE für die korrekte Funktionsweise übernommen werden. Um hier in den nächsten Versionen mehr Klarheit bieten zu können, werden vom aktuellen Code unabhängige Prüfwerkzeuge geschaffen. Diese ermöglichen den Kassaherstellern die jeweiligen Produkte (und auch diesen Demo-Code) so weit wie möglich auf das korrekte Verhalten mit Relevanz für die Verordnung zu überprüfen.
 * *Sprache*: Diese Projektseite verwendet Deutsch als Sprache. In den textuellen Ergänzungen im Source Code wird Englisch verwendet.
 
 ##Weiteres Vorgehen
@@ -115,11 +113,11 @@ Neben dem Source Code wird auch immer eine ZIP Datei der ausführbaren Dateien z
 ###Verwendung des Demo-Codes - Demokassa
 Der Demo Code enthält aktuell eine einfache Testklasse die eine Demokassa ansteuert. Diese Demokassa bietet die Möglichkeit eine angegeben Anzahl von Belegen zu erstellen, diese in das DEP Export Format zu exportieren, und einfache Test-Belege als PDF zu erstellen, die die Daten als QR-Code oder OCR-Code beinhalten.
 
-Download und entpacken von regkassen-demo-release-0.4.zip (siehe https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases).
+Download und entpacken von regkassen-demo-release-0.5.zip (siehe https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases).
 
 Ausführen der Demokasse mit
 
-      java -jar regkassen-demo-0.4.jar -o OUTPUT_DIR -n 20 -g -s
+      java -jar regkassen-demo-0.5.jar -o OUTPUT_DIR -n 20 -g -s
       
 Wobei 
 
@@ -139,16 +137,16 @@ Das Output-Verzeichnis enthält folgende Dateien/Verzeichnisse:
  - **Verzeichnis ocr-code-dir**: PDF-Belege die mit dem OCR-Code bedruckt wurden
  - **Verzeichnis qr-code-dir**: PDF-Belege die mit dem QR-Code bedruckt wurden
 
-Ein Beispiel für den Output ist auch direkt verfügbar: example-output-0.4.zip (siehe https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases).
+Ein Beispiel für den Output ist auch direkt verfügbar: example-output-0.5.zip (siehe https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases).
 Code dazu: siehe Klasse [SimpleDemo](https://github.com/a-sit-plus/at-registrierkassen-mustercode/blob/master/regkassen-democashbox/src/main/java/at/asitplus/regkassen/demo/SimpleDemo.java).
 
 ###Verwendung des Prüfwerkzeugs
-In Version 0.4 wurden die Prüfwerkzeuge um weitere Prüfungen erweitert (Ausgefallene Signatureinrichtung, Veschlüsselter Umsatzzähler, etc.). Neben dem DEP Export Format können nun auch einzelne QR-Code-Bsp von Belegen geprüft werden.
-Download und entpacken von regkassen-demo-release-0.4.zip (siehe https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases).
+In Version 0.5 wurden die Prüfwerkzeuge um weitere Prüfungen erweitert (Ausgefallene Signatureinrichtung, Veschlüsselter Umsatzzähler, etc.). Neben dem DEP Export Format können nun auch einzelne QR-Code-Bsp von Belegen geprüft werden.
+Download und entpacken von regkassen-demo-release-0.5.zip (siehe https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases).
 
 **DEP-Export Format**
 
-    java -jar regkassen-verification-depformat-0.4.jar -i DEP-EXPORT-FILE -k AES-KEY-FILE
+    java -jar regkassen-verification-depformat-0.5.jar -i DEP-EXPORT-FILE -k AES-KEY-FILE
 	         
 Wobei
 
@@ -157,7 +155,7 @@ Wobei
 
 **QR-Code-Repräsentation eines einzelnen Belegs oder mehrerer Belege**
 
-    java -jar regkassen-verification-receipts-0.4.jar -i QR-CODE-REP-FILE -s SIGNATURE-CERTIFICATES-FILE
+    java -jar regkassen-verification-receipts-0.5.jar -i QR-CODE-REP-FILE -s SIGNATURE-CERTIFICATES-FILE
 
 Wobei
 

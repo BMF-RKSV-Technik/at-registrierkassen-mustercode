@@ -52,6 +52,7 @@ public class SimpleDemo {
 
     public static double PROPABILITY_TRAINING_RECEIPT = 0.4;
     public static double PROPABILITY_DAMAGED_SIGNATURE_DEVICE = 0.4;
+    public static double PROPABILITY_OF_STORNO_RECEIPT = 0.4;
     public static int DEFAULT_NUMBER_OF_GENERATED_RECEIPTS = 50;
 
 
@@ -80,7 +81,7 @@ public class SimpleDemo {
 
             boolean signatureCreationDeviceAlwaysWorks = cmd.hasOption("g");
             boolean deactivateSignatureCertificateSwitching = cmd.hasOption("s");
-            boolean deactivateTraningReceipts = cmd.hasOption("t");
+            boolean deactivateTrainingReceipts = cmd.hasOption("t");
 
             String outputParentDirectoryString = cmd.getOptionValue("o");
             if (outputParentDirectoryString == null) {
@@ -174,18 +175,24 @@ public class SimpleDemo {
             //store first receipt (Startbeleg) in cashbox
             //all taxtype values are set to zero (per default in this demo)
             RawReceiptData firstReceipt = new RawReceiptData();
-            demoCashBox.storeReceipt(firstReceipt,false);
+            demoCashBox.storeReceipt(firstReceipt,false,false);
 
             //now store the other receipts
             for (RawReceiptData rawReceiptData : receipts) {
                 //store receipt within cashbox: (prepare data-to-be-signed, sign with JWS, store signed receipt in DEP)
 
-                //30% change of training receipt (just for demo purposes)
+                //pre-defined chance for a training receipt (just for demo purposes)
                 boolean isTrainingReceipt = false;
-                if (Math.random()<PROPABILITY_TRAINING_RECEIPT && !deactivateTraningReceipts) {
+                if (Math.random()<PROPABILITY_TRAINING_RECEIPT && !deactivateTrainingReceipts) {
                     isTrainingReceipt = true;
                 }
-                demoCashBox.storeReceipt(rawReceiptData,isTrainingReceipt);
+
+                //pre-defined chance for a storno receipt
+                boolean isStornoReceipt = false;
+                if (Math.random()<PROPABILITY_OF_STORNO_RECEIPT) {
+                    isStornoReceipt = true;
+                }
+                demoCashBox.storeReceipt(rawReceiptData,isTrainingReceipt,isStornoReceipt);
             }
 
             //dump machine readable code of receipts (this "code" is used for the QR-codes)
