@@ -288,7 +288,7 @@ public class DemoCashBox {
 
             //ATTENTION: changes made to procedure on how to sum up/round values for turnover counter
             //PREV: sum up values, round them, add them to turnover counter
-            //NOW: to simplify procedures: turnover counter changed to €-cent. before: 100€ were represented as 100, now
+            //NOW: to simplify procedures: turnover counter changed to ï¿½-cent. before: 100ï¿½ were represented as 100, now
             //they are represented as 10000
             double tempSum = 0.0;
             tempSum += sumTaxTypeNormal;
@@ -297,7 +297,7 @@ public class DemoCashBox {
             tempSum += sumTaxTypeBesonders;
             tempSum += sumTaxTypeNull;
 
-            //NEW METHOD: convert sum to €-cent and add to turnover counter
+            //NEW METHOD: convert sum to ï¿½-cent and add to turnover counter
             turnoverCounter += (tempSum * 100);
 
             //OLD METHOD: DO NOT USE
@@ -332,13 +332,20 @@ public class DemoCashBox {
             //support selected AES modes of operation only. Please refer to 
             //https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation for more details
             //on different modes of operation for block ciphers
-            String base64EncryptedTurnOverValue = AESUtil.encryptCTR(concatenatedHashValue, turnoverCounter, cashBoxParameters.getTurnoverKeyAESkey());
-            //String base64EncryptedTurnOverValue = AESUtil.encryptCFB(concatenatedHashValue, turnoverCounter, cashBoxParameters.getTurnoverKeyAESkey());
-            //String base64EncryptedTurnOverValue = AESUtil.encryptECB(concatenatedHashValue, turnoverCounter, cashBoxParameters.getTurnoverKeyAESkey());
-
+            String base64EncryptedTurnOverValue1 = AESUtil.encryptCTR(concatenatedHashValue, turnoverCounter, cashBoxParameters.getTurnoverKeyAESkey());
+            String base64EncryptedTurnOverValue2 = AESUtil.encryptCFB(concatenatedHashValue, turnoverCounter, cashBoxParameters.getTurnoverKeyAESkey());
+            String base64EncryptedTurnOverValue3 = AESUtil.encryptECB(concatenatedHashValue, turnoverCounter, cashBoxParameters.getTurnoverKeyAESkey());
+            if (!base64EncryptedTurnOverValue1.equals(base64EncryptedTurnOverValue2)) {
+                System.out.println("ENCRYPTION ERROR IN METHOD updateTurnOverCounterAndAddToDataToBeSigned, MUST NOT HAPPEN");
+                System.exit(-1);
+            }
+            if (!base64EncryptedTurnOverValue1.equals(base64EncryptedTurnOverValue3)) {
+                System.out.println("ENCRYPTION ERROR IN METHOD updateTurnOverCounterAndAddToDataToBeSigned, MUST NOT HAPPEN");
+                System.exit(-1);
+            }
             
             //set encrypted turnovervalue in data-to-be-signed datastructure
-            receiptRepresentationForSignature.setEncryptedTurnoverValue(base64EncryptedTurnOverValue);
+            receiptRepresentationForSignature.setEncryptedTurnoverValue(base64EncryptedTurnOverValue1);
 
             //THE FOLLOWING CODE IS ONLY FOR DEMONSTRATION PURPOSES
             //decryption and reconstruction of the turnover value
@@ -354,13 +361,22 @@ public class DemoCashBox {
             //support selected AES modes of operation only. Please refer to 
             //https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation for more details
             //on different modes of operation for block ciphers
-            long testPlainOverTurnOverReconstructed = AESUtil.decryptCTR(concatenatedHashValue, base64EncryptedTurnOverValue, cashBoxParameters.getTurnoverKeyAESkey());            
-            //long testPlainOverTurnOverReconstructed = AESUtil.decryptCFB(concatenatedHashValue, base64EncryptedTurnOverValue, cashBoxParameters.getTurnoverKeyAESkey());            
-            //long testPlainOverTurnOverReconstructed = AESUtil.decryptECB(concatenatedHashValue, base64EncryptedTurnOverValue, cashBoxParameters.getTurnoverKeyAESkey());
-            
-            
-            if (turnoverCounter != testPlainOverTurnOverReconstructed) {
+            long testPlainOverTurnOverReconstructed1 = AESUtil.decryptCTR(concatenatedHashValue, base64EncryptedTurnOverValue1, cashBoxParameters.getTurnoverKeyAESkey());
+            long testPlainOverTurnOverReconstructed2 = AESUtil.decryptCFB(concatenatedHashValue, base64EncryptedTurnOverValue2, cashBoxParameters.getTurnoverKeyAESkey());
+            long testPlainOverTurnOverReconstructed3 = AESUtil.decryptECB(concatenatedHashValue, base64EncryptedTurnOverValue3, cashBoxParameters.getTurnoverKeyAESkey());
+            if (testPlainOverTurnOverReconstructed1 != testPlainOverTurnOverReconstructed2) {
                 System.out.println("DECRYPTION ERROR IN METHOD updateTurnOverCounterAndAddToDataToBeSigned, MUST NOT HAPPEN");
+                System.exit(-1);
+            }
+
+            if (testPlainOverTurnOverReconstructed1 != testPlainOverTurnOverReconstructed3) {
+                System.out.println("DECRYPTION ERROR IN METHOD updateTurnOverCounterAndAddToDataToBeSigned, MUST NOT HAPPEN");
+                System.exit(-1);
+            }
+            
+            if (turnoverCounter != testPlainOverTurnOverReconstructed1) {
+                System.out.println("DECRYPTION ERROR IN METHOD updateTurnOverCounterAndAddToDataToBeSigned, MUST NOT HAPPEN");
+                System.exit(-1);
             }
         } catch (NoSuchProviderException | IllegalBlockSizeException | NoSuchPaddingException | InvalidKeyException | NoSuchAlgorithmException | InvalidAlgorithmParameterException | BadPaddingException e) {
             e.printStackTrace();
