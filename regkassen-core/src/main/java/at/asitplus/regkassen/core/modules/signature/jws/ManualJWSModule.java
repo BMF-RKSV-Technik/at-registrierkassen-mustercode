@@ -63,7 +63,19 @@ public class ManualJWSModule extends AbstractJWSModule {
             byte[] signatureResult = signature.sign();
 
             //encode according to JWS spec //TODO replace with own method
+            //the result of a ECDSA signature consists of two numbers: r and s, typically signature libraries (like in JAVA)
+            //encode these two values in the ASN.1 notation
+//            ECDSASignature ::= SEQUENCE {
+//                r   INTEGER,
+//                s   INTEGER
+//            }
+            //however, the JWS standard just concatenates the byte-array representations of those values (R|S)
+
+            //if the signature - like in this example - is calculated via a crypto library (and not directly with a JWS lib)
+            //then in most of the cases a conversion from ASN.1 to the concatenated representation is required. In this demo
+            //the transformation is done via the following method.
             byte[] jwsSignature = EcdsaUsingShaAlgorithm.convertDerToConcatenated(signatureResult, 64);
+
 
             //encode result as BASE64-URL
             String jwsSignatureBase64Url = CashBoxUtils.base64Encode(jwsSignature, true);
