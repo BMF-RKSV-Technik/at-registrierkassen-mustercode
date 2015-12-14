@@ -222,7 +222,7 @@ public class DemoCashBox {
         }
         //store UTF-8 String representation of serial number of signing certificate (Zertifikat-Seriennummer) (here signatureCertificateSerialNumber)
         //receiptRepresentationForSignature.setSignatureCertificateSerialNumber(cashBoxParameters.getJwsModule().getSignatureModule().getSigningCertificate().getSerialNumber() + "");
-        receiptRepresentationForSignature.setSignatureCertificateSerialNumber(((X509Certificate)(cashBoxParameters.getJwsModule().getSignatureModule().getSigningCertificate())).getSerialNumber() + "");
+        receiptRepresentationForSignature.setSignatureCertificateSerialNumber(((X509Certificate)(cashBoxParameters.getJwsModule().getSignatureModule().getSigningCertificate())).getSerialNumber().toString(16));
         
         //create a chain between the last receipt entry and the current receipt
         //Sig-Voriger-Beleg (here signatureValuePreviousReceiptBASE64)
