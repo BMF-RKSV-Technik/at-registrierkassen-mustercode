@@ -86,7 +86,7 @@ public class DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule implements S
             //create signing cert
             X509v3CertificateBuilder certBuilder = new X509v3CertificateBuilder(
                     new X500Name("CN=RegKassa CA"),
-                    BigInteger.valueOf(new SecureRandom().nextLong()),
+                    BigInteger.valueOf(Math.abs(new SecureRandom().nextLong())),
                     new Date(System.currentTimeMillis() - 10000),
                     new Date(System.currentTimeMillis() + 24L * 3600 * 1000),
                     new X500Name("CN=Signing certificate"),
