@@ -1,3 +1,13 @@
+# 10.02.2016: ACHTUNG: Brutto vs. Netto
+Das BMF hat heute folgende Information bekanntgegeben. Der Mustercode bzw. die Hinweise auf diese Thematik auf dieser Seite werden in den nächsten Version aktualisiert. Diese Information wird auch in den FAQs der WKO bekannt gegeben:
+
+Aufgrund mehrfacher Anfragen und unterschiedlicher Aussagen in den FAQ-WKO und FAQ-Muster-Code erfolgen folgende Klarstellungen durch das BMF:
+ 
+- Bei der Aufteilung der Barzahlung gemäß §§ 9 Abs. 2 Z 4, 10 Abs. 2 Z 4 und 11 Abs. 1 Z 3 RKSV sind beim jeweiligen Steuersatz immer Bruttobeträge (Betrag inkl. USt.) anzugeben.
+- Dem Satz-Null sind Bruttobeträge zuzuordnen, die entweder von der USt. befreit sind, beim Unternehmer nicht, nicht zur Gänze bzw. mit einem anderen % als den % des Signaturformates (derzeit 20% für Satz-Normal, 10% für Satz-Ermaessigt-1, 13% für Satz-Ermaessigt-2 und 19% für Satz-Besonders) der USt. unterliegen oder deren USt. auf Grund anderer Unterlagen geschuldet wird. Darunter fallen beispielsweise Beträge, die im Namen und auf Rechnung dritter vereinnahmt werden (durchlaufende Posten), nicht zur Gänze besteuert sind (Differenzzahlungen) oder auf eine Rechnung verweisen.
+- Sämtliche Beträge in Belegen, die Barzahlungen darstellen oder mit zumindest einer Barzahlung kombiniert sind, sind als Bruttobeträge (inkl. USt.) zu signieren und in den Umsatzzähler aufzunehmen. Dies gilt auch für Stornobuchungen, nicht jedoch für Trainingsbuchungen. Eine freiwillige Signierung von Beträgen aus Belegen ohne Signierungspflicht (z.B.: Belege ohne Barzahlungen) mit Aufnahme in den Umsatzzähler ist immer möglich. Der Umsatzzähler ist als Summenzähler Teil der Sicherheitseinrichtung einer Registrierkasse und für Umsatzanalysen nur in Verbindung mit den weiteren, in der Registrierkasse aufgezeichneten Daten vorgesehen.
+
+
 # Wichtige Informationen
  - **Testfälle**: Es wird für die Hersteller neben dem Prüfwerkzeug auch eine Sammlung von Test-Fällen geben, die die möglichen Kombinationen aus unterschiedlichen Belegen und das korrekte Verhalten abdecken (z.B. Verhalten bei Trainingsbuchung, Verhalten bei ausgefallener Signatureinrichtung, Verhalten bei Startbeleg, Verhalten bei Wechsel von Signaturzertifikat). Die Hersteller sollen sich an diesen Testfällen orientieren, Belege anhand der Testfälle erstellen und dann über das Prüfwerkzeug überprüfen.
  - **Korrekte Implementierung in diesem DEMO-Projekt**: Es wurde darauf geachtet die Qualität des Demo-Codes sehr hoch zu halten, dennoch können Fehler nicht ausgeschlossen werden. Um hier eine sehr hohe Qualität erreichen zu können, werden für die nächsten Versionen die im vorigen Punkt angesprochenen Testfälle erstellt und auch im Muster-Code umgesetzt.
