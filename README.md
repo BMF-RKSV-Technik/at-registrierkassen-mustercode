@@ -1,7 +1,7 @@
 # 19.02.2016: Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV)
 In Zusammenarbeit zwischen dem BMF und A-SIT Plus wurde das Dokument "Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV)" erstellt und am 19.02.2016 in der Version 1.0 freigegeben. Es enthält Festlegungen in technischen Detailfragen zur RKSV auf Prozessebene und Klarstellungen bzw. Ergänzungen im Bereich der Mustercode-Beispiele bis zum 19.02.2016. Das Dokument wird demnächst um weitere Themen ergänzt. Zwei wesentliche Punkte für die nächsten Versionen sind: Integration von detallierten Testfällen für die Überprüfung der Implementierung von Kassensystemen sowie eine detaillierte Übersicht über RKSV-konforme Kassenkonfigurationen.
 
-[Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV) V1.0](https://github.com/a-sit-plus/at-registrierkassen-mustercode/files/137523/2016-02-18-Detailfragen-RKSV-V1.0.pdf)
+[Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV) V1.0](https://github.com/a-sit-plus/at-registrierkassen-mustercode/files/137544/2016-02-18-Detailfragen-RKSV-V1.0.pdf)
 
 
 Die Versionen 0.6. und 0.7 des Mustercodes befinden sich in Vorbereitung (Testfälle, RSKV-konforme Kassenkonfigurationen).
