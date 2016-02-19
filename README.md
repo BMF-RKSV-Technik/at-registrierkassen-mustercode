@@ -3,8 +3,16 @@ In Zusammenarbeit zwischen dem BMF und A-SIT Plus wurde das Dokument "Festlegung
 
 [Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV) V1.0](https://github.com/a-sit-plus/at-registrierkassen-mustercode/files/137544/2016-02-18-Detailfragen-RKSV-V1.0.pdf)
 
+Punkte die bereits bekannt sind aber noch nicht in V1.0 aufgenommen werden konnten:
+- Thema Belegnummer, hier wird es noch Erläuterungen geben
+- [Thema Formatierung des Steuersatzes](https://github.com/a-sit-plus/at-registrierkassen-mustercode/issues/30)
+- diverse Fehler/Typos im Dokument (siehe Issues)
+
 
 Die Versionen 0.6. und 0.7 des Mustercodes befinden sich in Vorbereitung (Testfälle, RSKV-konforme Kassenkonfigurationen).
+
+
+
 
 # Wichtige Informationen
  - **Testfälle**: Es wird für die Hersteller neben dem Prüfwerkzeug auch eine Sammlung von Test-Fällen geben, die die möglichen Kombinationen aus unterschiedlichen Belegen und das korrekte Verhalten abdecken (z.B. Verhalten bei Trainingsbuchung, Verhalten bei ausgefallener Signatureinrichtung, Verhalten bei Startbeleg, Verhalten bei Wechsel von Signaturzertifikat). Die Hersteller sollen sich an diesen Testfällen orientieren, Belege anhand der Testfälle erstellen und dann über das Prüfwerkzeug überprüfen.
