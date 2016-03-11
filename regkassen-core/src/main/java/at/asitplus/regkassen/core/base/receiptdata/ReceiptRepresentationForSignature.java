@@ -35,11 +35,12 @@ import java.util.Locale;
  */
 public class ReceiptRepresentationForSignature {
     //REF TO SPECIFICATION: Detailspezifikation/Abs 4, Abs 5
+
     @SerializedName("Kassen-ID")
     protected String cashBoxID;
 
     @SerializedName("Belegnummer")
-    protected long receiptIdentifier;
+    protected String receiptIdentifier;
 
     @SerializedName("Beleg-Datum-Uhrzeit")
     protected Date receiptDateAndTime;
@@ -116,11 +117,11 @@ public class ReceiptRepresentationForSignature {
         this.cashBoxID = cashBoxID;
     }
 
-    public long getReceiptIdentifier() {
+    public String getReceiptIdentifier() {
         return receiptIdentifier;
     }
 
-    public void setReceiptIdentifier(long receiptIdentifier) {
+    public void setReceiptIdentifier(String receiptIdentifier) {
         this.receiptIdentifier = receiptIdentifier;
     }
 

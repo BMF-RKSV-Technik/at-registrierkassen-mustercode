@@ -17,19 +17,59 @@
 
 package at.asitplus.regkassen.core.modules.signature.rawsignatureprovider;
 
+import at.asitplus.regkassen.core.base.rksuite.RKSuite;
+
 import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.security.cert.Certificate;
 import java.util.List;
 
 /**
- * Simple interface for a raw signature module capable of carrying out a SHA256withECDSA signature (SHA-256 hash, ECDSA
- * signature.)
- * //REF TO SPECIFICATION: Detailspezifikation/Abs 2
+ * interface for a basic raw signature module (e.g. a smartcard, HSM, or even an online module
  */
 public interface SignatureModule {
+    /**
+     *
+     * @return
+     */
+    RKSuite getRKSuite();
+
+    /**
+     * Reference to the private signing key. In case of a smartcard or an HSM, this would only be the reference, in case
+     * of the software based demonstration modules the encoded key is returned
+     * @return
+     */
     PrivateKey getSigningKey();
 
+    /**
+     * get signing certificate (only for certificate based signature devices, which are required for open system)
+     * @return
+     */
     Certificate getSigningCertificate();
-
     List<Certificate> getCertificateChain();
+
+    /**
+     * get public key (e.g. a closed system that does not employ certificates)
+     * @return
+     */
+    PublicKey getSigningPublicKey();
+
+    /**
+     * hash and sign data...
+     * @param dataToBeSigned data to be signed
+     * @return
+     */
+    byte[] signData(byte[] dataToBeSigned);
+
+    /**
+     * @return in case of an open-system: serial number of certificate.
+     * in case of a closed system: company ID (UID, Steuernummer or GLN) plus KEY-ID (e.g. UID:123456789-KE1)
+     */
+    String getSerialNumberOfKeyID();
+
+    /**
+     * @return signature module for a closed or an open system?
+     */
+    boolean isClosedSystemSignatureDevice();
+
 }

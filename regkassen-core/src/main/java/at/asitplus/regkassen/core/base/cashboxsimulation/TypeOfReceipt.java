@@ -15,23 +15,15 @@
  * limitations under the License.
  */
 
-package at.asitplus.regkassen.core.base.receiptdata;
-
-import java.util.ArrayList;
-import java.util.List;
+package at.asitplus.regkassen.core.base.cashboxsimulation;
 
 /**
- * Simple receipt class, that stores various items. Each item has a title, a value (€) and a TAX-type
+ * possible receipt types
  */
-public class RawReceiptData {
-    List<Item> items = new ArrayList<>();
-
-    public void addItem(Item item) {
-        items.add(item);
-    }
-
-    public List<Item> getItems() {
-        return items;
-    }
-
+public enum TypeOfReceipt {
+    START_BELEG,
+    STANDARD_BELEG,
+    STORNO_BELEG,
+    TRAINING_BELEG,
+    NULL_BELEG;
 }

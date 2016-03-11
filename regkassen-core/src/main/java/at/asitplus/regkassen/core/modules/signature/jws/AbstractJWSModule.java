@@ -27,55 +27,37 @@ import java.util.List;
 public abstract class AbstractJWSModule implements JWSModule {
 
     protected JsonWebSignature jws;
-    protected SignatureModule signatureModule;
-    protected boolean damageIsPossible = false;
-    protected double probabilityOfDamagedSignatureDevice;
+    protected SignatureModule openSystemSignatureModule;
 
     @Override
-    public void setSignatureModule(SignatureModule signatureModul) {
-        this.signatureModule = signatureModul;
+    public RKSuite getRKSuite() {
+        return getSignatureModule().getRKSuite();
     }
 
     @Override
+    public String getSerialNumberOfKeyID() {
+        return openSystemSignatureModule.getSerialNumberOfKeyID();
+    }
+
+    public void setOpenSystemSignatureModule(SignatureModule signatureModul) {
+        this.openSystemSignatureModule = signatureModul;
+    }
+
     public SignatureModule getSignatureModule() {
-        return signatureModule;
+        return openSystemSignatureModule;
     }
 
     @Override
-    public List<String> signMachineCodeRepOfReceipt(List<String> machineCodeRepOfReceiptList, RKSuite rkSuite) {
+    public List<String> signMachineCodeRepOfReceipt(List<String> machineCodeRepOfReceiptList,boolean signatureDeviceIsDamaged) {
         List<String> signedReceipts = new ArrayList<>();
         for (String receiptRepresentationForSignature : machineCodeRepOfReceiptList) {
-            signedReceipts.add(signMachineCodeRepOfReceipt(receiptRepresentationForSignature, rkSuite));
+            signedReceipts.add(signMachineCodeRepOfReceipt(receiptRepresentationForSignature,signatureDeviceIsDamaged));
         }
         return signedReceipts;
     }
 
-    /**
-     * set damageIsPossible flag, only for demonstration purposes
-     *
-     * @param damageIsPossible set damageIsPossible state of signature module
-     */
     @Override
-    public void setDamageIsPossible(boolean damageIsPossible) {
-        this.damageIsPossible = damageIsPossible;
-    }
-
-    @Override
-    public boolean isDamagePossible() {
-        return damageIsPossible;
-    }
-
-    /**
-     * set probability of damaged signature device, only for demonstration purposes
-     * @param probabilityOfDamagedSignatureDevice
-     */
-    @Override
-    public void setProbabilityOfDamagedSignatureDevice(double probabilityOfDamagedSignatureDevice) {
-        this.probabilityOfDamagedSignatureDevice = probabilityOfDamagedSignatureDevice;
-    }
-
-    @Override
-    public double getProbabilityOfDamagedSignatureDevice() {
-        return probabilityOfDamagedSignatureDevice;
+    public boolean isClosedSystemSignatureDevice() {
+        return openSystemSignatureModule.isClosedSystemSignatureDevice();
     }
 }

@@ -56,6 +56,7 @@ public class SimplePDFPrinterModule implements PrinterModule {
     }
 
     public byte[] printReceipt(ReceiptPackage receiptPackage, ReceiptPrintType receiptPrintType) {
+       //TODO Training/Storno!
         try {
             //init PDF document
             PDDocument document = new PDDocument();
@@ -68,14 +69,14 @@ public class SimplePDFPrinterModule implements PrinterModule {
 
             //add taxtype-sums
             int line = 1;
-            addTaxTypeToPDF(cos, rect, line++, receiptPackage.getReceiptRepresentationForSignature().getSumTaxSetNormal(), TaxType.SATZ_NORMAL);
-            addTaxTypeToPDF(cos, rect, line++, receiptPackage.getReceiptRepresentationForSignature().getSumTaxSetErmaessigt1(), TaxType.SATZ_ERMAESSIGT_1);
-            addTaxTypeToPDF(cos, rect, line++, receiptPackage.getReceiptRepresentationForSignature().getSumTaxSetErmaessigt2(), TaxType.SATZ_ERMAESSIGT_2);
-            addTaxTypeToPDF(cos, rect, line++, receiptPackage.getReceiptRepresentationForSignature().getSumTaxSetNull(), TaxType.SATZ_NULL);
-            addTaxTypeToPDF(cos, rect, line++, receiptPackage.getReceiptRepresentationForSignature().getSumTaxSetBesonders(), TaxType.SATZ_BESONDERS);
-
             //get string that will be encoded as QR-Code
-            String qrCodeRepresentation = receiptPackage.getQRCodeRepresentation();
+            String qrCodeRepresentation = CashBoxUtils.getQRCodeRepresentationFromJWSCompactRepresentation(receiptPackage.getJwsCompactRepresentation());
+
+            addTaxTypeToPDF(cos, rect, line++, CashBoxUtils.getValueFromMachineCode(qrCodeRepresentation,MachineCodeValue.SUM_TAX_SET_NORMAL),TaxType.SATZ_NORMAL);
+            addTaxTypeToPDF(cos, rect, line++, CashBoxUtils.getValueFromMachineCode(qrCodeRepresentation,MachineCodeValue.SUM_TAX_SET_ERMAESSIGT1),TaxType.SATZ_ERMAESSIGT_1);
+            addTaxTypeToPDF(cos, rect, line++, CashBoxUtils.getValueFromMachineCode(qrCodeRepresentation,MachineCodeValue.SUM_TAX_SET_ERMAESSIGT2),TaxType.SATZ_ERMAESSIGT_2);
+            addTaxTypeToPDF(cos, rect, line++, CashBoxUtils.getValueFromMachineCode(qrCodeRepresentation,MachineCodeValue.SUM_TAX_SET_BESONDERS),TaxType.SATZ_BESONDERS);
+            addTaxTypeToPDF(cos, rect, line++, CashBoxUtils.getValueFromMachineCode(qrCodeRepresentation,MachineCodeValue.SUM_TAX_SET_NULL),TaxType.SATZ_NULL);
 
             String signatureValue = CashBoxUtils.getValueFromMachineCode(qrCodeRepresentation, MachineCodeValue.SIGNATURE_VALUE);
             String decodedSignatureValue = new String(CashBoxUtils.base64Decode(signatureValue, false));
@@ -116,7 +117,7 @@ public class SimplePDFPrinterModule implements PrinterModule {
         return null;
     }
 
-    protected void addTaxTypeToPDF(PDPageContentStream cos, PDRectangle rect, int line, double sum, TaxType taxType) {
+    protected void addTaxTypeToPDF(PDPageContentStream cos, PDRectangle rect, int line, String sum, TaxType taxType) {
         PDFont fontPlain = PDType1Font.HELVETICA;
         try {
             cos.beginText();
@@ -137,7 +138,7 @@ public class SimplePDFPrinterModule implements PrinterModule {
             PDFont font = new PDType1AfmPfbFont(doc, inputStreamAFM, inputStreamPFB);
 
             //get machine code as OCR representation
-            String ocrRepresentation = receiptPackage.getOcrCodeRepresentation();
+            String ocrRepresentation = CashBoxUtils.getOCRCodeRepresentationFromJWSCompactRepresentation(receiptPackage.getJwsCompactRepresentation());
 
             //print OCR rep to PDF document
             int CHARS_PER_LINE = 40;
@@ -169,7 +170,8 @@ public class SimplePDFPrinterModule implements PrinterModule {
     protected BufferedImage createQRCode(ReceiptPackage receiptPackage) {
         try {
 
-            String qrCodeRepresentation = receiptPackage.getQRCodeRepresentation();
+            String qrCodeRepresentation = CashBoxUtils.getQRCodeRepresentationFromJWSCompactRepresentation(receiptPackage.getJwsCompactRepresentation());
+
             //create QR-Code
             int size = 128;
 

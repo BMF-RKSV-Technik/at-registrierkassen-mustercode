@@ -19,7 +19,10 @@ package at.asitplus.regkassen.core.base.rksuite;
 
 public enum RKSuite {
     //RK Suite defined in Detailspezifikation/ABS 2
-    R1_AT0("1", "AT0", "ES256", "SHA-256", 8);
+    //suite for a closed system (closed systems are identified by the ZDA-ID AT0)
+    R1_AT0("1", "AT0", "ES256", "SHA-256", 8),
+    //suite for an open system (in this case with the virtual ZDA identified by AT100)
+    R1_AT100("1", "AT100", "ES256", "SHA-256", 8);
 
     protected String suiteID;
     protected String zdaID;
@@ -37,6 +40,10 @@ public enum RKSuite {
 
     public String getSuiteID() {
         return "R" + suiteID + "-" + zdaID;
+    }
+
+    public String getZdaID() {
+        return zdaID;
     }
 
     public String getJwsSignatureAlgorithm() {

@@ -17,12 +17,14 @@
 
 package at.asitplus.regkassen.core.modules.signature.jws;
 
-import at.asitplus.regkassen.core.base.rksuite.RKSuite;
 import at.asitplus.regkassen.core.base.util.CashBoxUtils;
-import org.jose4j.jws.EcdsaUsingShaAlgorithm;
+import at.asitplus.regkassen.core.base.util.CryptoUtil;
 
 import java.io.IOException;
-import java.security.*;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.Signature;
+import java.security.SignatureException;
 
 /**
  * Manual JWS signature module, that does not require any JWS library
@@ -35,19 +37,19 @@ import java.security.*;
 public class ManualJWSModule extends AbstractJWSModule {
 
     @Override
-    public String signMachineCodeRepOfReceipt(String machineCodeRepOfReceipt, RKSuite rkSuite) {
+    public String signMachineCodeRepOfReceipt(String machineCodeRepOfReceipt, boolean signatureDeviceIsDamaged) {
         try {
 
-            if (damageIsPossible) {
-                double randValue = Math.random();
-                if (randValue<=probabilityOfDamagedSignatureDevice) {
-                    String jwsHeader = "eyJhbGciOiJFUzI1NiJ9";  //ES256 Header for JWS
-                    String jwsPayload = CashBoxUtils.base64Encode(machineCodeRepOfReceipt.getBytes(),true); //get payload
-                    String jwsSignature = CashBoxUtils.base64Encode("Sicherheitseinrichtung ausgefallen".getBytes(),true);  //create damaged signature part
-                    String jwsCompactRep = jwsHeader+"."+jwsPayload+"."+jwsSignature;
-                    return jwsCompactRep;
-                }
+            //FOR DEMONSTRATION PURPOSES
+            //if damage occurs, the signature value is replaced with the term "Sicherheitseinrichtung ausgefallen"
+            if (signatureDeviceIsDamaged) {
+                String jwsHeader = "eyJhbGciOiJFUzI1NiJ9";  //ES256 Header for JWS
+                String jwsPayload = CashBoxUtils.base64Encode(machineCodeRepOfReceipt.getBytes(), true); //get payload
+                String jwsSignature = CashBoxUtils.base64Encode("Sicherheitseinrichtung ausgefallen".getBytes(), true);  //create damaged signature part
+                String jwsCompactRep = jwsHeader + "." + jwsPayload + "." + jwsSignature;
+                return jwsCompactRep;
             }
+
 
             //prepare data to be signed, "ES256 JWS header" fixed (currently the only relevant signature/hash method (RK1)
             String jwsHeaderBase64Url = "eyJhbGciOiJFUzI1NiJ9";
@@ -56,13 +58,13 @@ public class ManualJWSModule extends AbstractJWSModule {
 
             //prepare signature according to JAVA JCE/JCA
             Signature signature = Signature.getInstance("SHA256withECDSA");
-            signature.initSign(signatureModule.getSigningKey());
+            signature.initSign(openSystemSignatureModule.getSigningKey());
             signature.update(jwsDataToBeSigned.getBytes());
 
             //sign data
             byte[] signatureResult = signature.sign();
 
-            //encode according to JWS spec //TODO replace with own method
+            //encode according to JWS spec
             //the result of a ECDSA signature consists of two numbers: r and s, typically signature libraries (like in JAVA)
             //encode these two values in the ASN.1 notation
 //            ECDSASignature ::= SEQUENCE {
@@ -70,12 +72,10 @@ public class ManualJWSModule extends AbstractJWSModule {
 //                s   INTEGER
 //            }
             //however, the JWS standard just concatenates the byte-array representations of those values (R|S)
-
             //if the signature - like in this example - is calculated via a crypto library (and not directly with a JWS lib)
             //then in most of the cases a conversion from ASN.1 to the concatenated representation is required. In this demo
             //the transformation is done via the following method.
-            byte[] jwsSignature = EcdsaUsingShaAlgorithm.convertDerToConcatenated(signatureResult, 64);
-
+            byte[] jwsSignature = CryptoUtil.convertDEREncodedSignatureToJWSConcatenated(signatureResult);
 
             //encode result as BASE64-URL
             String jwsSignatureBase64Url = CashBoxUtils.base64Encode(jwsSignature, true);

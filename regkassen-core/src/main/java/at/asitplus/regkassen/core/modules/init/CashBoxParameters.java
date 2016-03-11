@@ -18,68 +18,51 @@
 package at.asitplus.regkassen.core.modules.init;
 
 
-import at.asitplus.regkassen.core.base.rksuite.RKSuite;
-import at.asitplus.regkassen.core.modules.print.PrinterModule;
 import at.asitplus.regkassen.core.modules.DEP.DEPModule;
+import at.asitplus.regkassen.core.modules.print.PrinterModule;
 import at.asitplus.regkassen.core.modules.signature.jws.JWSModule;
 
 import javax.crypto.SecretKey;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * simple init class for a CashBox
  * in this demonstration the AES key is also stored in this class
- * in a real world implementation the AES key would need to be stored in a secure place
+ * in a real world implementation the AES key would need to be stored in a secure location
  */
 public class CashBoxParameters {
-    protected String cashBoxID;
-    protected long initialReceiptIdentifier;
-    protected SecretKey turnoverKeyAESkey;
-    protected RKSuite rkSuite;
-    protected int changeSignatureCertificateAfterSoManyReceipts = -1; //-1 never change sig certificate, this value is used for demonstration purposes
+    protected String cashBoxId;
+    protected SecretKey turnOverCounterAESKey;
+    protected String companyID;
 
     //modules
     protected DEPModule depModul;
-    protected JWSModule jwsModule;
+    protected List<JWSModule> jwsSignatureModules = new ArrayList();
     protected PrinterModule printerModule;
 
-    public int getChangeSignatureCertificateAfterSoManyReceipts() {
-        return changeSignatureCertificateAfterSoManyReceipts;
+    public String getCashBoxId() {
+        return cashBoxId;
     }
 
-    public void setChangeSignatureCertificateAfterSoManyReceipts(int changeSignatureCertificateAfterSoManyReceipts) {
-        this.changeSignatureCertificateAfterSoManyReceipts = changeSignatureCertificateAfterSoManyReceipts;
+    public void setCashBoxId(String cashBoxId) {
+        this.cashBoxId = cashBoxId;
     }
 
-    public String getCashBoxID() {
-        return cashBoxID;
+    public SecretKey getTurnOverCounterAESKey() {
+        return turnOverCounterAESKey;
     }
 
-    public void setCashBoxID(String cashBoxID) {
-        this.cashBoxID = cashBoxID;
+    public void setTurnOverCounterAESKey(SecretKey turnOverCounterAESKey) {
+        this.turnOverCounterAESKey = turnOverCounterAESKey;
     }
 
-    public long getInitialReceiptIdentifier() {
-        return initialReceiptIdentifier;
+    public String getCompanyID() {
+        return companyID;
     }
 
-    public void setInitialReceiptIdentifier(long initialReceiptIdentifier) {
-        this.initialReceiptIdentifier = initialReceiptIdentifier;
-    }
-
-    public SecretKey getTurnoverKeyAESkey() {
-        return turnoverKeyAESkey;
-    }
-
-    public void setTurnoverKeyAESkey(SecretKey turnoverKeyAESkey) {
-        this.turnoverKeyAESkey = turnoverKeyAESkey;
-    }
-
-    public RKSuite getRkSuite() {
-        return rkSuite;
-    }
-
-    public void setRkSuite(RKSuite rkSuite) {
-        this.rkSuite = rkSuite;
+    public void setCompanyID(String companyID) {
+        this.companyID = companyID;
     }
 
     public DEPModule getDepModul() {
@@ -90,12 +73,12 @@ public class CashBoxParameters {
         this.depModul = depModul;
     }
 
-    public JWSModule getJwsModule() {
-        return jwsModule;
+    public List<JWSModule> getJwsSignatureModules() {
+        return jwsSignatureModules;
     }
 
-    public void setJwsModule(JWSModule jwsModule) {
-        this.jwsModule = jwsModule;
+    public void setJwsSignatureModules(List<JWSModule> jwsSignatureModules) {
+        this.jwsSignatureModules = jwsSignatureModules;
     }
 
     public PrinterModule getPrinterModule() {
@@ -105,4 +88,7 @@ public class CashBoxParameters {
     public void setPrinterModule(PrinterModule printerModule) {
         this.printerModule = printerModule;
     }
+
+
+
 }
