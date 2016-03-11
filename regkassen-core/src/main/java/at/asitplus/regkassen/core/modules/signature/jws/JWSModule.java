@@ -26,19 +26,42 @@ import java.util.List;
  * Simple interface for highlevel signature module capable of creating a JSON Web Signature
  */
 public interface JWSModule {
-    void setSignatureModule(SignatureModule signatureModul);
+    /**
+     * @param signatureModul Underlying signature module (e.g. card, HSM etc.) that is used to create the JWS signature
+     */
+    void setOpenSystemSignatureModule(SignatureModule signatureModul);
 
+    /**
+     *
+     * @return underlying signature module
+     */
     SignatureModule getSignatureModule();
 
-    String signMachineCodeRepOfReceipt(String machineCodeRepOfReceipt, RKSuite rkSuite);
+    /**
+     * sign machine readable code
+     * @param machineCodeRepOfReceipt machine readable code
+     * @param signatureDeviceIsDamaged flag to indicate a damaged signature device, this is ONLY required for the demo code
+     * @return
+     */
+    String signMachineCodeRepOfReceipt(String machineCodeRepOfReceipt, boolean signatureDeviceIsDamaged);
 
-    List<String> signMachineCodeRepOfReceipt(List<String> machineCodeRepOfReceiptList, RKSuite rkSuite);
+    List<String> signMachineCodeRepOfReceipt(List<String> machineCodeRepOfReceiptList, boolean signatureDeviceIsDamaged);
 
-    //JUST FOR DEMONSTRATION PURPOSES
-    void setDamageIsPossible(boolean damageIsPossible);
-    boolean isDamagePossible();
+    /**
+     * @return RKSuite of Signature module (mainly required for ZDA-ID)
+     */
+    RKSuite getRKSuite();
 
-    void setProbabilityOfDamagedSignatureDevice(double probabilityOfDamagedSignatureDevice);
-    double getProbabilityOfDamagedSignatureDevice();
+    /**
+     *
+     * @return in case of an open-system: serial number of certificate.
+     * in case of a closed system: company ID (UID, Steuernummer or GLN) plus KEY-ID (e.g. UID:123456789-KE1)
+     * in case of an open system: serial number of the used certificate
+     */
+    String getSerialNumberOfKeyID();
 
+    /**
+     * @return signature module for a closed or an open system?
+     */
+    boolean isClosedSystemSignatureDevice();
 }

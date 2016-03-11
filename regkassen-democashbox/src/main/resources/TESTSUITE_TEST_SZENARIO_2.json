@@ -1,0 +1,1113 @@
+{
+  "cashBoxId": "CASHBOX-DEMO-1",
+  "base64AesKey": "WQRtiiya3hYh/Uz44Bv3x8ETl1nrH6nCdErn69g5/lU=",
+  "companyID": "U:ATU12345678",
+  "simulationRunLabel": "TESTSUITE_TEST_SZENARIO_2",
+  "numberOfSignatureDevices": 3,
+  "cashBoxInstructionList": [
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-82",
+      "dateToUse": "2016-03-11T02:12:48",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": 0.0,
+        "taxSetErmaessigt1": 0.0,
+        "taxSetErmaessigt2": 0.0,
+        "taxSetNull": 0.0,
+        "taxSetBesonders": 0.0
+      },
+      "typeOfReceipt": "START_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": true,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-83",
+      "dateToUse": "2016-03-12T03:13:49",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": 0.0,
+        "taxSetErmaessigt1": 0.0,
+        "taxSetErmaessigt2": 0.0,
+        "taxSetNull": 0.0,
+        "taxSetBesonders": 0.0
+      },
+      "typeOfReceipt": "NULL_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-84",
+      "dateToUse": "2016-03-13T04:14:50",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": 0.0,
+        "taxSetErmaessigt1": 0.0,
+        "taxSetErmaessigt2": 0.0,
+        "taxSetNull": 0.0,
+        "taxSetBesonders": 0.0
+      },
+      "typeOfReceipt": "NULL_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": true,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-85",
+      "dateToUse": "2016-03-14T05:15:51",
+      "usedSignatureDevice": 2,
+      "simplifiedReceipt": {
+        "taxSetNormal": -1.35,
+        "taxSetErmaessigt1": 36.21,
+        "taxSetErmaessigt2": 144.48,
+        "taxSetNull": 60.97,
+        "taxSetBesonders": -24.82
+      },
+      "typeOfReceipt": "STORNO_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-86",
+      "dateToUse": "2016-03-15T06:16:52",
+      "usedSignatureDevice": 2,
+      "simplifiedReceipt": {
+        "taxSetNormal": 0.0,
+        "taxSetErmaessigt1": 0.0,
+        "taxSetErmaessigt2": 0.0,
+        "taxSetNull": 0.0,
+        "taxSetBesonders": 0.0
+      },
+      "typeOfReceipt": "NULL_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-87",
+      "dateToUse": "2016-03-16T07:17:53",
+      "usedSignatureDevice": 1,
+      "simplifiedReceipt": {
+        "taxSetNormal": 40.64,
+        "taxSetErmaessigt1": 45.45,
+        "taxSetErmaessigt2": -48.5,
+        "taxSetNull": 186.88,
+        "taxSetBesonders": 192.5
+      },
+      "typeOfReceipt": "STORNO_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": true,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-88",
+      "dateToUse": "2016-03-17T08:18:54",
+      "usedSignatureDevice": 2,
+      "simplifiedReceipt": {
+        "taxSetNormal": 6.59,
+        "taxSetErmaessigt1": 186.02,
+        "taxSetErmaessigt2": 13.73,
+        "taxSetNull": 181.69,
+        "taxSetBesonders": 103.4
+      },
+      "typeOfReceipt": "STORNO_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": true,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-89",
+      "dateToUse": "2016-03-18T09:19:55",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": 79.91,
+        "taxSetErmaessigt1": 34.74,
+        "taxSetErmaessigt2": 65.79,
+        "taxSetNull": 89.77,
+        "taxSetBesonders": 20.75
+      },
+      "typeOfReceipt": "STORNO_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": true,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-90",
+      "dateToUse": "2016-03-19T10:20:56",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": 69.99,
+        "taxSetErmaessigt1": 109.31,
+        "taxSetErmaessigt2": 180.71,
+        "taxSetNull": -39.37,
+        "taxSetBesonders": 25.53
+      },
+      "typeOfReceipt": "TRAINING_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-91",
+      "dateToUse": "2016-03-20T11:21:57",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": 0.0,
+        "taxSetErmaessigt1": 0.0,
+        "taxSetErmaessigt2": 0.0,
+        "taxSetNull": 0.0,
+        "taxSetBesonders": 0.0
+      },
+      "typeOfReceipt": "NULL_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": true,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-92",
+      "dateToUse": "2016-03-21T12:22:58",
+      "usedSignatureDevice": 2,
+      "simplifiedReceipt": {
+        "taxSetNormal": 48.28,
+        "taxSetErmaessigt1": -37.64,
+        "taxSetErmaessigt2": 38.45,
+        "taxSetNull": 116.49,
+        "taxSetBesonders": -36.25
+      },
+      "typeOfReceipt": "TRAINING_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": true,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-93",
+      "dateToUse": "2016-03-22T13:23:59",
+      "usedSignatureDevice": 2,
+      "simplifiedReceipt": {
+        "taxSetNormal": 127.54,
+        "taxSetErmaessigt1": 128.97,
+        "taxSetErmaessigt2": 161.46,
+        "taxSetNull": -19.7,
+        "taxSetBesonders": 107.88
+      },
+      "typeOfReceipt": "STORNO_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": true,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-94",
+      "dateToUse": "2016-03-23T14:25:00",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": -2.58,
+        "taxSetErmaessigt1": 15.48,
+        "taxSetErmaessigt2": 191.42,
+        "taxSetNull": 124.42,
+        "taxSetBesonders": 198.17
+      }
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-95",
+      "dateToUse": "2016-03-24T15:26:01",
+      "usedSignatureDevice": 1,
+      "simplifiedReceipt": {
+        "taxSetNormal": 0.0,
+        "taxSetErmaessigt1": 0.0,
+        "taxSetErmaessigt2": 0.0,
+        "taxSetNull": 0.0,
+        "taxSetBesonders": 0.0
+      },
+      "typeOfReceipt": "NULL_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-96",
+      "dateToUse": "2016-03-25T16:27:02",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": 67.34,
+        "taxSetErmaessigt1": -21.58,
+        "taxSetErmaessigt2": 21.51,
+        "taxSetNull": 185.42,
+        "taxSetBesonders": 143.32
+      },
+      "typeOfReceipt": "TRAINING_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": true,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-97",
+      "dateToUse": "2016-03-26T17:28:03",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": 58.05,
+        "taxSetErmaessigt1": 172.28,
+        "taxSetErmaessigt2": -22.34,
+        "taxSetNull": 39.64,
+        "taxSetBesonders": 179.77
+      },
+      "typeOfReceipt": "STORNO_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": true,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-98",
+      "dateToUse": "2016-03-27T18:29:04",
+      "usedSignatureDevice": 1,
+      "simplifiedReceipt": {
+        "taxSetNormal": 0.0,
+        "taxSetErmaessigt1": 0.0,
+        "taxSetErmaessigt2": 0.0,
+        "taxSetNull": 0.0,
+        "taxSetBesonders": 0.0
+      },
+      "typeOfReceipt": "NULL_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": true,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-99",
+      "dateToUse": "2016-03-28T19:30:05",
+      "usedSignatureDevice": 2,
+      "simplifiedReceipt": {
+        "taxSetNormal": 106.29,
+        "taxSetErmaessigt1": 96.54,
+        "taxSetErmaessigt2": 70.95,
+        "taxSetNull": 55.17,
+        "taxSetBesonders": 144.27
+      },
+      "typeOfReceipt": "STORNO_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-100",
+      "dateToUse": "2016-03-29T20:31:06",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": 0.0,
+        "taxSetErmaessigt1": 0.0,
+        "taxSetErmaessigt2": 0.0,
+        "taxSetNull": 0.0,
+        "taxSetBesonders": 0.0
+      },
+      "typeOfReceipt": "NULL_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": true,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-101",
+      "dateToUse": "2016-03-30T21:32:07",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": -41.36,
+        "taxSetErmaessigt1": -1.91,
+        "taxSetErmaessigt2": -4.8,
+        "taxSetNull": -4.03,
+        "taxSetBesonders": 164.69
+      }
+    },
+    {
+      "signatureDeviceDamaged": true,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-102",
+      "dateToUse": "2016-03-31T22:33:08",
+      "usedSignatureDevice": 2,
+      "simplifiedReceipt": {
+        "taxSetNormal": 7.03,
+        "taxSetErmaessigt1": 51.22,
+        "taxSetErmaessigt2": -38.05,
+        "taxSetNull": 163.69,
+        "taxSetBesonders": 151.96
+      },
+      "typeOfReceipt": "STORNO_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-103",
+      "dateToUse": "2016-04-01T23:34:09",
+      "usedSignatureDevice": 2,
+      "simplifiedReceipt": {
+        "taxSetNormal": 0.0,
+        "taxSetErmaessigt1": 0.0,
+        "taxSetErmaessigt2": 0.0,
+        "taxSetNull": 0.0,
+        "taxSetBesonders": 0.0
+      },
+      "typeOfReceipt": "NULL_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-104",
+      "dateToUse": "2016-04-03T00:35:10",
+      "usedSignatureDevice": 2,
+      "simplifiedReceipt": {
+        "taxSetNormal": 157.5,
+        "taxSetErmaessigt1": 31.89,
+        "taxSetErmaessigt2": -34.29,
+        "taxSetNull": -6.3,
+        "taxSetBesonders": -40.35
+      }
+    },
+    {
+      "signatureDeviceDamaged": true,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-105",
+      "dateToUse": "2016-04-04T01:36:11",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": 10.63,
+        "taxSetErmaessigt1": 52.33,
+        "taxSetErmaessigt2": 59.82,
+        "taxSetNull": 161.64,
+        "taxSetBesonders": 146.65
+      },
+      "typeOfReceipt": "STORNO_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-106",
+      "dateToUse": "2016-04-05T02:37:12",
+      "usedSignatureDevice": 2,
+      "simplifiedReceipt": {
+        "taxSetNormal": 0.0,
+        "taxSetErmaessigt1": 0.0,
+        "taxSetErmaessigt2": 0.0,
+        "taxSetNull": 0.0,
+        "taxSetBesonders": 0.0
+      },
+      "typeOfReceipt": "NULL_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": true,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-107",
+      "dateToUse": "2016-04-06T03:38:13",
+      "usedSignatureDevice": 2,
+      "simplifiedReceipt": {
+        "taxSetNormal": 0.0,
+        "taxSetErmaessigt1": 0.0,
+        "taxSetErmaessigt2": 0.0,
+        "taxSetNull": 0.0,
+        "taxSetBesonders": 0.0
+      },
+      "typeOfReceipt": "NULL_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": true,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-108",
+      "dateToUse": "2016-04-07T04:39:14",
+      "usedSignatureDevice": 1,
+      "simplifiedReceipt": {
+        "taxSetNormal": 157.79,
+        "taxSetErmaessigt1": 5.27,
+        "taxSetErmaessigt2": 75.52,
+        "taxSetNull": 82.26,
+        "taxSetBesonders": 141.28
+      },
+      "typeOfReceipt": "TRAINING_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": true,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-109",
+      "dateToUse": "2016-04-08T05:40:15",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": 89.03,
+        "taxSetErmaessigt1": 100.02,
+        "taxSetErmaessigt2": 149.46,
+        "taxSetNull": 121.43,
+        "taxSetBesonders": -49.57
+      },
+      "typeOfReceipt": "TRAINING_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": true,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-110",
+      "dateToUse": "2016-04-09T06:41:16",
+      "usedSignatureDevice": 1,
+      "simplifiedReceipt": {
+        "taxSetNormal": 15.6,
+        "taxSetErmaessigt1": 38.55,
+        "taxSetErmaessigt2": 166.45,
+        "taxSetNull": 48.36,
+        "taxSetBesonders": 58.67
+      }
+    },
+    {
+      "signatureDeviceDamaged": true,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-111",
+      "dateToUse": "2016-04-10T07:42:17",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": 122.94,
+        "taxSetErmaessigt1": -1.44,
+        "taxSetErmaessigt2": -20.86,
+        "taxSetNull": -15.02,
+        "taxSetBesonders": 148.44
+      },
+      "typeOfReceipt": "TRAINING_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": true,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-112",
+      "dateToUse": "2016-04-11T08:43:18",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": 0.0,
+        "taxSetErmaessigt1": 0.0,
+        "taxSetErmaessigt2": 0.0,
+        "taxSetNull": 0.0,
+        "taxSetBesonders": 0.0
+      },
+      "typeOfReceipt": "NULL_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": true,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-113",
+      "dateToUse": "2016-04-12T09:44:19",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": 16.5,
+        "taxSetErmaessigt1": -27.53,
+        "taxSetErmaessigt2": -4.54,
+        "taxSetNull": 82.85,
+        "taxSetBesonders": -6.78
+      }
+    },
+    {
+      "signatureDeviceDamaged": true,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-114",
+      "dateToUse": "2016-04-13T10:45:20",
+      "usedSignatureDevice": 2,
+      "simplifiedReceipt": {
+        "taxSetNormal": 55.9,
+        "taxSetErmaessigt1": 111.7,
+        "taxSetErmaessigt2": 130.76,
+        "taxSetNull": 11.97,
+        "taxSetBesonders": 99.73
+      }
+    },
+    {
+      "signatureDeviceDamaged": true,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-115",
+      "dateToUse": "2016-04-14T11:46:21",
+      "usedSignatureDevice": 1,
+      "simplifiedReceipt": {
+        "taxSetNormal": 0.0,
+        "taxSetErmaessigt1": 0.0,
+        "taxSetErmaessigt2": 0.0,
+        "taxSetNull": 0.0,
+        "taxSetBesonders": 0.0
+      },
+      "typeOfReceipt": "NULL_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": true,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-116",
+      "dateToUse": "2016-04-15T12:47:22",
+      "usedSignatureDevice": 1,
+      "simplifiedReceipt": {
+        "taxSetNormal": 0.0,
+        "taxSetErmaessigt1": 0.0,
+        "taxSetErmaessigt2": 0.0,
+        "taxSetNull": 0.0,
+        "taxSetBesonders": 0.0
+      },
+      "typeOfReceipt": "NULL_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-117",
+      "dateToUse": "2016-04-16T13:48:23",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": 0.0,
+        "taxSetErmaessigt1": 0.0,
+        "taxSetErmaessigt2": 0.0,
+        "taxSetNull": 0.0,
+        "taxSetBesonders": 0.0
+      },
+      "typeOfReceipt": "NULL_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-118",
+      "dateToUse": "2016-04-17T14:49:24",
+      "usedSignatureDevice": 1,
+      "simplifiedReceipt": {
+        "taxSetNormal": 0.0,
+        "taxSetErmaessigt1": 0.0,
+        "taxSetErmaessigt2": 0.0,
+        "taxSetNull": 0.0,
+        "taxSetBesonders": 0.0
+      },
+      "typeOfReceipt": "NULL_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-119",
+      "dateToUse": "2016-04-18T15:50:25",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": 28.74,
+        "taxSetErmaessigt1": 94.46,
+        "taxSetErmaessigt2": 50.85,
+        "taxSetNull": 142.81,
+        "taxSetBesonders": 98.03
+      },
+      "typeOfReceipt": "STORNO_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-120",
+      "dateToUse": "2016-04-19T16:51:26",
+      "usedSignatureDevice": 1,
+      "simplifiedReceipt": {
+        "taxSetNormal": 116.72,
+        "taxSetErmaessigt1": 2.43,
+        "taxSetErmaessigt2": -32.79,
+        "taxSetNull": 16.13,
+        "taxSetBesonders": 48.8
+      },
+      "typeOfReceipt": "STORNO_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": true,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-121",
+      "dateToUse": "2016-04-20T17:52:27",
+      "usedSignatureDevice": 2,
+      "simplifiedReceipt": {
+        "taxSetNormal": 124.9,
+        "taxSetErmaessigt1": 74.19,
+        "taxSetErmaessigt2": -35.54,
+        "taxSetNull": -37.63,
+        "taxSetBesonders": 2.61
+      },
+      "typeOfReceipt": "TRAINING_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-122",
+      "dateToUse": "2016-04-21T18:53:28",
+      "usedSignatureDevice": 2,
+      "simplifiedReceipt": {
+        "taxSetNormal": 0.0,
+        "taxSetErmaessigt1": 0.0,
+        "taxSetErmaessigt2": 0.0,
+        "taxSetNull": 0.0,
+        "taxSetBesonders": 0.0
+      },
+      "typeOfReceipt": "NULL_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-123",
+      "dateToUse": "2016-04-22T19:54:29",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": -39.69,
+        "taxSetErmaessigt1": 11.04,
+        "taxSetErmaessigt2": 2.35,
+        "taxSetNull": 31.31,
+        "taxSetBesonders": 18.46
+      },
+      "typeOfReceipt": "STORNO_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-124",
+      "dateToUse": "2016-04-23T20:55:30",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": -38.92,
+        "taxSetErmaessigt1": 87.87,
+        "taxSetErmaessigt2": -16.97,
+        "taxSetNull": 43.11,
+        "taxSetBesonders": 102.28
+      },
+      "typeOfReceipt": "TRAINING_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-125",
+      "dateToUse": "2016-04-24T21:56:31",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": -5.19,
+        "taxSetErmaessigt1": 113.47,
+        "taxSetErmaessigt2": 36.89,
+        "taxSetNull": 171.86,
+        "taxSetBesonders": 8.46
+      },
+      "typeOfReceipt": "STORNO_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": true,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-126",
+      "dateToUse": "2016-04-25T22:57:32",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": 6.92,
+        "taxSetErmaessigt1": 27.1,
+        "taxSetErmaessigt2": -35.5,
+        "taxSetNull": 90.25,
+        "taxSetBesonders": 140.75
+      }
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-127",
+      "dateToUse": "2016-04-26T23:58:33",
+      "usedSignatureDevice": 2,
+      "simplifiedReceipt": {
+        "taxSetNormal": 0.0,
+        "taxSetErmaessigt1": 0.0,
+        "taxSetErmaessigt2": 0.0,
+        "taxSetNull": 0.0,
+        "taxSetBesonders": 0.0
+      },
+      "typeOfReceipt": "NULL_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-128",
+      "dateToUse": "2016-04-28T00:59:34",
+      "usedSignatureDevice": 2,
+      "simplifiedReceipt": {
+        "taxSetNormal": -40.49,
+        "taxSetErmaessigt1": 180.94,
+        "taxSetErmaessigt2": 105.39,
+        "taxSetNull": 38.65,
+        "taxSetBesonders": 4.42
+      },
+      "typeOfReceipt": "STORNO_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-129",
+      "dateToUse": "2016-04-29T02:00:35",
+      "usedSignatureDevice": 1,
+      "simplifiedReceipt": {
+        "taxSetNormal": 78.03,
+        "taxSetErmaessigt1": 194.18,
+        "taxSetErmaessigt2": 4.56,
+        "taxSetNull": 53.61,
+        "taxSetBesonders": 30.48
+      }
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-130",
+      "dateToUse": "2016-04-30T03:01:36",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": 146.78,
+        "taxSetErmaessigt1": 174.22,
+        "taxSetErmaessigt2": 119.6,
+        "taxSetNull": 100.85,
+        "taxSetBesonders": 111.89
+      },
+      "typeOfReceipt": "STORNO_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": true,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-131",
+      "dateToUse": "2016-05-01T04:02:37",
+      "usedSignatureDevice": 1,
+      "simplifiedReceipt": {
+        "taxSetNormal": 0.0,
+        "taxSetErmaessigt1": 0.0,
+        "taxSetErmaessigt2": 0.0,
+        "taxSetNull": 0.0,
+        "taxSetBesonders": 0.0
+      },
+      "typeOfReceipt": "NULL_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-132",
+      "dateToUse": "2016-05-02T05:03:38",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": 0.0,
+        "taxSetErmaessigt1": 0.0,
+        "taxSetErmaessigt2": 0.0,
+        "taxSetNull": 0.0,
+        "taxSetBesonders": 0.0
+      },
+      "typeOfReceipt": "NULL_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-133",
+      "dateToUse": "2016-05-03T06:04:39",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": 193.35,
+        "taxSetErmaessigt1": 104.79,
+        "taxSetErmaessigt2": 53.02,
+        "taxSetNull": 111.79,
+        "taxSetBesonders": 27.06
+      },
+      "typeOfReceipt": "STORNO_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-134",
+      "dateToUse": "2016-05-04T07:05:40",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": 0.0,
+        "taxSetErmaessigt1": 0.0,
+        "taxSetErmaessigt2": 0.0,
+        "taxSetNull": 0.0,
+        "taxSetBesonders": 0.0
+      },
+      "typeOfReceipt": "NULL_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-135",
+      "dateToUse": "2016-05-05T08:06:41",
+      "usedSignatureDevice": 1,
+      "simplifiedReceipt": {
+        "taxSetNormal": 104.89,
+        "taxSetErmaessigt1": 2.8,
+        "taxSetErmaessigt2": 73.97,
+        "taxSetNull": 153.79,
+        "taxSetBesonders": -46.19
+      },
+      "typeOfReceipt": "TRAINING_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": true,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-136",
+      "dateToUse": "2016-05-06T09:07:42",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": 35.29,
+        "taxSetErmaessigt1": 103.48,
+        "taxSetErmaessigt2": 98.63,
+        "taxSetNull": 88.39,
+        "taxSetBesonders": 165.34
+      },
+      "typeOfReceipt": "TRAINING_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-137",
+      "dateToUse": "2016-05-07T10:08:43",
+      "usedSignatureDevice": 1,
+      "simplifiedReceipt": {
+        "taxSetNormal": 0.0,
+        "taxSetErmaessigt1": 0.0,
+        "taxSetErmaessigt2": 0.0,
+        "taxSetNull": 0.0,
+        "taxSetBesonders": 0.0
+      },
+      "typeOfReceipt": "NULL_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-138",
+      "dateToUse": "2016-05-08T11:09:44",
+      "usedSignatureDevice": 1,
+      "simplifiedReceipt": {
+        "taxSetNormal": 131.79,
+        "taxSetErmaessigt1": 89.7,
+        "taxSetErmaessigt2": 11.46,
+        "taxSetNull": -37.61,
+        "taxSetBesonders": 183.4
+      },
+      "typeOfReceipt": "TRAINING_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-139",
+      "dateToUse": "2016-05-09T12:10:45",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": 63.21,
+        "taxSetErmaessigt1": 102.29,
+        "taxSetErmaessigt2": 193.56,
+        "taxSetNull": -22.18,
+        "taxSetBesonders": 192.91
+      },
+      "typeOfReceipt": "TRAINING_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": true,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-140",
+      "dateToUse": "2016-05-10T13:11:46",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": 125.82,
+        "taxSetErmaessigt1": 17.26,
+        "taxSetErmaessigt2": 43.56,
+        "taxSetNull": 160.66,
+        "taxSetBesonders": 94.97
+      }
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-141",
+      "dateToUse": "2016-05-11T14:12:47",
+      "usedSignatureDevice": 1,
+      "simplifiedReceipt": {
+        "taxSetNormal": 0.0,
+        "taxSetErmaessigt1": 0.0,
+        "taxSetErmaessigt2": 0.0,
+        "taxSetNull": 0.0,
+        "taxSetBesonders": 0.0
+      },
+      "typeOfReceipt": "NULL_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-142",
+      "dateToUse": "2016-05-12T15:13:48",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": 158.41,
+        "taxSetErmaessigt1": 103.5,
+        "taxSetErmaessigt2": 124.91,
+        "taxSetNull": 7.52,
+        "taxSetBesonders": 127.24
+      },
+      "typeOfReceipt": "TRAINING_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-143",
+      "dateToUse": "2016-05-13T16:14:49",
+      "usedSignatureDevice": 2,
+      "simplifiedReceipt": {
+        "taxSetNormal": 53.38,
+        "taxSetErmaessigt1": 158.22,
+        "taxSetErmaessigt2": 100.26,
+        "taxSetNull": 38.13,
+        "taxSetBesonders": 28.4
+      }
+    },
+    {
+      "signatureDeviceDamaged": true,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-144",
+      "dateToUse": "2016-05-14T17:15:50",
+      "usedSignatureDevice": 1,
+      "simplifiedReceipt": {
+        "taxSetNormal": 16.33,
+        "taxSetErmaessigt1": 62.13,
+        "taxSetErmaessigt2": 33.38,
+        "taxSetNull": 103.75,
+        "taxSetBesonders": 20.53
+      },
+      "typeOfReceipt": "TRAINING_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-145",
+      "dateToUse": "2016-05-15T18:16:51",
+      "usedSignatureDevice": 1,
+      "simplifiedReceipt": {
+        "taxSetNormal": 0.0,
+        "taxSetErmaessigt1": 0.0,
+        "taxSetErmaessigt2": 0.0,
+        "taxSetNull": 0.0,
+        "taxSetBesonders": 0.0
+      },
+      "typeOfReceipt": "NULL_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-146",
+      "dateToUse": "2016-05-16T19:17:52",
+      "usedSignatureDevice": 1,
+      "simplifiedReceipt": {
+        "taxSetNormal": 16.82,
+        "taxSetErmaessigt1": 19.76,
+        "taxSetErmaessigt2": 8.53,
+        "taxSetNull": 80.69,
+        "taxSetBesonders": 103.88
+      },
+      "typeOfReceipt": "TRAINING_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": true,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-147",
+      "dateToUse": "2016-05-17T20:18:53",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": 0.0,
+        "taxSetErmaessigt1": 0.0,
+        "taxSetErmaessigt2": 0.0,
+        "taxSetNull": 0.0,
+        "taxSetBesonders": 0.0
+      },
+      "typeOfReceipt": "NULL_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-148",
+      "dateToUse": "2016-05-18T21:19:54",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": 0.0,
+        "taxSetErmaessigt1": 0.0,
+        "taxSetErmaessigt2": 0.0,
+        "taxSetNull": 0.0,
+        "taxSetBesonders": 0.0
+      },
+      "typeOfReceipt": "NULL_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-149",
+      "dateToUse": "2016-05-19T22:20:55",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": 19.3,
+        "taxSetErmaessigt1": 107.98,
+        "taxSetErmaessigt2": 25.09,
+        "taxSetNull": 189.27,
+        "taxSetBesonders": 96.54
+      },
+      "typeOfReceipt": "TRAINING_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-150",
+      "dateToUse": "2016-05-20T23:21:56",
+      "usedSignatureDevice": 1,
+      "simplifiedReceipt": {
+        "taxSetNormal": 0.0,
+        "taxSetErmaessigt1": 0.0,
+        "taxSetErmaessigt2": 0.0,
+        "taxSetNull": 0.0,
+        "taxSetBesonders": 0.0
+      },
+      "typeOfReceipt": "NULL_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-151",
+      "dateToUse": "2016-05-22T00:22:57",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": -24.49,
+        "taxSetErmaessigt1": 2.04,
+        "taxSetErmaessigt2": 168.64,
+        "taxSetNull": 31.31,
+        "taxSetBesonders": -49.0
+      }
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-152",
+      "dateToUse": "2016-05-23T01:23:58",
+      "usedSignatureDevice": 2,
+      "simplifiedReceipt": {
+        "taxSetNormal": 65.69,
+        "taxSetErmaessigt1": 65.5,
+        "taxSetErmaessigt2": 37.45,
+        "taxSetNull": 8.38,
+        "taxSetBesonders": 169.47
+      },
+      "typeOfReceipt": "TRAINING_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-153",
+      "dateToUse": "2016-05-24T02:24:59",
+      "usedSignatureDevice": 0,
+      "simplifiedReceipt": {
+        "taxSetNormal": 186.79,
+        "taxSetErmaessigt1": 85.97,
+        "taxSetErmaessigt2": 94.22,
+        "taxSetNull": 14.96,
+        "taxSetBesonders": 58.37
+      }
+    },
+    {
+      "signatureDeviceDamaged": true,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-154",
+      "dateToUse": "2016-05-25T03:26:00",
+      "usedSignatureDevice": 1,
+      "simplifiedReceipt": {
+        "taxSetNormal": 13.52,
+        "taxSetErmaessigt1": 127.96,
+        "taxSetErmaessigt2": 80.51,
+        "taxSetNull": 123.55,
+        "taxSetBesonders": 62.51
+      }
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-155",
+      "dateToUse": "2016-05-26T04:27:01",
+      "usedSignatureDevice": 1,
+      "simplifiedReceipt": {
+        "taxSetNormal": 0.0,
+        "taxSetErmaessigt1": 0.0,
+        "taxSetErmaessigt2": 0.0,
+        "taxSetNull": 0.0,
+        "taxSetBesonders": 0.0
+      },
+      "typeOfReceipt": "NULL_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-156",
+      "dateToUse": "2016-05-27T05:28:02",
+      "usedSignatureDevice": 2,
+      "simplifiedReceipt": {
+        "taxSetNormal": -42.83,
+        "taxSetErmaessigt1": 100.34,
+        "taxSetErmaessigt2": -27.18,
+        "taxSetNull": 185.5,
+        "taxSetBesonders": 182.6
+      }
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-157",
+      "dateToUse": "2016-05-28T06:29:03",
+      "usedSignatureDevice": 1,
+      "simplifiedReceipt": {
+        "taxSetNormal": 69.68,
+        "taxSetErmaessigt1": 22.44,
+        "taxSetErmaessigt2": 131.49,
+        "taxSetNull": 174.18,
+        "taxSetBesonders": 10.34
+      }
+    },
+    {
+      "signatureDeviceDamaged": true,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-158",
+      "dateToUse": "2016-05-29T07:30:04",
+      "usedSignatureDevice": 2,
+      "simplifiedReceipt": {
+        "taxSetNormal": 0.0,
+        "taxSetErmaessigt1": 0.0,
+        "taxSetErmaessigt2": 0.0,
+        "taxSetNull": 0.0,
+        "taxSetBesonders": 0.0
+      },
+      "typeOfReceipt": "NULL_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-159",
+      "dateToUse": "2016-05-30T08:31:05",
+      "usedSignatureDevice": 2,
+      "simplifiedReceipt": {
+        "taxSetNormal": 0.0,
+        "taxSetErmaessigt1": 0.0,
+        "taxSetErmaessigt2": 0.0,
+        "taxSetNull": 0.0,
+        "taxSetBesonders": 0.0
+      },
+      "typeOfReceipt": "NULL_BELEG"
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-160",
+      "dateToUse": "2016-05-31T09:32:06",
+      "usedSignatureDevice": 2,
+      "simplifiedReceipt": {
+        "taxSetNormal": 158.32,
+        "taxSetErmaessigt1": 1.71,
+        "taxSetErmaessigt2": 177.27,
+        "taxSetNull": 177.45,
+        "taxSetBesonders": 103.85
+      }
+    },
+    {
+      "signatureDeviceDamaged": false,
+      "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-161",
+      "dateToUse": "2016-06-01T10:33:07",
+      "usedSignatureDevice": 2,
+      "simplifiedReceipt": {
+        "taxSetNormal": 0.0,
+        "taxSetErmaessigt1": 0.0,
+        "taxSetErmaessigt2": 0.0,
+        "taxSetNull": 0.0,
+        "taxSetBesonders": 0.0
+      },
+      "typeOfReceipt": "NULL_BELEG"
+    }
+  ]
+}

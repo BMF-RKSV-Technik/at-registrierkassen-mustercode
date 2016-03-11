@@ -32,10 +32,9 @@ public class ComNimbusdsJwsModule extends AbstractJWSModule {
     protected JWSSigner jwsSigner;
 
     @Override
-    public String signMachineCodeRepOfReceipt(String machineCodeRepOfReceipt,
-                                              RKSuite rkSuite) {
+    public String signMachineCodeRepOfReceipt(String machineCodeRepOfReceipt, boolean signatureDeviceIsDamaged) {
 
-        ECPrivateKey key = (ECPrivateKey) signatureModule.getSigningKey();
+        ECPrivateKey key = (ECPrivateKey) openSystemSignatureModule.getSigningKey();
         try {
             this.jwsSigner = new ECDSASigner(key);
         } catch (JOSEException e) {
@@ -43,22 +42,19 @@ public class ComNimbusdsJwsModule extends AbstractJWSModule {
         }
 
         //FOR DEMONSTRATION PURPOSES
-        //if damage is possible, there is 50% chance that the signature device does not operate correctly
         //if damage occurs, the signature value is replaced with the term "Sicherheitseinrichtung ausgefallen"
-        if (damageIsPossible) {
-            double randValue = Math.random();
-            if (randValue<=probabilityOfDamagedSignatureDevice) {
-                String jwsHeader = "eyJhbGciOiJFUzI1NiJ9";  //ES256 Header for JWS
-                String jwsPayload = CashBoxUtils.base64Encode(machineCodeRepOfReceipt.getBytes(),true); //get payload
-                String jwsSignature = CashBoxUtils.base64Encode("Sicherheitseinrichtung ausgefallen".getBytes(),true);  //create damaged signature part
-                String jwsCompactRep = jwsHeader+"."+jwsPayload+"."+jwsSignature;
-                return jwsCompactRep;
-            }
+        if (signatureDeviceIsDamaged) {
+            String jwsHeader = "eyJhbGciOiJFUzI1NiJ9";  //ES256 Header for JWS
+            String jwsPayload = CashBoxUtils.base64Encode(machineCodeRepOfReceipt.getBytes(), true); //get payload
+            String jwsSignature = CashBoxUtils.base64Encode("Sicherheitseinrichtung ausgefallen".getBytes(), true);  //create damaged signature part
+            String jwsCompactRep = jwsHeader + "." + jwsPayload + "." + jwsSignature;
+            return jwsCompactRep;
         }
+
 
         try {
             // Creates the JWS object with payload
-            JWSObject jwsObject = new JWSObject(new JWSHeader(JWSAlgorithm.parse(rkSuite.getJwsSignatureAlgorithm())), new Payload(machineCodeRepOfReceipt));
+            JWSObject jwsObject = new JWSObject(new JWSHeader(JWSAlgorithm.parse(RKSuite.R1_AT0.getJwsSignatureAlgorithm())), new Payload(machineCodeRepOfReceipt));
 
             // Compute the EC signature
             jwsObject.sign(jwsSigner);
@@ -70,29 +66,6 @@ public class ComNimbusdsJwsModule extends AbstractJWSModule {
             return null;
         }
     }
-
-
-
-    public void setDamageIsPossible(boolean damageIsPossible) {
-        this.damageIsPossible = damageIsPossible;
-    }
-
-    @Override
-    public boolean isDamagePossible() {
-        return damageIsPossible;
-    }
-
-
-    @Override
-    public void setProbabilityOfDamagedSignatureDevice(double probabilityOfDamagedSignatureDevice) {
-        this.probabilityOfDamagedSignatureDevice = probabilityOfDamagedSignatureDevice;
-    }
-
-    @Override
-    public double getProbabilityOfDamagedSignatureDevice() {
-        return probabilityOfDamagedSignatureDevice;
-    }
-
 
 
 }

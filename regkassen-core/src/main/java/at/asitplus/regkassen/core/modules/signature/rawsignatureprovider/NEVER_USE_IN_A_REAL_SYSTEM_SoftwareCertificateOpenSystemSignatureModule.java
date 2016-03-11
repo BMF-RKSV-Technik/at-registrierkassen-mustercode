@@ -17,6 +17,7 @@
 
 package at.asitplus.regkassen.core.modules.signature.rawsignatureprovider;
 
+import at.asitplus.regkassen.core.base.rksuite.RKSuite;
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x509.BasicConstraints;
 import org.bouncycastle.asn1.x509.KeyUsage;
@@ -31,6 +32,7 @@ import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
 
 import java.math.BigInteger;
 import java.security.*;
+import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
@@ -40,13 +42,34 @@ import java.util.List;
 /**
  * SIMPLE and NOT REUSABLE demo for a trivial signature module
  * In a real cash box this would be represented by an HSM, a smart card or e.g. a cloud service capable of creating
- * SHA256withECDSA signatures (according to Detailspezifikation ABS 2
+ * SHA256withECDSA signatures (according to Detailspezifikation ABS 2)
  */
-public class DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule implements SignatureModule {
+public class NEVER_USE_IN_A_REAL_SYSTEM_SoftwareCertificateOpenSystemSignatureModule implements SignatureModule {
 
     protected PrivateKey signingKey;
     protected java.security.cert.Certificate signingCertificate;
     protected List<java.security.cert.Certificate> certificateChain;
+    protected RKSuite rkSuite;
+    protected String serialNumberOrKeyId;
+    protected boolean closedSystemSignatureDevice;
+
+    /**
+     * this signature device is based on certificates and could therfore be used by open and closed systems
+     * for open systems the parameter keyIdForClosedSystem needs to be supplied. open systems do not require this
+     * parameter, since the serial number of the certificate is used as identifier
+     * @param rkSuite   suite for this signature device
+     * @param keyIdForClosedSystem key-id, needs to be supplied if the signature device is used for a closed system
+     */
+    public NEVER_USE_IN_A_REAL_SYSTEM_SoftwareCertificateOpenSystemSignatureModule(RKSuite rkSuite, String keyIdForClosedSystem) {
+        this.rkSuite = rkSuite;
+        if (rkSuite.getZdaID().startsWith("AT0")) {
+            closedSystemSignatureDevice = true;
+        } else {
+            closedSystemSignatureDevice = false;
+        }
+        this.serialNumberOrKeyId = keyIdForClosedSystem;
+        intialise();
+    }
 
     public void intialise() {
         try {
@@ -84,9 +107,14 @@ public class DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule implements S
             certificateChain.add(caCertificate);
 
             //create signing cert
+            long serialNumberCertificate = new SecureRandom().nextLong();
+            if (!closedSystemSignatureDevice) {
+                serialNumberOrKeyId = Long.toHexString(serialNumberCertificate);
+            }
+
             X509v3CertificateBuilder certBuilder = new X509v3CertificateBuilder(
                     new X500Name("CN=RegKassa CA"),
-                    BigInteger.valueOf(Math.abs(new SecureRandom().nextLong())),
+                    BigInteger.valueOf(Math.abs(serialNumberCertificate)),
                     new Date(System.currentTimeMillis() - 10000),
                     new Date(System.currentTimeMillis() + 24L * 3600 * 1000),
                     new X500Name("CN=Signing certificate"),
@@ -107,21 +135,54 @@ public class DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule implements S
         }
     }
 
-    //NOTE: NEVER EVER USE IN A REAL CASHBOX, THIS IS JUST FOR DEMONSTRATION PURPOSES
-    //In a real cashbox, this would use a smart card, an HSM or a cloud service
-    public DO_NOT_USE_IN_REAL_CASHBOX_DemoSoftwareSignatureModule() {
-        intialise();
-    }
-
     public PrivateKey getSigningKey() {
         return signingKey;
     }
 
-    public java.security.cert.Certificate getSigningCertificate() {
+    public Certificate getSigningCertificate() {
         return signingCertificate;
+    }
+
+    @Override
+    public PublicKey getSigningPublicKey() {
+        return signingCertificate.getPublicKey();
+    }
+
+    @Override
+    public byte[] signData(byte[] dataToBeSigned) {
+     try {
+            Signature signature = Signature.getInstance("SHA256withECDSA");
+            signature.initSign(getSigningKey());
+            signature.update(dataToBeSigned);
+            return signature.sign();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (SignatureException e) {
+            e.printStackTrace();
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public String getSerialNumberOfKeyID() {
+        return serialNumberOrKeyId;
+    }
+
+    @Override
+    public boolean isClosedSystemSignatureDevice() {
+        return closedSystemSignatureDevice;
     }
 
     public List<java.security.cert.Certificate> getCertificateChain() {
         return certificateChain;
     }
+
+    @Override
+    public RKSuite getRKSuite() {
+        return rkSuite;
+    }
+
+
 }

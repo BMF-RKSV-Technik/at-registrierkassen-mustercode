@@ -17,69 +17,18 @@
 
 package at.asitplus.regkassen.core.base.receiptdata;
 
-import at.asitplus.regkassen.core.base.rksuite.RKSuite;
-import at.asitplus.regkassen.core.base.util.CashBoxUtils;
-
 import java.security.cert.Certificate;
 import java.util.List;
 
+/*
+    This class represents the data structure of a processed receipt that is handed over to the DEP
+    Please keep in mind, that this is a simple model that contains just enough information to fulfill the requirements
+    of the RKSV. For real applications, more data would be needed that are mandated by other regulations.
+ */
 public class ReceiptPackage {
-    protected RKSuite rkSuite;
-    protected RawReceiptData rawReceiptData;
-    protected ReceiptRepresentationForSignature receiptRepresentationForSignature;
     protected String jwsCompactRepresentation;
     protected Certificate signingCertificate;
     protected List<Certificate> certificateChain;
-
-    protected String getDataToBeSigned() {
-        return receiptRepresentationForSignature.getDataToBeSigned(rkSuite);
-    }
-
-    public String getQRCodeRepresentation() {
-        String qrCodeRepresentationWithoutSignature = receiptRepresentationForSignature.getDataToBeSigned(rkSuite);
-
-        //get signature value from JWS compact representation
-        String signatureValueBASE64URL = jwsCompactRepresentation.split("\\.")[2];
-
-        //re-encode from BASE64-URL to BASE64
-        String signatureValueBASE64 = CashBoxUtils.base64Encode(CashBoxUtils.base64Decode(signatureValueBASE64URL,true),false);
-
-        //get QR code rep
-        String qrCodeRepresentationWithSignature = qrCodeRepresentationWithoutSignature+"_"+signatureValueBASE64;
-
-        return qrCodeRepresentationWithSignature;
-    }
-
-    public String getOcrCodeRepresentation() {
-        String orcCodeRepresentationWithoutSignature = receiptRepresentationForSignature.getOCRCodeRepresentationWithoutSignature(rkSuite);
-
-        //get signature value from JWS compact representation
-        String signatureValueBASE64URL = jwsCompactRepresentation.split("\\.")[2];
-
-        //re-encode from BASE64-URL to BASE64
-        String signatureValueBASE64 = CashBoxUtils.base32Encode(CashBoxUtils.base64Decode(signatureValueBASE64URL, true));
-
-        //get OCR code rep
-        String ocrCodeRepresentationWithSignature = orcCodeRepresentationWithoutSignature+"_"+signatureValueBASE64;
-
-        return ocrCodeRepresentationWithSignature;
-    }
-
-    public RKSuite getRkSuite() {
-        return rkSuite;
-    }
-
-    public void setRkSuite(RKSuite rkSuite) {
-        this.rkSuite = rkSuite;
-    }
-
-    public RawReceiptData getRawReceiptData() {
-        return rawReceiptData;
-    }
-
-    public void setRawReceiptData(RawReceiptData rawReceiptData) {
-        this.rawReceiptData = rawReceiptData;
-    }
 
     public String getJwsCompactRepresentation() {
         return jwsCompactRepresentation;
@@ -87,14 +36,6 @@ public class ReceiptPackage {
 
     public void setJwsCompactRepresentation(String jwsCompactRepresentation) {
         this.jwsCompactRepresentation = jwsCompactRepresentation;
-    }
-
-    public ReceiptRepresentationForSignature getReceiptRepresentationForSignature() {
-        return receiptRepresentationForSignature;
-    }
-
-    public void setReceiptRepresentationForSignature(ReceiptRepresentationForSignature receiptRepresentationForSignature) {
-        this.receiptRepresentationForSignature = receiptRepresentationForSignature;
     }
 
     public Certificate getSigningCertificate() {
