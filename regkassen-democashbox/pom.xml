@@ -64,7 +64,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>at.asitplus.regkassen.demo.CashBoxSimulator</mainClass>
+                            <mainClass>at.asitplus.regkassen.demo.RKSVCashboxSimulator</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
