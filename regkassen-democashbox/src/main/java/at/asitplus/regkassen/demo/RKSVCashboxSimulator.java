@@ -154,7 +154,7 @@ public class RKSVCashboxSimulator {
                 for (int i = 0; i < cashboxSimulation.getNumberOfSignatureDevices(); i++) {
                     JWSModule jwsModule = new ManualJWSModule();
                     SignatureModule signatureModule;
-                    if (CLOSED_SYSTEM) {
+                    if (!CLOSED_SYSTEM) {
                         signatureModule = new NEVER_USE_IN_A_REAL_SYSTEM_SoftwareCertificateOpenSystemSignatureModule(RKSuite.R1_AT100, null);
                     } else {
                         signatureModule = new NEVER_USE_IN_A_REAL_SYSTEM_SoftwareKeySignatureModule(cashboxSimulation.getCompanyID() + "-" + "K" + i);
