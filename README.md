@@ -10,6 +10,7 @@ In Zusammenarbeit zwischen dem BMF und A-SIT Plus wurde das Dokument *Festlegung
 		 - [Diff (Änderungsmarkierungen) von V1.0 zu V1.1](https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases/download/1.1-DOK/2016-03-11-Diff-Detailfragen-RKSV-V1.0-V1.1.pdf)
 	 - **Bekannte Probleme**:
 		 - https://github.com/a-sit-plus/at-registrierkassen-mustercode/issues/48
+		 - https://github.com/a-sit-plus/at-registrierkassen-mustercode/issues/52
  - **Version 1.0 (19.02.2016)**:
 	 - 	[Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV) V1.0](https://github.com/a-sit-plus/at-registrierkassen-mustercode/files/137544/2016-02-18-Detailfragen-RKSV-V1.0.pdf)
 
