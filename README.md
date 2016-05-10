@@ -13,6 +13,7 @@ In Zusammenarbeit zwischen dem BMF und A-SIT Plus wurde das Dokument *Festlegung
 		 - https://github.com/a-sit-plus/at-registrierkassen-mustercode/issues/52
 		 - https://github.com/a-sit-plus/at-registrierkassen-mustercode/issues/54
 		 - https://github.com/a-sit-plus/at-registrierkassen-mustercode/issues/56
+		 - https://github.com/a-sit-plus/at-registrierkassen-mustercode/issues/77
  - **Version 1.0 (19.02.2016)**:
 	 - 	[Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV) V1.0](https://github.com/a-sit-plus/at-registrierkassen-mustercode/files/137544/2016-02-18-Detailfragen-RKSV-V1.0.pdf)
 
