@@ -17,6 +17,11 @@ In Zusammenarbeit zwischen dem BMF und A-SIT Plus wurde das Dokument *Festlegung
  - **Version 1.0 (19.02.2016)**:
 	 - 	[Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV) V1.0](https://github.com/a-sit-plus/at-registrierkassen-mustercode/files/137544/2016-02-18-Detailfragen-RKSV-V1.0.pdf)
 
+# Wichtige Information zu diesem Projekt
+Dieses Projekt dient zur Behandlung technischer Sachverhalte der RKSV. Wir bitten daher um Verständnis, dass rechtliche/organisatorische Themen im Allgemeinen nicht beantwortet werden können. Für die Beantwortung solcher Fragen bitten wir Sie die Informationen des BMFs heranzuziehen (siehe https://www.bmf.gv.at/top-themen/Registrierkassen.html). Sollte Ihr Anliegen dort nicht behandelt sein, steht Ihnen unter https://www.bmf.gv.at/kontakt.html eine Möglichkeit zur Verfügung, Ihre rechtliche oder organisatorische Frage schriftlich im BMF einzubringen. Nutzen Sie dazu die Option “Sonstige Anfrage” und fügen Sie Ihrem Anliegen den deutlichen Hinweis hinzu, dass es sich um ein Thema im Bereich Registrierkasse handelt.
+ 
+Ein weiterer Hinweis bezüglich den “Issues” in diesem Projekt: Offizielle – mit dem BMF abgestimmte – Aussagen werden nur vom Benutzer **asitplus-pteufl** getätigt. Für die Korrektheit der Aussagen anderer Benutzer kann keine Garantie übernommen werden.
+
 # Muster-Code, Prüftools, Change Log
 Die Change-Logs bis zu Release 0.5 wurden aus Gründen der Übersichtlichkeit archiviert (siehe [Archiv im Wiki](https://github.com/a-sit-plus/at-registrierkassen-mustercode/wiki/Changelog-Archiv-bis-11.03.2016)).
 
