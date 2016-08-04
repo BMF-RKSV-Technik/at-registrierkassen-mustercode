@@ -17,7 +17,7 @@ Berechnungsalgorithmus Prüfwert für AES-Schlüssel:
 
 2. **Berechnung der Prüfsumme:**
 
-  a. **Hashberechnung:** SHA256-Hash-Wert-Berechnung von **base64AESKey -> sha256hash** (Byte Array der Länge 32)
+  a. Hashberechnung: SHA256-Hash-Wert-Berechnung von **base64AESKey -> sha256hash** (Byte Array der Länge 32)
 
   b. Extraktion der ersten **N** Bytes aus **sha256hash -> sha256hashNbytes**
 (Byte Array der Länge **N**)
