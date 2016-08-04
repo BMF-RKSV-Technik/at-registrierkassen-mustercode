@@ -9,16 +9,25 @@ Hinweis für Softwaretechniker: die Verwendung des SHA256-Hash-Wertes begründet
 
 Berechnungsalgorithmus Prüfwert für AES-Schlüssel:
 
-1. **Eingabewerte:**
+1. **Eingabewerte:**  
+  
   a. **base64AESKey:** BASE64-kodierter AES Schlüssel, mit dem die Kasse initialisiert wurde und der im FinanzOnline gemeldet werden soll.
+  
   b. **N:** Die Anzahl der Bytes, die vom Hash-Wert extrahiert werden. Es wird **N=3** festgelegt.
+
 2. **Berechnung der Prüfsumme:**
+
   a. **Hashberechnung:** SHA256-Hash-Wert-Berechnung von **base64AESKey -> sha256hash** (Byte Array der Länge 32)
+
   b. Extraktion der ersten **N** Bytes aus **sha256hash -> sha256hashNbytes**
 (Byte Array der Länge **N**)
+
   c. BASE64-Kodierung von **sha256hashNbytes -> base64sha256hashNbytes**
+
   d. Entfernen aller „=“ Zeichen aus **base64sha256hashNbytes -> valSumCalc**
+
 3. **Output:**
+
    a. **valSumCalc:** Prüfwert der vom Unternehmer im FinanzOnline eingegeben werden kann. FinanzOnline verwendet den gleichen Algorithmus für die Berechnung des Prüfwerts und informiert den Unternehmer, wenn der berechnete und der eingegebene Wert nicht identisch sind.
 
 Code-Snippet, **N=3**:
