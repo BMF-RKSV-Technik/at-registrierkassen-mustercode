@@ -35,6 +35,7 @@ public class CashBoxParameters {
     protected String cashBoxId;
     protected SecretKey turnOverCounterAESKey;
     protected String companyID;
+    protected int turnOverCounterLengthInBytes = 8;
 
     //modules
     protected DEPModule depModul;
@@ -89,6 +90,11 @@ public class CashBoxParameters {
         this.printerModule = printerModule;
     }
 
+    public int getTurnOverCounterLengthInBytes() {
+        return turnOverCounterLengthInBytes;
+    }
 
-
+    public void setTurnOverCounterLengthInBytes(int turnOverCounterLengthInBytes) {
+        this.turnOverCounterLengthInBytes = turnOverCounterLengthInBytes;
+    }
 }

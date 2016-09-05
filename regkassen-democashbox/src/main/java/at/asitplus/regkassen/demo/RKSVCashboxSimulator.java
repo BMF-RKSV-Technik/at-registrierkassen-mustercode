@@ -17,15 +17,15 @@
 
 package at.asitplus.regkassen.demo;
 
+import at.asitplus.regkassen.common.RKSuite;
+import at.asitplus.regkassen.common.SignatureDeviceType;
+import at.asitplus.regkassen.common.util.CashBoxUtils;
+import at.asitplus.regkassen.common.util.CryptoUtil;
 import at.asitplus.regkassen.core.DemoCashBox;
 import at.asitplus.regkassen.core.base.cashboxsimulation.CashBoxSimulation;
 import at.asitplus.regkassen.core.base.cashboxsimulation.CertificateOrPublicKeyContainer;
 import at.asitplus.regkassen.core.base.cashboxsimulation.CryptographicMaterialContainer;
-import at.asitplus.regkassen.core.base.cashboxsimulation.SignatureDeviceType;
 import at.asitplus.regkassen.core.base.receiptdata.ReceiptPackage;
-import at.asitplus.regkassen.core.base.rksuite.RKSuite;
-import at.asitplus.regkassen.core.base.util.CashBoxUtils;
-import at.asitplus.regkassen.core.base.util.CryptoUtil;
 import at.asitplus.regkassen.core.modules.DEP.DEPExportFormat;
 import at.asitplus.regkassen.core.modules.DEP.SimpleMemoryDEPModule;
 import at.asitplus.regkassen.core.modules.init.CashBoxParameters;
@@ -37,13 +37,25 @@ import at.asitplus.regkassen.core.modules.signature.rawsignatureprovider.NEVER_U
 import at.asitplus.regkassen.core.modules.signature.rawsignatureprovider.NEVER_USE_IN_A_REAL_SYSTEM_SoftwareKeySignatureModule;
 import at.asitplus.regkassen.core.modules.signature.rawsignatureprovider.SignatureModule;
 import at.asitplus.regkassen.demo.testsuites.TestSuiteGenerator;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import org.apache.commons.cli.*;
+import at.asitplus.regkassen.verification.common.rpc.RKObjectMapper;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 import org.apache.commons.io.IOUtils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.security.PublicKey;
 import java.security.Security;
 import java.security.cert.CertificateEncodingException;
@@ -57,9 +69,9 @@ import java.util.List;
 
 public class RKSVCashboxSimulator {
 
-    public static Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     public static boolean VERBOSE;
     public static boolean CLOSED_SYSTEM;
+    public static int TURN_OVER_COUNTER_LENGTH_IN_BYTES=-1;
 
 
     public static void main(String[] args) {
@@ -98,8 +110,16 @@ public class RKSVCashboxSimulator {
             options.addOption("o", "output-dir", true, "specify base output directory, if none is specified, a new directory will be created in the current working directory");
             //options.addOption("i", "simulation-file-or-directory", true, "cashbox simulation (file) or multiple cashbox simulation files (directory), if none is specified the internal test suites will be executed (can also be considered as demo mode)");
             options.addOption("v", "verbose", false, "dump demo receipts to cmd line");
-            options.addOption("c","closed system", false, "simulate closed system");
+            options.addOption("c", "closed system", false, "simulate closed system");
 
+            Option turnoverCounterLengthOption = Option.builder("l")
+                    .longOpt("turnover-counter-length")
+                    .numberOfArgs(1)
+                    .required(false)
+                    .type(Number.class)
+                    .desc("turnover counter length in bytes")
+                    .build();
+            options.addOption(turnoverCounterLengthOption);
 
             ///parse CMD line options
             CommandLineParser parser = new DefaultParser();
@@ -110,6 +130,21 @@ public class RKSVCashboxSimulator {
             VERBOSE = cmd.hasOption("v");
             CLOSED_SYSTEM = cmd.hasOption("c");
 
+
+            //parse and verify turnover counter length
+            if (cmd.hasOption("l")) {
+                try {
+                    TURN_OVER_COUNTER_LENGTH_IN_BYTES = ((Number) cmd.getParsedOptionValue("l")).intValue();
+                    if ((TURN_OVER_COUNTER_LENGTH_IN_BYTES < 5) || (TURN_OVER_COUNTER_LENGTH_IN_BYTES > 8)) {
+                        TURN_OVER_COUNTER_LENGTH_IN_BYTES = -1;
+                    }
+                } catch (ParseException e1) {
+                }
+            }
+            if (TURN_OVER_COUNTER_LENGTH_IN_BYTES==-1) {
+                System.out.println("turnover counter length in bytes is invalid, using length 8");
+                TURN_OVER_COUNTER_LENGTH_IN_BYTES = 8;
+            }
 
             //output directory
             String outputParentDirectoryString = cmd.getOptionValue("o");
@@ -149,6 +184,7 @@ public class RKSVCashboxSimulator {
                 cashBoxParameters.setDepModul(new SimpleMemoryDEPModule());
                 cashBoxParameters.setPrinterModule(new SimplePDFPrinterModule());
                 cashBoxParameters.setCompanyID(cashboxSimulation.getCompanyID());
+                cashBoxParameters.setTurnOverCounterLengthInBytes(TURN_OVER_COUNTER_LENGTH_IN_BYTES);
 
                 //create pre-defined number of signature devices
                 for (int i = 0; i < cashboxSimulation.getNumberOfSignatureDevices(); i++) {
@@ -175,7 +211,7 @@ public class RKSVCashboxSimulator {
                 DEPExportFormat depExportFormat = demoCashBox.exportDEP();
                 //get JSON rep and dump export format to file/std output
                 File depExportFile = new File(testSetDirectory, "dep-export.json");
-                dumpJSONRepOfObject(depExportFormat,depExportFile,true,"------------DEP-EXPORT-FORMAT------------");
+                dumpJSONRepOfObject(depExportFormat, depExportFile, true, "------------DEP-EXPORT-FORMAT------------");
 
 
                 //----------------------------------------------------------------------------------------------------
@@ -205,7 +241,7 @@ public class RKSVCashboxSimulator {
                 }
 
                 File cryptographicMaterialContainerFile = new File(testSetDirectory, "cryptographicMaterialContainer.json");
-                dumpJSONRepOfObject(cryptographicMaterialContainer,cryptographicMaterialContainerFile,true,"------------CRYPTOGRAPHIC MATERIAL------------");
+                dumpJSONRepOfObject(cryptographicMaterialContainer, cryptographicMaterialContainerFile, true, "------------CRYPTOGRAPHIC MATERIAL------------");
 
 
                 //----------------------------------------------------------------------------------------------------
@@ -219,7 +255,7 @@ public class RKSVCashboxSimulator {
                 for (ReceiptPackage receiptPackage : receiptPackages) {
                     qrCodeRepList.add(CashBoxUtils.getQRCodeRepresentationFromJWSCompactRepresentation(receiptPackage.getJwsCompactRepresentation()));
                 }
-                dumpJSONRepOfObject(qrCodeRepList,qrCoreRepExportFile,true,"------------QR-CODE-REP------------");
+                dumpJSONRepOfObject(qrCodeRepList, qrCoreRepExportFile, true, "------------QR-CODE-REP------------");
 
 
                 //----------------------------------------------------------------------------------------------------
@@ -232,7 +268,7 @@ public class RKSVCashboxSimulator {
                 for (ReceiptPackage receiptPackage : receiptPackages) {
                     ocrCodeRepList.add(CashBoxUtils.getOCRCodeRepresentationFromJWSCompactRepresentation(receiptPackage.getJwsCompactRepresentation()));
                 }
-                dumpJSONRepOfObject(ocrCodeRepList,ocrCoreRepExportFile,true,"------------OCR-CODE-REP------------");
+                dumpJSONRepOfObject(ocrCodeRepList, ocrCoreRepExportFile, true, "------------OCR-CODE-REP------------");
 
 
                 //----------------------------------------------------------------------------------------------------
@@ -255,8 +291,8 @@ public class RKSVCashboxSimulator {
 
                 //----------------------------------------------------------------------------------------------------
                 //dump executed testsuite
-                File testSuiteDumpFile = new File(testSetDirectory, cashboxSimulation.getSimulationRunLabel()+".json");
-                dumpJSONRepOfObject(cashboxSimulation,testSuiteDumpFile,true,"------------CASHBOX Simulation------------");
+                File testSuiteDumpFile = new File(testSetDirectory, cashboxSimulation.getSimulationRunLabel() + ".json");
+                dumpJSONRepOfObject(cashboxSimulation, testSuiteDumpFile, true, "------------CASHBOX Simulation------------");
             }
         } catch (CertificateEncodingException e) {
             e.printStackTrace();
@@ -267,6 +303,7 @@ public class RKSVCashboxSimulator {
 
     /**
      * helper method to parse cashbox simulation files or directories containing multiple simulation files
+     *
      * @param inputFileOrDirectory simulation input file/simulation input directory
      * @return simulation package used to run the cashbox simulation
      */
@@ -287,7 +324,8 @@ public class RKSVCashboxSimulator {
                 BufferedInputStream bIn = new BufferedInputStream(new FileInputStream(inputFileOrDirectory));
                 ByteArrayOutputStream bOut = new ByteArrayOutputStream();
                 IOUtils.copy(bIn, bOut);
-                CashBoxSimulation cashBoxSimulation = (CashBoxSimulation) gson.fromJson(new String(bOut.toByteArray()), CashBoxSimulation.class);
+
+                CashBoxSimulation cashBoxSimulation = RKObjectMapper.load(new String(bOut.toByteArray()),CashBoxSimulation.class);
                 cashBoxSimulationList.add(cashBoxSimulation);
             }
         } catch (IOException e) {
@@ -299,13 +337,27 @@ public class RKSVCashboxSimulator {
 
     /**
      * helper method for writing JSON rep of objects to files/stdout
-     * @param object arbitrary object, that should be converted to JSON string
-     * @param outputFile output file for storing JSON rep of object
-     * @param stdout output to stdout?
+     *
+     * @param object         arbitrary object, that should be converted to JSON string
+     * @param outputFile     output file for storing JSON rep of object
+     * @param stdout         output to stdout?
      * @param stdoutHeadLine if output to stdout, use this header line
      */
-    public static void dumpJSONRepOfObject(Object object,File outputFile,boolean stdout,String stdoutHeadLine) {
+    public static void dumpJSONRepOfObject(Object object, File outputFile, boolean stdout, String stdoutHeadLine) {
         try {
+            final OutputStreamWriter out = new OutputStreamWriter(
+                    new BufferedOutputStream(new FileOutputStream(outputFile)), "UTF-8");
+            out.write(RKObjectMapper.stringify(object));
+
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+       /* try {
+
+
+
+
             String jsonString = gson.toJson(object);
             if (stdout && VERBOSE) {
                 System.out.println();
@@ -318,6 +370,6 @@ public class RKSVCashboxSimulator {
             outputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }

@@ -17,14 +17,14 @@
 
 package at.asitplus.regkassen.core;
 
+import at.asitplus.regkassen.common.RKSuite;
+import at.asitplus.regkassen.common.TypeOfReceipt;
+import at.asitplus.regkassen.common.util.CashBoxUtils;
+import at.asitplus.regkassen.common.util.CryptoUtil;
 import at.asitplus.regkassen.core.base.cashboxsimulation.CashBoxInstruction;
-import at.asitplus.regkassen.core.base.cashboxsimulation.TypeOfReceipt;
 import at.asitplus.regkassen.core.base.receiptdata.ReceiptPackage;
 import at.asitplus.regkassen.core.base.receiptdata.ReceiptRepresentationForSignature;
 import at.asitplus.regkassen.core.base.receiptdata.SimplifiedReceipt;
-import at.asitplus.regkassen.core.base.rksuite.RKSuite;
-import at.asitplus.regkassen.core.base.util.CashBoxUtils;
-import at.asitplus.regkassen.core.base.util.CryptoUtil;
 import at.asitplus.regkassen.core.modules.DEP.DEPExportFormat;
 import at.asitplus.regkassen.core.modules.init.CashBoxParameters;
 import at.asitplus.regkassen.core.modules.print.ReceiptPrintType;
@@ -35,6 +35,7 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import java.security.*;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -131,7 +132,13 @@ public class DemoCashBox {
         el1_rkSuite = signatureDevice.getRKSuite();
         el2_cashboxID = cashBoxParameters.getCashBoxId();
         el3_receiptID = cashBoxInstruction.getReceiptIdentifier();
-        el4_timeAndData = new Date();
+        el4_timeAndData = null;
+        try {
+            el4_timeAndData = CashBoxUtils.convertISO8601toDate(cashBoxInstruction.getDateToUse());
+        } catch (ParseException e) {
+            System.err.println("Fatal error, cannot parse date from cashbox instruction file: " + cashBoxInstruction.getDateToUse() +  " is not a valid date");
+            System.exit(-1);
+        }
 
         //if we have an open system, the serial number of the certificate is used
         //for a closed system, the companyID and the key id of the signing key is used
@@ -158,7 +165,7 @@ public class DemoCashBox {
 
             //no need to update the turnover counter
 
-            el10_encryptedTurnOverValue = encryptTurnOverCounter(cashBoxParameters.getCashBoxId(), el3_receiptID, rkSuiteOfSignatureDevice);
+            el10_encryptedTurnOverValue = encryptTurnOverCounter(cashBoxParameters.getCashBoxId(), el3_receiptID, rkSuiteOfSignatureDevice,cashBoxParameters.getTurnOverCounterLengthInBytes());
             //there is no previous receipt for chain value calculation, the cashboxID is used instead
             el12_chainValue = calculateChainValue(null, rkSuiteOfSignatureDevice);
         } else if (typeOfReceipt == TypeOfReceipt.STANDARD_BELEG) {
@@ -170,7 +177,7 @@ public class DemoCashBox {
 
             //update turnover counter by adding all tax sets
             updateTurnOverCounter(simplifiedReceipt);
-            el10_encryptedTurnOverValue = encryptTurnOverCounter(cashBoxParameters.getCashBoxId(), el3_receiptID, rkSuiteOfSignatureDevice);
+            el10_encryptedTurnOverValue = encryptTurnOverCounter(cashBoxParameters.getCashBoxId(), el3_receiptID, rkSuiteOfSignatureDevice,cashBoxParameters.getTurnOverCounterLengthInBytes());
             if (getStoredReceipts().size() > 0) {
                 el12_chainValue = calculateChainValue(getStoredReceipts().get(getStoredReceipts().size() - 1).getJwsCompactRepresentation(), rkSuiteOfSignatureDevice);
             }
@@ -209,7 +216,7 @@ public class DemoCashBox {
 
             //turnover counter is not updated, since all tax-sets of a Nullbeleg are set to 0
 
-            el10_encryptedTurnOverValue = encryptTurnOverCounter(cashBoxParameters.getCashBoxId(), el3_receiptID, rkSuiteOfSignatureDevice);
+            el10_encryptedTurnOverValue = encryptTurnOverCounter(cashBoxParameters.getCashBoxId(), el3_receiptID, rkSuiteOfSignatureDevice,cashBoxParameters.getTurnOverCounterLengthInBytes());
             if (getStoredReceipts().size() > 0) {
                 el12_chainValue = calculateChainValue(getStoredReceipts().get(getStoredReceipts().size() - 1).getJwsCompactRepresentation(), rkSuiteOfSignatureDevice);
             }
@@ -259,15 +266,16 @@ public class DemoCashBox {
         double sumTaxTypeBesonders = Precision.round(SimplifiedReceipt.getTaxSetBesonders(), 2);
 
         //add all taxset sums
-        double tempSum = 0.0;
-        tempSum += sumTaxTypeNormal;
-        tempSum += sumTaxTypeErmaessigt1;
-        tempSum += sumTaxTypeErmaessigt2;
-        tempSum += sumTaxTypeNull;
-        tempSum += sumTaxTypeBesonders;
+        long tempSum = 0;
+        tempSum += Precision.round(sumTaxTypeNormal*100,0);
+        tempSum += Precision.round(sumTaxTypeErmaessigt1*100,0);
+        tempSum += Precision.round(sumTaxTypeErmaessigt2*100,0);
+        tempSum += Precision.round(sumTaxTypeNull*100,0);
+        tempSum += Precision.round(sumTaxTypeBesonders*100,0);
+
 
         //convert sum to €-cent and add to turnover counter
-        turnoverCounter += (tempSum * 100);
+        turnoverCounter += (tempSum);
     }
 
     /**
@@ -278,7 +286,7 @@ public class DemoCashBox {
      * @param rkSuite
      * @return
      */
-    protected String encryptTurnOverCounter(String cashBoxIDUTF8String, String receiptIdentifierUTF8String, RKSuite rkSuite) {
+    protected String encryptTurnOverCounter(String cashBoxIDUTF8String, String receiptIdentifierUTF8String, RKSuite rkSuite,int turnOverCounterLengthInBytes) {
         try {
             //encrypt turnover counter and store the encrypted value in the data-to-be-signed package
 
@@ -309,10 +317,10 @@ public class DemoCashBox {
             //on different modes of operation for block ciphers
             String base64EncryptedTurnOverValue1 = null;
 
-            base64EncryptedTurnOverValue1 = CryptoUtil.encryptCTR(concatenatedHashValue, turnoverCounter, cashBoxParameters.getTurnOverCounterAESKey());
+            base64EncryptedTurnOverValue1 = CryptoUtil.encryptCTR(concatenatedHashValue, turnoverCounter, cashBoxParameters.getTurnOverCounterAESKey(),turnOverCounterLengthInBytes);
 
-            String base64EncryptedTurnOverValue2 = CryptoUtil.encryptCFB(concatenatedHashValue, turnoverCounter, cashBoxParameters.getTurnOverCounterAESKey());
-            String base64EncryptedTurnOverValue3 = CryptoUtil.encryptECB(concatenatedHashValue, turnoverCounter, cashBoxParameters.getTurnOverCounterAESKey());
+            String base64EncryptedTurnOverValue2 = CryptoUtil.encryptCFB(concatenatedHashValue, turnoverCounter, cashBoxParameters.getTurnOverCounterAESKey(),turnOverCounterLengthInBytes);
+            String base64EncryptedTurnOverValue3 = CryptoUtil.encryptECB(concatenatedHashValue, turnoverCounter, cashBoxParameters.getTurnOverCounterAESKey(),turnOverCounterLengthInBytes);
             if (!base64EncryptedTurnOverValue1.equals(base64EncryptedTurnOverValue2)) {
                 System.out.println("ENCRYPTION ERROR IN METHOD updateTurnOverCounter, MUST NOT HAPPEN");
                 System.exit(-1);
