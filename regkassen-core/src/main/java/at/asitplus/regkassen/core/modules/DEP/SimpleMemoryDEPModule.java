@@ -28,31 +28,34 @@ import java.util.List;
  */
 public class SimpleMemoryDEPModule implements DEPModule {
 
-    protected List<ReceiptPackage> receiptPackages = new ArrayList<>();
+    protected List<ReceiptPackage> receiptPackages = new ArrayList<ReceiptPackage>();
 
-    public void storeReceipt(ReceiptPackage receiptPackage) {
+    @Override
+    public void storeReceipt(final ReceiptPackage receiptPackage) {
         receiptPackages.add(receiptPackage);
     }
 
+    @Override
     public List<ReceiptPackage> getStoredReceipts() {
         return receiptPackages;
     }
 
 
+    @Override
     public DEPExportFormat exportDEP() {
 
         //prepare data structures for DEP export
 
         //create data structure for export format
-        DEPExportFormat depExportFormat = new DEPExportFormat();
-        DEPBelegDump[] belegDump = new DEPBelegDump[1];
+        final DEPExportFormat depExportFormat = new DEPExportFormat();
+        final DEPBelegDump[] belegDump = new DEPBelegDump[1];
 
         //store receipts in export format
         belegDump[0] = new DEPBelegDump();
         depExportFormat.setBelegPackage(belegDump);
 
-        List<String> receiptsInJWSCompactRepresentation = new ArrayList<>();
-        for (ReceiptPackage receiptPackage : receiptPackages) {
+        final List<String> receiptsInJWSCompactRepresentation = new ArrayList<String>();
+        for (final ReceiptPackage receiptPackage : receiptPackages) {
             receiptsInJWSCompactRepresentation.add(receiptPackage.getJwsCompactRepresentation());
         }
         belegDump[0].setBelegeDaten(receiptsInJWSCompactRepresentation.toArray(new String[receiptsInJWSCompactRepresentation.size()]));
@@ -66,6 +69,7 @@ public class SimpleMemoryDEPModule implements DEPModule {
 
     }
 
+    @Override
     public ReceiptPackage getLastStoredReceipt() {
         if (receiptPackages.size() > 0) {
             return receiptPackages.get(receiptPackages.size() - 1);

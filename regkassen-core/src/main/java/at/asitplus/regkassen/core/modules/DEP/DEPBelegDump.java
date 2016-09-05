@@ -17,43 +17,43 @@
 
 package at.asitplus.regkassen.core.modules.DEP;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * DEP Export format according to Detailspezifikation Abs 3
  */
 public class DEPBelegDump {
 
-    @SerializedName("Signaturzertifikat")
-    protected String signatureCertificate;
+  @JsonProperty("Signaturzertifikat")
+  protected String   signatureCertificate;
 
-    @SerializedName("Zertifizierungsstellen")
-    protected String[] certificateChain;
+  @JsonProperty("Zertifizierungsstellen")
+  protected String[] certificateChain;
 
-    @SerializedName("Belege-kompakt")
-    protected String[] belegeDaten;
+  @JsonProperty("Belege-kompakt")
+  protected String[] belegeDaten;
 
-    public String getSignatureCertificate() {
-        return signatureCertificate;
-    }
+  public String getSignatureCertificate() {
+    return signatureCertificate;
+  }
 
-    public void setSignatureCertificate(String signatureCertificate) {
-        this.signatureCertificate = signatureCertificate;
-    }
+  public void setSignatureCertificate(final String signatureCertificate) {
+    this.signatureCertificate = signatureCertificate;
+  }
 
-    public String[] getBelegeDaten() {
-        return belegeDaten;
-    }
+  public String[] getBelegeDaten() {
+    return belegeDaten;
+  }
 
-    public void setBelegeDaten(String[] belegeDaten) {
-        this.belegeDaten = belegeDaten;
-    }
+  public void setBelegeDaten(final String[] belegeDaten) {
+    this.belegeDaten = belegeDaten;
+  }
 
-    public String[] getCertificateChain() {
-        return certificateChain;
-    }
+  public String[] getCertificateChain() {
+    return certificateChain;
+  }
 
-    public void setCertificateChain(String[] certificateChain) {
-        this.certificateChain = certificateChain;
-    }
+  public void setCertificateChain(final String[] certificateChain) {
+    this.certificateChain = certificateChain;
+  }
 }

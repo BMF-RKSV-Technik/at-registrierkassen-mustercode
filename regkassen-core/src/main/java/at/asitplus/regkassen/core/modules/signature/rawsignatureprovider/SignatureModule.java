@@ -17,12 +17,12 @@
 
 package at.asitplus.regkassen.core.modules.signature.rawsignatureprovider;
 
-import at.asitplus.regkassen.core.base.rksuite.RKSuite;
-
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.cert.Certificate;
 import java.util.List;
+
+import at.asitplus.regkassen.common.RKSuite;
 
 /**
  * interface for a basic raw signature module (e.g. a smartcard, HSM, or even an online module

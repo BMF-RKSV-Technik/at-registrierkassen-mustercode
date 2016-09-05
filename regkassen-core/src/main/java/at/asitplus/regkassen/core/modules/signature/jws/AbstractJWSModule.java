@@ -17,7 +17,7 @@
 
 package at.asitplus.regkassen.core.modules.signature.jws;
 
-import at.asitplus.regkassen.core.base.rksuite.RKSuite;
+import at.asitplus.regkassen.common.RKSuite;
 import at.asitplus.regkassen.core.modules.signature.rawsignatureprovider.SignatureModule;
 import org.jose4j.jws.JsonWebSignature;
 
@@ -39,18 +39,20 @@ public abstract class AbstractJWSModule implements JWSModule {
         return openSystemSignatureModule.getSerialNumberOfKeyID();
     }
 
-    public void setOpenSystemSignatureModule(SignatureModule signatureModul) {
+    @Override
+    public void setOpenSystemSignatureModule(final SignatureModule signatureModul) {
         this.openSystemSignatureModule = signatureModul;
     }
 
+    @Override
     public SignatureModule getSignatureModule() {
         return openSystemSignatureModule;
     }
 
     @Override
-    public List<String> signMachineCodeRepOfReceipt(List<String> machineCodeRepOfReceiptList,boolean signatureDeviceIsDamaged) {
-        List<String> signedReceipts = new ArrayList<>();
-        for (String receiptRepresentationForSignature : machineCodeRepOfReceiptList) {
+    public List<String> signMachineCodeRepOfReceipt(final List<String> machineCodeRepOfReceiptList,final boolean signatureDeviceIsDamaged) {
+        final List<String> signedReceipts = new ArrayList<String>();
+        for (final String receiptRepresentationForSignature : machineCodeRepOfReceiptList) {
             signedReceipts.add(signMachineCodeRepOfReceipt(receiptRepresentationForSignature,signatureDeviceIsDamaged));
         }
         return signedReceipts;

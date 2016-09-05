@@ -17,10 +17,11 @@
 
 package at.asitplus.regkassen.core.modules.print;
 
+import at.asitplus.regkassen.common.MachineCodeValue;
+import at.asitplus.regkassen.common.TaxType;
+import at.asitplus.regkassen.common.util.CashBoxUtils;
 import at.asitplus.regkassen.core.base.receiptdata.ReceiptPackage;
-import at.asitplus.regkassen.core.base.receiptdata.TaxType;
-import at.asitplus.regkassen.core.base.util.CashBoxUtils;
-import at.asitplus.regkassen.core.base.util.MachineCodeValue;
+
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.WriterException;
@@ -47,30 +48,32 @@ import java.util.List;
 
 public class SimplePDFPrinterModule implements PrinterModule {
 
-    public List<byte[]> printReceipt(java.util.List<ReceiptPackage> receiptPackages, ReceiptPrintType receiptPrintType) {
-        List<byte[]> pdfReceipts = new ArrayList<>();
-        for (ReceiptPackage receiptPackage : receiptPackages) {
+    @Override
+    public List<byte[]> printReceipt(final java.util.List<ReceiptPackage> receiptPackages, final ReceiptPrintType receiptPrintType) {
+        final List<byte[]> pdfReceipts = new ArrayList<byte[]>();
+        for (final ReceiptPackage receiptPackage : receiptPackages) {
             pdfReceipts.add(printReceipt(receiptPackage, receiptPrintType));
         }
         return pdfReceipts;
     }
 
-    public byte[] printReceipt(ReceiptPackage receiptPackage, ReceiptPrintType receiptPrintType) {
+    @Override
+    public byte[] printReceipt(final ReceiptPackage receiptPackage, final ReceiptPrintType receiptPrintType) {
        //TODO Training/Storno!
         try {
             //init PDF document
-            PDDocument document = new PDDocument();
-            PDPage page = new PDPage(PDPage.PAGE_SIZE_A6);
+            final PDDocument document = new PDDocument();
+            final PDPage page = new PDPage(PDPage.PAGE_SIZE_A6);
             document.addPage(page);
 
             //init content objects
-            PDRectangle rect = page.getMediaBox();
-            PDPageContentStream cos = new PDPageContentStream(document, page);
+            final PDRectangle rect = page.getMediaBox();
+            final PDPageContentStream cos = new PDPageContentStream(document, page);
 
             //add taxtype-sums
             int line = 1;
             //get string that will be encoded as QR-Code
-            String qrCodeRepresentation = CashBoxUtils.getQRCodeRepresentationFromJWSCompactRepresentation(receiptPackage.getJwsCompactRepresentation());
+            final String qrCodeRepresentation = CashBoxUtils.getQRCodeRepresentationFromJWSCompactRepresentation(receiptPackage.getJwsCompactRepresentation());
 
             addTaxTypeToPDF(cos, rect, line++, CashBoxUtils.getValueFromMachineCode(qrCodeRepresentation,MachineCodeValue.SUM_TAX_SET_NORMAL),TaxType.SATZ_NORMAL);
             addTaxTypeToPDF(cos, rect, line++, CashBoxUtils.getValueFromMachineCode(qrCodeRepresentation,MachineCodeValue.SUM_TAX_SET_ERMAESSIGT1),TaxType.SATZ_ERMAESSIGT_1);
@@ -78,11 +81,11 @@ public class SimplePDFPrinterModule implements PrinterModule {
             addTaxTypeToPDF(cos, rect, line++, CashBoxUtils.getValueFromMachineCode(qrCodeRepresentation,MachineCodeValue.SUM_TAX_SET_BESONDERS),TaxType.SATZ_BESONDERS);
             addTaxTypeToPDF(cos, rect, line++, CashBoxUtils.getValueFromMachineCode(qrCodeRepresentation,MachineCodeValue.SUM_TAX_SET_NULL),TaxType.SATZ_NULL);
 
-            String signatureValue = CashBoxUtils.getValueFromMachineCode(qrCodeRepresentation, MachineCodeValue.SIGNATURE_VALUE);
-            String decodedSignatureValue = new String(CashBoxUtils.base64Decode(signatureValue, false));
-            boolean secDeviceWasDamaged = "Sicherheitseinrichtung ausgefallen".equals(decodedSignatureValue);
+            final String signatureValue = CashBoxUtils.getValueFromMachineCode(qrCodeRepresentation, MachineCodeValue.SIGNATURE_VALUE);
+            final String decodedSignatureValue = new String(CashBoxUtils.base64Decode(signatureValue, false));
+            final boolean secDeviceWasDamaged = "Sicherheitseinrichtung ausgefallen".equals(decodedSignatureValue);
             if (secDeviceWasDamaged) {
-                PDFont fontPlain = PDType1Font.HELVETICA;
+                final PDFont fontPlain = PDType1Font.HELVETICA;
                 cos.beginText();
                 cos.setFont(fontPlain, 8);
                 cos.moveTextPositionByAmount(20, rect.getHeight() - 20 * (line));
@@ -96,52 +99,52 @@ public class SimplePDFPrinterModule implements PrinterModule {
                 addOCRCodeToPDF(document, cos, rect, line++, receiptPackage);
             } else {
                 //create QRCode
-                BufferedImage image = createQRCode(receiptPackage);
+                final BufferedImage image = createQRCode(receiptPackage);
                 //add QRCode to PDF document
-                PDXObjectImage ximage = new PDPixelMap(document, image);
-                float scale = 2f; // alter this value to set the image size
+                final PDXObjectImage ximage = new PDPixelMap(document, image);
+                final float scale = 2f; // alter this value to set the image size
                 cos.drawXObject(ximage, 25, 0, ximage.getWidth() * scale, ximage.getHeight() * scale);
             }
             cos.close();
 
-            ByteArrayOutputStream bOut = new ByteArrayOutputStream();
+            final ByteArrayOutputStream bOut = new ByteArrayOutputStream();
             document.save(bOut);
             document.close();
             return bOut.toByteArray();
 
-        } catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
-        } catch (COSVisitorException e) {
+        } catch (final COSVisitorException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    protected void addTaxTypeToPDF(PDPageContentStream cos, PDRectangle rect, int line, String sum, TaxType taxType) {
-        PDFont fontPlain = PDType1Font.HELVETICA;
+    protected void addTaxTypeToPDF(final PDPageContentStream cos, final PDRectangle rect, final int line, final String sum, final TaxType taxType) {
+        final PDFont fontPlain = PDType1Font.HELVETICA;
         try {
             cos.beginText();
             cos.setFont(fontPlain, 8);
             cos.moveTextPositionByAmount(20, rect.getHeight() - 20 * (line));
             cos.drawString(taxType.getTaxTypeString() + ": " + sum);
             cos.endText();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
         }
     }
 
-    protected void addOCRCodeToPDF(PDDocument doc, PDPageContentStream cos, PDRectangle rect, int line, ReceiptPackage receiptPackage) {
+    protected void addOCRCodeToPDF(final PDDocument doc, final PDPageContentStream cos, final PDRectangle rect, int line, final ReceiptPackage receiptPackage) {
         try {
             //load OCR-A font
-            InputStream inputStreamAFM = this.getClass().getClassLoader().getResourceAsStream("OCRA.afm");
-            InputStream inputStreamPFB = this.getClass().getClassLoader().getResourceAsStream("OCRA.pfb");
-            PDFont font = new PDType1AfmPfbFont(doc, inputStreamAFM, inputStreamPFB);
+            final InputStream inputStreamAFM = this.getClass().getClassLoader().getResourceAsStream("OCRA.afm");
+            final InputStream inputStreamPFB = this.getClass().getClassLoader().getResourceAsStream("OCRA.pfb");
+            final PDFont font = new PDType1AfmPfbFont(doc, inputStreamAFM, inputStreamPFB);
 
             //get machine code as OCR representation
             String ocrRepresentation = CashBoxUtils.getOCRCodeRepresentationFromJWSCompactRepresentation(receiptPackage.getJwsCompactRepresentation());
 
             //print OCR rep to PDF document
-            int CHARS_PER_LINE = 40;
+            final int CHARS_PER_LINE = 40;
             int index = 0;
             while (index >= 0) {
                 String partOCR;
@@ -162,30 +165,30 @@ public class SimplePDFPrinterModule implements PrinterModule {
             }
 
 
-        } catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
         }
     }
 
-    protected BufferedImage createQRCode(ReceiptPackage receiptPackage) {
+    protected BufferedImage createQRCode(final ReceiptPackage receiptPackage) {
         try {
 
-            String qrCodeRepresentation = CashBoxUtils.getQRCodeRepresentationFromJWSCompactRepresentation(receiptPackage.getJwsCompactRepresentation());
+            final String qrCodeRepresentation = CashBoxUtils.getQRCodeRepresentationFromJWSCompactRepresentation(receiptPackage.getJwsCompactRepresentation());
 
             //create QR-Code
-            int size = 128;
+            final int size = 128;
 
-            Hashtable<EncodeHintType, ErrorCorrectionLevel> hintMap = new Hashtable<EncodeHintType, ErrorCorrectionLevel>();
+            final Hashtable<EncodeHintType, ErrorCorrectionLevel> hintMap = new Hashtable<EncodeHintType, ErrorCorrectionLevel>();
             hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.M);
-            QRCodeWriter qrCodeWriter = new QRCodeWriter();
+            final QRCodeWriter qrCodeWriter = new QRCodeWriter();
 
-            BitMatrix byteMatrix = qrCodeWriter.encode(qrCodeRepresentation, BarcodeFormat.QR_CODE, size, size, hintMap);
+            final BitMatrix byteMatrix = qrCodeWriter.encode(qrCodeRepresentation, BarcodeFormat.QR_CODE, size, size, hintMap);
 
-            int crunchifyWidth = byteMatrix.getWidth();
-            BufferedImage image = new BufferedImage(crunchifyWidth, crunchifyWidth, BufferedImage.TYPE_INT_RGB);
+            final int crunchifyWidth = byteMatrix.getWidth();
+            final BufferedImage image = new BufferedImage(crunchifyWidth, crunchifyWidth, BufferedImage.TYPE_INT_RGB);
             image.createGraphics();
 
-            Graphics2D graphics = (Graphics2D) image.getGraphics();
+            final Graphics2D graphics = (Graphics2D) image.getGraphics();
             graphics.setColor(Color.WHITE);
             graphics.fillRect(0, 0, crunchifyWidth, crunchifyWidth);
             graphics.setColor(Color.BLACK);
@@ -198,7 +201,7 @@ public class SimplePDFPrinterModule implements PrinterModule {
                 }
             }
             return image;
-        } catch (WriterException e) {
+        } catch (final WriterException e) {
             e.printStackTrace();
         }
         return null;

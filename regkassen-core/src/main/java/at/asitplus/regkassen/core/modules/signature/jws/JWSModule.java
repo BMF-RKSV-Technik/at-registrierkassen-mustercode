@@ -17,7 +17,7 @@
 
 package at.asitplus.regkassen.core.modules.signature.jws;
 
-import at.asitplus.regkassen.core.base.rksuite.RKSuite;
+import at.asitplus.regkassen.common.RKSuite;
 import at.asitplus.regkassen.core.modules.signature.rawsignatureprovider.SignatureModule;
 
 import java.util.List;

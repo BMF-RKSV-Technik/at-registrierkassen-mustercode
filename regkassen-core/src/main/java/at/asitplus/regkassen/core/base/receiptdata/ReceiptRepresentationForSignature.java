@@ -17,17 +17,19 @@
 
 package at.asitplus.regkassen.core.base.receiptdata;
 
-import at.asitplus.regkassen.core.base.rksuite.RKSuite;
-import at.asitplus.regkassen.core.base.util.CashBoxUtils;
-import com.google.gson.annotations.SerializedName;
-import org.apache.commons.math3.util.Precision;
-
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import org.apache.commons.math3.util.Precision;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import at.asitplus.regkassen.common.RKSuite;
+import at.asitplus.regkassen.common.util.CashBoxUtils;
 
 /**
  * This class represents the data structure that is specified in Detailspezifikation Abs 4
@@ -36,37 +38,37 @@ import java.util.Locale;
 public class ReceiptRepresentationForSignature {
     //REF TO SPECIFICATION: Detailspezifikation/Abs 4, Abs 5
 
-    @SerializedName("Kassen-ID")
+    @JsonProperty("Kassen-ID")
     protected String cashBoxID;
 
-    @SerializedName("Belegnummer")
+    @JsonProperty("Belegnummer")
     protected String receiptIdentifier;
 
-    @SerializedName("Beleg-Datum-Uhrzeit")
+    @JsonProperty("Beleg-Datum-Uhrzeit")
     protected Date receiptDateAndTime;
 
-    @SerializedName("Betrag-Satz-Normal")
+    @JsonProperty("Betrag-Satz-Normal")
     protected double sumTaxSetNormal;
 
-    @SerializedName("Betrag-Satz-Ermaessigt-1")
+    @JsonProperty("Betrag-Satz-Ermaessigt-1")
     protected double sumTaxSetErmaessigt1;
 
-    @SerializedName("Betrag-Satz-Ermaessigt-2")
+    @JsonProperty("Betrag-Satz-Ermaessigt-2")
     protected double sumTaxSetErmaessigt2;
 
-    @SerializedName("Betrag-Satz-Null")
+    @JsonProperty("Betrag-Satz-Null")
     protected double sumTaxSetNull;
 
-    @SerializedName("Betrag-Satz-Besonders")
+    @JsonProperty("Betrag-Satz-Besonders")
     protected double sumTaxSetBesonders;
 
-    @SerializedName("Stand-Umsatz-Zaehler-AES256-ICM")
+    @JsonProperty("Stand-Umsatz-Zaehler-AES256-ICM")
     protected String encryptedTurnoverValue;
 
-    @SerializedName("Zertifikat-Seriennummer")
+    @JsonProperty("Zertifikat-Seriennummer")
     protected String signatureCertificateSerialNumber;
 
-    @SerializedName("Sig-Voriger-Beleg")
+    @JsonProperty("Sig-Voriger-Beleg")
     protected String signatureValuePreviousReceipt;
 
     /**
@@ -75,13 +77,13 @@ public class ReceiptRepresentationForSignature {
      * @param rkSuite RK suite according to Detailspezifikation Abs 2
      * @return data-to-be-signed result of algorithm in Detailspezifikation/Abs 5
      */
-    public String getDataToBeSigned(RKSuite rkSuite) {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+    public String getDataToBeSigned(final RKSuite rkSuite) {
+        final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         //set decimal format to "0,00"
-        NumberFormat nf = NumberFormat.getNumberInstance(Locale.GERMAN);
+        final NumberFormat nf = NumberFormat.getNumberInstance(Locale.GERMAN);
         nf.setMinimumFractionDigits(2);
         nf.setMaximumFractionDigits(2);
-        DecimalFormat decimalFormat = (DecimalFormat) nf;
+        final DecimalFormat decimalFormat = (DecimalFormat) nf;
 
         //prepare signature payload string for signature creation (Detailspezifikation/ABS 5
         return "_" + rkSuite.getSuiteID() + "_" + cashBoxID + "_" + receiptIdentifier + "_" + dateFormat.format(receiptDateAndTime) + "_" + decimalFormat.format(sumTaxSetNormal) + "_" + decimalFormat.format(sumTaxSetErmaessigt1) + "_" + decimalFormat.format(sumTaxSetErmaessigt2) + "_" + decimalFormat.format(sumTaxSetNull) + "_" + decimalFormat.format(sumTaxSetBesonders) + "_" + encryptedTurnoverValue + "_" + signatureCertificateSerialNumber + "_" + signatureValuePreviousReceipt;
@@ -94,17 +96,17 @@ public class ReceiptRepresentationForSignature {
      * @return first part of OCR code representation (without the signature value)
      * difference to getDataToBeSigned: BASE64 values are re-encoded to BASE32 to simplify OCR process
      */
-    public String getOCRCodeRepresentationWithoutSignature(RKSuite rkSuite) {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+    public String getOCRCodeRepresentationWithoutSignature(final RKSuite rkSuite) {
+        final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         //set decimal format to "0,00"
-        NumberFormat nf = NumberFormat.getNumberInstance(Locale.GERMAN);
+        final NumberFormat nf = NumberFormat.getNumberInstance(Locale.GERMAN);
         nf.setMinimumFractionDigits(2);
         nf.setMaximumFractionDigits(2);
-        DecimalFormat decimalFormat = (DecimalFormat) nf;
+        final DecimalFormat decimalFormat = (DecimalFormat) nf;
 
         //prepare signature payload string for signature creation (Detailspezifikation/ABS 5
-        String base32RepOfSignatureValuePreviousReceipt = CashBoxUtils.base32Encode(CashBoxUtils.base64Decode(signatureValuePreviousReceipt, false));
-        String base32EncryptedTurnoverValue = CashBoxUtils.base32Encode(CashBoxUtils.base64Decode(encryptedTurnoverValue, false));
+        final String base32RepOfSignatureValuePreviousReceipt = CashBoxUtils.base32Encode(CashBoxUtils.base64Decode(signatureValuePreviousReceipt, false));
+        final String base32EncryptedTurnoverValue = CashBoxUtils.base32Encode(CashBoxUtils.base64Decode(encryptedTurnoverValue, false));
 
         return "_" + rkSuite.getSuiteID() + "_" + cashBoxID + "_" + receiptIdentifier + "_" + dateFormat.format(receiptDateAndTime) + "_" + decimalFormat.format(sumTaxSetNormal) + "_" + decimalFormat.format(sumTaxSetErmaessigt1) + "_" + decimalFormat.format(sumTaxSetErmaessigt2) + "_" + decimalFormat.format(sumTaxSetNull) + "_" + decimalFormat.format(sumTaxSetBesonders) + "_" + base32EncryptedTurnoverValue + "_" + signatureCertificateSerialNumber + "_" + base32RepOfSignatureValuePreviousReceipt;
     }
@@ -113,7 +115,7 @@ public class ReceiptRepresentationForSignature {
         return cashBoxID;
     }
 
-    public void setCashBoxID(String cashBoxID) {
+    public void setCashBoxID(final String cashBoxID) {
         this.cashBoxID = cashBoxID;
     }
 
@@ -121,7 +123,7 @@ public class ReceiptRepresentationForSignature {
         return receiptIdentifier;
     }
 
-    public void setReceiptIdentifier(String receiptIdentifier) {
+    public void setReceiptIdentifier(final String receiptIdentifier) {
         this.receiptIdentifier = receiptIdentifier;
     }
 
@@ -129,7 +131,7 @@ public class ReceiptRepresentationForSignature {
         return receiptDateAndTime;
     }
 
-    public void setReceiptDateAndTime(Date receiptDateAndTime) {
+    public void setReceiptDateAndTime(final Date receiptDateAndTime) {
         this.receiptDateAndTime = receiptDateAndTime;
     }
 
@@ -137,7 +139,7 @@ public class ReceiptRepresentationForSignature {
         return Precision.round(sumTaxSetNormal, 2);
     }
 
-    public void setSumTaxSetNormal(double sumTaxSetNormal) {
+    public void setSumTaxSetNormal(final double sumTaxSetNormal) {
         this.sumTaxSetNormal = sumTaxSetNormal;
     }
 
@@ -145,7 +147,7 @@ public class ReceiptRepresentationForSignature {
         return Precision.round(sumTaxSetErmaessigt1, 2);
     }
 
-    public void setSumTaxSetErmaessigt1(double sumTaxSetErmaessigt1) {
+    public void setSumTaxSetErmaessigt1(final double sumTaxSetErmaessigt1) {
         this.sumTaxSetErmaessigt1 = sumTaxSetErmaessigt1;
     }
 
@@ -153,7 +155,7 @@ public class ReceiptRepresentationForSignature {
         return Precision.round(sumTaxSetErmaessigt2, 2);
     }
 
-    public void setSumTaxSetErmaessigt2(double sumTaxSetErmaessigt2) {
+    public void setSumTaxSetErmaessigt2(final double sumTaxSetErmaessigt2) {
         this.sumTaxSetErmaessigt2 = sumTaxSetErmaessigt2;
     }
 
@@ -161,7 +163,7 @@ public class ReceiptRepresentationForSignature {
         return Precision.round(sumTaxSetNull, 2);
     }
 
-    public void setSumTaxSetNull(double sumTaxSetNull) {
+    public void setSumTaxSetNull(final double sumTaxSetNull) {
         this.sumTaxSetNull = sumTaxSetNull;
     }
 
@@ -169,7 +171,7 @@ public class ReceiptRepresentationForSignature {
         return Precision.round(sumTaxSetBesonders, 2);
     }
 
-    public void setSumTaxSetBesonders(double sumTaxSetBesonders) {
+    public void setSumTaxSetBesonders(final double sumTaxSetBesonders) {
         this.sumTaxSetBesonders = sumTaxSetBesonders;
     }
 
@@ -177,7 +179,7 @@ public class ReceiptRepresentationForSignature {
         return encryptedTurnoverValue;
     }
 
-    public void setEncryptedTurnoverValue(String encryptedTurnoverValue) {
+    public void setEncryptedTurnoverValue(final String encryptedTurnoverValue) {
         this.encryptedTurnoverValue = encryptedTurnoverValue;
     }
 
@@ -185,7 +187,7 @@ public class ReceiptRepresentationForSignature {
         return signatureCertificateSerialNumber;
     }
 
-    public void setSignatureCertificateSerialNumber(String signatureCertificateSerialNumber) {
+    public void setSignatureCertificateSerialNumber(final String signatureCertificateSerialNumber) {
         this.signatureCertificateSerialNumber = signatureCertificateSerialNumber;
     }
 
@@ -193,7 +195,7 @@ public class ReceiptRepresentationForSignature {
         return signatureValuePreviousReceipt;
     }
 
-    public void setSignatureValuePreviousReceipt(String signatureValuePreviousReceipt) {
+    public void setSignatureValuePreviousReceipt(final String signatureValuePreviousReceipt) {
         this.signatureValuePreviousReceipt = signatureValuePreviousReceipt;
     }
 }

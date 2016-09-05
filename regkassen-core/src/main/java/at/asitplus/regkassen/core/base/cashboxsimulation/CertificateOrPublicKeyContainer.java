@@ -17,7 +17,9 @@
 
 package at.asitplus.regkassen.core.base.cashboxsimulation;
 
-import at.asitplus.regkassen.core.base.util.CashBoxUtils;
+import at.asitplus.regkassen.common.SignatureDeviceType;
+import at.asitplus.regkassen.common.util.CashBoxUtils;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -72,6 +74,7 @@ public class CertificateOrPublicKeyContainer {
         this.signatureCertificateOrPublicKey = signatureCertificateOrPublicKey;
     }
 
+    @JsonIgnore
     public PublicKey getPublicKey() {
         PublicKey publicKey = null;
         try {
@@ -92,6 +95,7 @@ public class CertificateOrPublicKeyContainer {
         return publicKey;
     }
 
+    @JsonIgnore
     public X509Certificate getCertificate() {
         try {
             if (signatureDeviceType == SignatureDeviceType.PUBLIC_KEY) {

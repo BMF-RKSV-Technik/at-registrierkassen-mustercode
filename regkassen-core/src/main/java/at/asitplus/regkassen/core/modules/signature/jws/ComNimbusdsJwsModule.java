@@ -17,8 +17,9 @@
 
 package at.asitplus.regkassen.core.modules.signature.jws;
 
-import at.asitplus.regkassen.core.base.rksuite.RKSuite;
-import at.asitplus.regkassen.core.base.util.CashBoxUtils;
+import at.asitplus.regkassen.common.RKSuite;
+import at.asitplus.regkassen.common.util.CashBoxUtils;
+
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.ECDSASigner;
 

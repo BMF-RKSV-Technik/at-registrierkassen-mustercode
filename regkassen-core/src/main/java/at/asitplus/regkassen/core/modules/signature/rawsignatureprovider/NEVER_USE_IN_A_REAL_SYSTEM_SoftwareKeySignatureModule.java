@@ -17,12 +17,12 @@
 
 package at.asitplus.regkassen.core.modules.signature.rawsignatureprovider;
 
-import at.asitplus.regkassen.core.base.rksuite.RKSuite;
-
 import java.security.*;
 import java.security.cert.Certificate;
 import java.util.ArrayList;
 import java.util.List;
+
+import at.asitplus.regkassen.common.RKSuite;
 
 /**
  * SIMPLE and NOT REUSABLE demo for a trivial signature module of a closed system (which does not employ certificates)
@@ -41,7 +41,7 @@ public class NEVER_USE_IN_A_REAL_SYSTEM_SoftwareKeySignatureModule implements Si
      *
      * @param keyIDForClosedSystem
      */
-    public NEVER_USE_IN_A_REAL_SYSTEM_SoftwareKeySignatureModule(String keyIDForClosedSystem) {
+    public NEVER_USE_IN_A_REAL_SYSTEM_SoftwareKeySignatureModule(final String keyIDForClosedSystem) {
         this.serialNumberOrKeyId = keyIDForClosedSystem;
         intialise();
     }
@@ -49,16 +49,16 @@ public class NEVER_USE_IN_A_REAL_SYSTEM_SoftwareKeySignatureModule implements Si
     public void intialise() {
         try {
             //create random demonstration ECC keys
-            KeyPairGenerator kpg = KeyPairGenerator.getInstance("EC");
+            final KeyPairGenerator kpg = KeyPairGenerator.getInstance("EC");
             kpg.initialize(256); //256 bit ECDSA key
 
             //create a key pair for the signature certificate, which is going to be used to sign the receipts
-            KeyPair signingKeyPair = kpg.generateKeyPair();
+            final KeyPair signingKeyPair = kpg.generateKeyPair();
 
             //get references to private/public signing key
             signingKey = signingKeyPair.getPrivate();
             publicKey = signingKeyPair.getPublic();
-        } catch (NoSuchAlgorithmException e) {
+        } catch (final NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
     }
@@ -69,10 +69,12 @@ public class NEVER_USE_IN_A_REAL_SYSTEM_SoftwareKeySignatureModule implements Si
         intialise();
     }
 
+    @Override
     public PrivateKey getSigningKey() {
         return signingKey;
     }
 
+    @Override
     public Certificate getSigningCertificate() {
         return null;
     }
@@ -83,18 +85,18 @@ public class NEVER_USE_IN_A_REAL_SYSTEM_SoftwareKeySignatureModule implements Si
     }
 
     @Override
-    public byte[] signData(byte[] dataToBeSigned) {
+    public byte[] signData(final byte[] dataToBeSigned) {
 
         try {
-            Signature signature = Signature.getInstance("SHA256withECDSA");
+            final Signature signature = Signature.getInstance("SHA256withECDSA");
             signature.initSign(getSigningKey());
             signature.update(dataToBeSigned);
             return signature.sign();
-        } catch (NoSuchAlgorithmException e) {
+        } catch (final NoSuchAlgorithmException e) {
             e.printStackTrace();
-        } catch (SignatureException e) {
+        } catch (final SignatureException e) {
             e.printStackTrace();
-        } catch (InvalidKeyException e) {
+        } catch (final InvalidKeyException e) {
             e.printStackTrace();
         }
         return null;
@@ -110,8 +112,9 @@ public class NEVER_USE_IN_A_REAL_SYSTEM_SoftwareKeySignatureModule implements Si
         return true;
     }
 
+    @Override
     public List<Certificate> getCertificateChain() {
-        return new ArrayList<>();
+        return new ArrayList<Certificate>();
     }
 
     @Override

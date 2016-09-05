@@ -17,7 +17,6 @@
 
 package at.asitplus.regkassen.core.modules.signature.rawsignatureprovider;
 
-import at.asitplus.regkassen.core.base.rksuite.RKSuite;
 import sun.security.pkcs11.SunPKCS11;
 
 import java.io.ByteArrayInputStream;
@@ -29,6 +28,8 @@ import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import at.asitplus.regkassen.common.RKSuite;
 
 /**
  * PKCS11 signature module. the PKCS11 standard is a widely adopted standard for using cryptograpic functions provided by
@@ -52,7 +53,7 @@ public class PKSC11SystemSignatureModule implements SignatureModule {
     protected boolean closedSystemSignatureDevice;
     protected String serialNumberOrKeyId;
 
-    public PKSC11SystemSignatureModule(RKSuite rkSuite, String keyIdForClosedSystem) {
+    public PKSC11SystemSignatureModule(final RKSuite rkSuite, final String keyIdForClosedSystem) {
         if (rkSuite.getSuiteID().startsWith("AT0")) {
             closedSystemSignatureDevice = true;
         } else {
@@ -65,7 +66,7 @@ public class PKSC11SystemSignatureModule implements SignatureModule {
 
     private void initialize() {
 
-        String arch = System.getProperty("sun.arch.data.model");
+        final String arch = System.getProperty("sun.arch.data.model");
 
         String pkcs11ConfigSettings = null;
         if (arch.equalsIgnoreCase("64")) {
@@ -77,10 +78,10 @@ public class PKSC11SystemSignatureModule implements SignatureModule {
             return;
         }
 
-        byte[] pkcs11ConfigBytes = pkcs11ConfigSettings.getBytes();
-        ByteArrayInputStream confStream = new ByteArrayInputStream(pkcs11ConfigBytes);
+        final byte[] pkcs11ConfigBytes = pkcs11ConfigSettings.getBytes();
+        final ByteArrayInputStream confStream = new ByteArrayInputStream(pkcs11ConfigBytes);
 
-        SunPKCS11 pkcs11 = new SunPKCS11(confStream);
+        final SunPKCS11 pkcs11 = new SunPKCS11(confStream);
         Security.addProvider(pkcs11);
 
         try {
@@ -88,13 +89,13 @@ public class PKSC11SystemSignatureModule implements SignatureModule {
 
             ks.load(null, null);
 
-        } catch (KeyStoreException e) {
+        } catch (final KeyStoreException e) {
             e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
+        } catch (final NoSuchAlgorithmException e) {
             e.printStackTrace();
-        } catch (CertificateException e) {
+        } catch (final CertificateException e) {
             e.printStackTrace();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
         }
 
@@ -107,13 +108,13 @@ public class PKSC11SystemSignatureModule implements SignatureModule {
 
             return (PrivateKey) ks.getKey(KEY_ALIAS, null);
 
-        } catch (KeyStoreException e) {
+        } catch (final KeyStoreException e) {
             e.printStackTrace();
             return null;
-        } catch (UnrecoverableKeyException e) {
+        } catch (final UnrecoverableKeyException e) {
             e.printStackTrace();
             return null;
-        } catch (NoSuchAlgorithmException e) {
+        } catch (final NoSuchAlgorithmException e) {
             e.printStackTrace();
             return null;
         }
@@ -125,10 +126,10 @@ public class PKSC11SystemSignatureModule implements SignatureModule {
 
         try {
 
-            Certificate c = ks.getCertificate(KEY_ALIAS);
+            final Certificate c = ks.getCertificate(KEY_ALIAS);
             return c;
 
-        } catch (KeyStoreException e) {
+        } catch (final KeyStoreException e) {
             e.printStackTrace();
             return null;
         }
@@ -140,10 +141,10 @@ public class PKSC11SystemSignatureModule implements SignatureModule {
 
         try {
 
-            Certificate[] chain = ks.getCertificateChain(KEY_ALIAS);
-            return new ArrayList<>(Arrays.asList(chain));
+            final Certificate[] chain = ks.getCertificateChain(KEY_ALIAS);
+            return new ArrayList<Certificate>(Arrays.asList(chain));
 
-        } catch (KeyStoreException e) {
+        } catch (final KeyStoreException e) {
             e.printStackTrace();
             return null;
         }
@@ -156,24 +157,24 @@ public class PKSC11SystemSignatureModule implements SignatureModule {
         try {
             c = (X509Certificate) ks.getCertificate(KEY_ALIAS);
             return c.getPublicKey();
-        } catch (KeyStoreException e) {
+        } catch (final KeyStoreException e) {
             e.printStackTrace();
         }
         return null;
     }
 
     @Override
-    public byte[] signData(byte[] dataToBeSigned) {
+    public byte[] signData(final byte[] dataToBeSigned) {
         try {
-            Signature signature = Signature.getInstance("SHA256withECDSA");
+            final Signature signature = Signature.getInstance("SHA256withECDSA");
             signature.initSign(getSigningKey());
             signature.update(dataToBeSigned);
             return signature.sign();
-        } catch (NoSuchAlgorithmException e) {
+        } catch (final NoSuchAlgorithmException e) {
             e.printStackTrace();
-        } catch (SignatureException e) {
+        } catch (final SignatureException e) {
             e.printStackTrace();
-        } catch (InvalidKeyException e) {
+        } catch (final InvalidKeyException e) {
             e.printStackTrace();
         }
         return null;
@@ -188,7 +189,7 @@ public class PKSC11SystemSignatureModule implements SignatureModule {
             try {
                 c = (X509Certificate) ks.getCertificate(KEY_ALIAS);
                 return Long.toHexString(c.getSerialNumber().longValue());
-            } catch (KeyStoreException e) {
+            } catch (final KeyStoreException e) {
                 e.printStackTrace();
             }
             return null;

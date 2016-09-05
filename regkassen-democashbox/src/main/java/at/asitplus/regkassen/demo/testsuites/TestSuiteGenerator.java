@@ -18,8 +18,7 @@
 package at.asitplus.regkassen.demo.testsuites;
 
 import at.asitplus.regkassen.core.base.cashboxsimulation.CashBoxSimulation;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import at.asitplus.regkassen.verification.common.rpc.RKObjectMapper;
 import org.apache.commons.io.IOUtils;
 
 import java.io.ByteArrayOutputStream;
@@ -56,8 +55,8 @@ public class TestSuiteGenerator {
                 bOut.close();
 
                 //parse JSON structure
-                Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                CashBoxSimulation cashBoxSimulation = gson.fromJson(new String(bOut.toByteArray()), CashBoxSimulation.class);
+
+                CashBoxSimulation cashBoxSimulation = RKObjectMapper.load(new String(bOut.toByteArray()),CashBoxSimulation.class);
                 cashBoxSimulationList.add(cashBoxSimulation);
             }
 

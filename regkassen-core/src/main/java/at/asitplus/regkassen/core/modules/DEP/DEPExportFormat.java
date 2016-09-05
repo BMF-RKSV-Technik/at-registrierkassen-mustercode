@@ -17,20 +17,20 @@
 
 package at.asitplus.regkassen.core.modules.DEP;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * DEP Export format according to Detailspezifikation Abs 3
  */
 public class DEPExportFormat {
-    @SerializedName("Belege-Gruppe")
-    protected DEPBelegDump[] belegPackage;
+  @JsonProperty("Belege-Gruppe")
+  protected DEPBelegDump[] belegPackage;
 
-    public DEPBelegDump[] getBelegPackage() {
-        return belegPackage;
-    }
+  public DEPBelegDump[] getBelegPackage() {
+    return belegPackage;
+  }
 
-    public void setBelegPackage(DEPBelegDump[] belegPackage) {
-        this.belegPackage = belegPackage;
-    }
+  public void setBelegPackage(final DEPBelegDump[] belegPackage) {
+    this.belegPackage = belegPackage;
+  }
 }

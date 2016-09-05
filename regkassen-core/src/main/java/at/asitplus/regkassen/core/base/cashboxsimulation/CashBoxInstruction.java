@@ -17,6 +17,7 @@
 
 package at.asitplus.regkassen.core.base.cashboxsimulation;
 
+import at.asitplus.regkassen.common.TypeOfReceipt;
 import at.asitplus.regkassen.core.base.receiptdata.SimplifiedReceipt;
 
 /**

@@ -37,13 +37,13 @@ public class CashBoxSimulation {
     //number of signature devices that should be used for the test-run
     protected int numberOfSignatureDevices;
 
-    protected List<CashBoxInstruction> cashBoxInstructionList = new ArrayList<>();
+    protected List<CashBoxInstruction> cashBoxInstructionList = new ArrayList<CashBoxInstruction>();
 
     public String getCashBoxId() {
         return cashBoxId;
     }
 
-    public void setCashBoxId(String cashBoxId) {
+    public void setCashBoxId(final String cashBoxId) {
         this.cashBoxId = cashBoxId;
     }
 
@@ -51,7 +51,7 @@ public class CashBoxSimulation {
         return base64AesKey;
     }
 
-    public void setBase64AesKey(String base64AesKey) {
+    public void setBase64AesKey(final String base64AesKey) {
         this.base64AesKey = base64AesKey;
     }
 
@@ -59,7 +59,7 @@ public class CashBoxSimulation {
         return cashBoxInstructionList;
     }
 
-    public void setCashBoxInstructionList(List<CashBoxInstruction> cashBoxInstructionList) {
+    public void setCashBoxInstructionList(final List<CashBoxInstruction> cashBoxInstructionList) {
         this.cashBoxInstructionList = cashBoxInstructionList;
     }
 
@@ -67,7 +67,7 @@ public class CashBoxSimulation {
         return companyID;
     }
 
-    public void setCompanyID(String companyID) {
+    public void setCompanyID(final String companyID) {
         this.companyID = companyID;
     }
 
@@ -75,7 +75,7 @@ public class CashBoxSimulation {
         return numberOfSignatureDevices;
     }
 
-    public void setNumberOfSignatureDevices(int numberOfSignatureDevices) {
+    public void setNumberOfSignatureDevices(final int numberOfSignatureDevices) {
         this.numberOfSignatureDevices = numberOfSignatureDevices;
     }
 
@@ -83,7 +83,7 @@ public class CashBoxSimulation {
         return simulationRunLabel;
     }
 
-    public void setSimulationRunLabel(String simulationRunLabel) {
+    public void setSimulationRunLabel(final String simulationRunLabel) {
         this.simulationRunLabel = simulationRunLabel;
     }
 }
