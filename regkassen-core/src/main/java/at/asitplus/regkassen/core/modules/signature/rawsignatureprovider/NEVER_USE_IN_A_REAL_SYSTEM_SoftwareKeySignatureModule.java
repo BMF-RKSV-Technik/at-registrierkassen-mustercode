@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015
+ * Copyright (C) 2015, 2016
  * A-SIT Plus GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,12 +17,19 @@
 
 package at.asitplus.regkassen.core.modules.signature.rawsignatureprovider;
 
-import java.security.*;
+import at.asitplus.regkassen.common.RKSuite;
+
+import java.security.InvalidKeyException;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.Signature;
+import java.security.SignatureException;
 import java.security.cert.Certificate;
 import java.util.ArrayList;
 import java.util.List;
-
-import at.asitplus.regkassen.common.RKSuite;
 
 /**
  * SIMPLE and NOT REUSABLE demo for a trivial signature module of a closed system (which does not employ certificates)

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015
+ * Copyright (C) 2015, 2016
  * A-SIT Plus GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,12 +17,12 @@
 
 package at.asitplus.regkassen.core.modules.signature.rawsignatureprovider;
 
+import at.asitplus.regkassen.common.RKSuite;
+
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.cert.Certificate;
 import java.util.List;
-
-import at.asitplus.regkassen.common.RKSuite;
 
 /**
  * interface for a basic raw signature module (e.g. a smartcard, HSM, or even an online module

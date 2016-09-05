@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015
+ * Copyright (C) 2015, 2016
  * A-SIT Plus GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,14 +17,14 @@
 
 package at.asitplus.regkassen.core.modules.signature.jws;
 
+import at.asitplus.regkassen.common.util.CashBoxUtils;
+import at.asitplus.regkassen.common.util.CryptoUtil;
+
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.Signature;
 import java.security.SignatureException;
-
-import at.asitplus.regkassen.common.util.CashBoxUtils;
-import at.asitplus.regkassen.common.util.CryptoUtil;
 
 /**
  * Manual JWS signature module, that does not require any JWS library

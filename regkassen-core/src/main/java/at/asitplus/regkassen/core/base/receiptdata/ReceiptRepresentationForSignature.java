@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015
+ * Copyright (C) 2015, 2016
  * A-SIT Plus GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,19 +17,17 @@
 
 package at.asitplus.regkassen.core.base.receiptdata;
 
+import at.asitplus.regkassen.common.RKSuite;
+import at.asitplus.regkassen.common.util.CashBoxUtils;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.apache.commons.math3.util.Precision;
+
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-
-import org.apache.commons.math3.util.Precision;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import at.asitplus.regkassen.common.RKSuite;
-import at.asitplus.regkassen.common.util.CashBoxUtils;
 
 /**
  * This class represents the data structure that is specified in Detailspezifikation Abs 4

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015
+ * Copyright (C) 2015, 2016
  * A-SIT Plus GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,19 +17,27 @@
 
 package at.asitplus.regkassen.core.modules.signature.rawsignatureprovider;
 
+import at.asitplus.regkassen.common.RKSuite;
 import sun.security.pkcs11.SunPKCS11;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.security.*;
+import java.security.InvalidKeyException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.Security;
+import java.security.Signature;
+import java.security.SignatureException;
+import java.security.UnrecoverableKeyException;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import at.asitplus.regkassen.common.RKSuite;
 
 /**
  * PKCS11 signature module. the PKCS11 standard is a widely adopted standard for using cryptograpic functions provided by
