@@ -20,7 +20,7 @@
       "typeOfReceipt": "START_BELEG"
     },
     {
-      "signatureDeviceDamaged": true,
+      "signatureDeviceDamaged": false,
       "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-83",
       "dateToUse": "2016-03-12T04:58:09",
       "usedSignatureDevice": 1,
@@ -230,7 +230,7 @@
       "typeOfReceipt": "STORNO_BELEG"
     },
     {
-      "signatureDeviceDamaged": true,
+      "signatureDeviceDamaged": false,
       "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-98",
       "dateToUse": "2016-03-27T20:13:24",
       "usedSignatureDevice": 0,
@@ -356,7 +356,7 @@
       "typeOfReceipt": "NULL_BELEG"
     },
     {
-      "signatureDeviceDamaged": true,
+      "signatureDeviceDamaged": false,
       "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-107",
       "dateToUse": "2016-04-06T05:22:33",
       "usedSignatureDevice": 1,
@@ -426,7 +426,7 @@
       "typeOfReceipt": "TRAINING_BELEG"
     },
     {
-      "signatureDeviceDamaged": true,
+      "signatureDeviceDamaged": false,
       "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-112",
       "dateToUse": "2016-04-11T10:27:38",
       "usedSignatureDevice": 2,
@@ -468,7 +468,7 @@
       "typeOfReceipt": "STANDARD_BELEG"
     },
     {
-      "signatureDeviceDamaged": true,
+      "signatureDeviceDamaged": false,
       "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-115",
       "dateToUse": "2016-04-14T13:30:41",
       "usedSignatureDevice": 0,
@@ -482,7 +482,7 @@
       "typeOfReceipt": "NULL_BELEG"
     },
     {
-      "signatureDeviceDamaged": true,
+      "signatureDeviceDamaged": false,
       "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-116",
       "dateToUse": "2016-04-15T14:31:42",
       "usedSignatureDevice": 1,
@@ -692,7 +692,7 @@
       "typeOfReceipt": "STORNO_BELEG"
     },
     {
-      "signatureDeviceDamaged": true,
+      "signatureDeviceDamaged": false,
       "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-131",
       "dateToUse": "2016-05-01T05:46:57",
       "usedSignatureDevice": 2,
@@ -916,7 +916,7 @@
       "typeOfReceipt": "TRAINING_BELEG"
     },
     {
-      "signatureDeviceDamaged": true,
+      "signatureDeviceDamaged": false,
       "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-147",
       "dateToUse": "2016-05-17T22:03:13",
       "usedSignatureDevice": 0,
@@ -1070,7 +1070,7 @@
       "typeOfReceipt": "STANDARD_BELEG"
     },
     {
-      "signatureDeviceDamaged": true,
+      "signatureDeviceDamaged": false,
       "receiptIdentifier": "CASHBOX-DEMO-1-Receipt-ID-158",
       "dateToUse": "2016-05-29T09:14:24",
       "usedSignatureDevice": 0,
