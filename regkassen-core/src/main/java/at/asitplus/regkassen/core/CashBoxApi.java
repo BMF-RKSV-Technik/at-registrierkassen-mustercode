@@ -30,7 +30,7 @@ import at.asitplus.regkassen.core.modules.init.CashBoxParameters;
 import at.asitplus.regkassen.core.modules.print.ReceiptPrintType;
 import at.asitplus.regkassen.core.modules.signature.jws.JWSModule;
 import org.apache.commons.math3.util.Precision;
-import com.sun.net.httpserver;
+import com.sun.net.httpserver.*;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -430,7 +430,7 @@ public class CashBoxApi {
         }
         return null;
     }
-    public class EncodeBelegDataHandler implements HttpHandler {
+    static class EncodeBelegDataHandler implements HttpHandler {
 
          @Override
 
