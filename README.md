@@ -142,8 +142,9 @@ Die folgenden Dateien dienen nur zur Demonstrationszwecken und haben für das Pr
 Ein Beispiel für den Output ist auch direkt ohne dem Ausführen des Demo-Codes verfügbar: `example-output-0.7.zip` (siehe [https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases](https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases)).
 
 ***BUILD Prozess***
-Um den Maven Build-Prozess eigenständig durchzuführen, sind in den jeweiligen Verzeichnissen folgende Schritte notwendig:
 
+Um den Maven Build-Prozess eigenständig durchzuführen, sind in den jeweiligen Verzeichnissen folgende Schritte notwendig:
+      regkassen-common: mvn install
       regkassen-core: mvn install
       regkassen-democashbox: mvn install
       
