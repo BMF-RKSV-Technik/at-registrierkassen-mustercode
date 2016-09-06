@@ -31,14 +31,15 @@ import at.asitplus.regkassen.core.modules.print.ReceiptPrintType;
 import at.asitplus.regkassen.core.modules.signature.jws.JWSModule;
 import org.apache.commons.math3.util.Precision;
 import com.sun.net.httpserver.*;
+import java.io.*;
+import java.net.*;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import java.security.*;
 import java.text.ParseException;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Simple demonstration CashBox, can be initialized with different modules (signature, DEP, print)
@@ -430,10 +431,9 @@ public class CashBoxApi {
         }
         return null;
     }
-    static class EncodeBelegDataHandler implements HttpHandler {
+    class EncodeBelegDataHandler implements HttpHandler {
 
          @Override
-
          public void handle(HttpExchange he) throws IOException {
                  // parse request
                  Map<String, Object> parameters = new HashMap<String, Object>();
@@ -452,7 +452,7 @@ public class CashBoxApi {
                  os.close();
          }
    }
-   public static void parseQuery(String query, Map<String, Object> parameters) throws UnsupportedEncodingException {
+   protected void parseQuery(String query, Map<String, Object> parameters) throws UnsupportedEncodingException {
 
          if (query != null) {
                  String pairs[] = query.split("[&]");
