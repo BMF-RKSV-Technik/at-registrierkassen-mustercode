@@ -102,7 +102,7 @@ https://github.com/a-sit-plus/at-registrierkassen-mustercode/wiki/Lizenzen-Dritt
 
 ***Change-Log***
 
-Die Change-Logs bis zu Release 0.6 wurden aus Gründen der Übersichtlichkeit archiviert (siehe [Archiv im Wiki](https://github.com/a-sit-plus/at-registrierkassen-mustercode/wiki/Changelog-Archiv-bis-02.09.2016)).
+Die Change-Logs bis zu Release 0.6 wurden aus Gründen der Übersichtlichkeit archiviert (siehe [Archiv im Wiki](https://github.com/a-sit-plus/at-registrierkassen-mustercode/wiki/Changelog-Archiv-bis-06.09.2016)).
 
  - **05.09.2016**: Release 0.7 veröffentlicht
 	 - **Änderungen**:
