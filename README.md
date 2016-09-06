@@ -31,6 +31,7 @@ In Zusammenarbeit zwischen dem BMF und A-SIT Plus wurde das Dokument *Festlegung
 	 - 	[Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV) V1.0](https://github.com/a-sit-plus/at-registrierkassen-mustercode/files/137544/2016-02-18-Detailfragen-RKSV-V1.0.pdf)
 
 # Prüftool
+
 Das Prüftool ermöglicht es den Kassenherstellern die erstellten maschinenlesbaren Codes sowie die RKSV-DEP-Export Dateien zu überprüfen. Mit Version 0.7. liefert das Prüftool für die maschinenlesbaren Codes die gleichen Ergebnisse wie sie auch im FinanzOnline zur Verfügung stehen bzw. über das Web-Service zurückgegeben werden. Es muss dabei berücksichtigt werden, dass das Prüftool keinen Zugriff auf die Daten im FinanzOnline hat und daher nicht den Status der Registrierung der Signatur- bzw. Siegelerstellungseinheit und der Kasse überprüfen kann. Im Prüftool wird immer von einer korrekten Registrierung ausgegangen und somit rein die technische Korrektheit der maschinenlesbaren Codes bzw. der RKGS-DEP-Export Dateien geprüft.
 Um die Prüfung mit dem Prüftool durchzuführen müssen dem Prüftool auch der verwendete AES-Schlüssel sowie die verwendeten Zertifikate/öffentliche Schlüssel in einer Datei als Parameter übergeben werden. Dies ist ebenso aufgrund der Tatsache dass das Prüftool keinen Zugriff auf FinanzOnline hat notwendig.
 
@@ -42,9 +43,11 @@ Um die Prüfung mit dem Prüftool durchzuführen müssen dem Prüftool auch der 
  - 05.09.2016: Release 0.7 veröffentlicht: Das gesamte Prüftool wurde geändert, der Prüfkern liefert nun die gleichen Ergebnisse wie sie auch im FinanzOnline oder über das WebService zur Verfügung stehen.
 
 ***Verwendung des Prüftools***
+
 Download und entpacken von `regkassen-demo-0.7.zip` (siehe [https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases](https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases)).
 
 ***DEP-Export Format***
+
 Mit dieser Variante kann der gesamte RKSV-DEP-Export überprüft werden.
 
     java -jar regkassen-verification-depformat-0.7.jar -i DEP-EXPORT-FILE -c CRYPTOGRAPHIC-MATERIAL-FILE -o OUTPUT_DIR
@@ -66,6 +69,7 @@ Es werden dabei folgende Prüfungen durchgeführt:
 
 
 ***QR-Code-Repräsentation eines einzelnen oder mehrerer maschinenlesbaren Code(s)***
+
 In dieser Variante werden einzelnen maschinenlesbaren Codes auf Ihre Gültigkeit überprüft. Die Ergebnisse entsprechen jenen der Prüfung "Einzelne maschinenlesbare Codes" die für die Prüfung des RKSV-DEP-Exports zur Verfügung stehen. **ACHTUNG**: Sollten sich mehrere maschinenlesbare Codes in der Datei **QR-CODE-REP-FILE** befinden, so wird deren Verkettung **NICHT** überprüft. Diese Prüfung wird nur bei der RKSV-DEP-Export-Format Prüfung durchgeführt.
 
     java -jar regkassen-verification-receipts-0.7.jar -i QR-CODE-REP-FILE -c CRYPTOGRAPHIC-MATERIAL-FILE -o OUTPUT_DIR
@@ -80,6 +84,7 @@ Die Ergebnisse ensprechen dem Format das unter der Prüfung "Einzelne maschinenl
 
 
 # Muster-Code
+
 Dieses Projekt stellt Demo-Code als Begleitung zur [Registrierkassensicherheitsverordnung (RKSV)](https://www.bmf.gv.at/top-themen/Registrierkassen.html#heading_Folder__Informationen_zur_Registrierkassen__und_Belegerteilungspflicht) zur Verfügung und wurde in der Zusammenarbeit zwischen BMF und A-SIT Plus erstellt. Der Demo-Code zeigt
 
 * wie die wesentlichen Elemente der Detailspezifikation der Verordnung in Software implementiert werden können und
@@ -96,6 +101,7 @@ Alle verwendeten Dritt-Bibliotheken und deren Lizenzen sind in den Maven Build D
 https://github.com/a-sit-plus/at-registrierkassen-mustercode/wiki/Lizenzen-Dritt-Bibiliotheken
 
 ***Change-Log***
+
 Die Change-Logs bis zu Release 0.6 wurden aus Gründen der Übersichtlichkeit archiviert (siehe [Archiv im Wiki](https://github.com/a-sit-plus/at-registrierkassen-mustercode/wiki/Changelog-Archiv-bis-02.09.2016)).
 
  - **05.09.2016**: Release 0.7 veröffentlicht
@@ -109,6 +115,7 @@ Die Change-Logs bis zu Release 0.6 wurden aus Gründen der Übersichtlichkeit ar
 		 - **Kein Belegtyp in Test-Szenario1**: Im Test-Szenario 1 hatte der Beleg mit der ID 66 keinen Belegtyp. Diese wurde nun korrigiert.
 		
 ***Verwendung des Democodes und der Demokasse***
+
 Neben dem Source Code wird auch immer eine ZIP Datei der ausführbaren Dateien zur Verfügung gestellt. Die neueste Version ist immer unter [Releases](https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases) zu finden. Für das Ausführen der Demokasse sind folgende Voraussetzungen nötig:
 
 * *Java VM*: Es wird eine aktuelle Java VM (JRE ausreichend) mit Version >= 1.7 benötigt.
@@ -128,6 +135,7 @@ Ausführen der Demokasse für die Abarbeitung der integrierten Testfälle mit
  - Der optionale Parameter **-l TURNOVER-COUNTER-LENGTH** gibt an wieviele Bytes für die Kodierung des Umsatzzählers verwendet werden sollen. Wird der Parameter nicht angegeben, oder wird ein Wert kleiner 5 oder größer 8 angegeben so werden 8 bytes für die Kodierung des Umsatzzählers verwendet.
  
 **Das Output-Verzeichnis enthält folgende Dateien/Verzeichnisse**:
+
 Für jeden Test-Fall wird ein eigenes Verzeichnis angelegt, das den Namen des Testfalls erhält.  In diesem Verzeichnis werden unterschiedliche Dateien/Verzeichnisse gespeichert. Die folgenden Dateien bzw. deren Formate haben zwar für eine produktive Kasse (mit Ausnahme des RKSV-DEP-Exports) keine Bedeutung, allerdings spielen sie bei der Überprüfung der Implementierung der Kasse eine wichtige Rolle, da die Dateien vom Prüftool verwendet werden, um die Testfälle einer Kasse und vor allem deren Abdeckung prüfen zu können (Abdeckung in Version 0.8 des Prüftools geplant):
 
  - **dep-export.json (Datei)**: In dieser Datei werden die erstellten maschinenlesbaren Codes im RKSV-DEP-Export-Format (Detailspezifikation, Abs 3) gespeichert. Weitere Details dazu: siehe Abschnitt 7 im Dokument *Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV)*.
@@ -151,6 +159,7 @@ Um den Maven Build-Prozess eigenständig durchzuführen, sind in den jeweiligen 
 In den Verzeichnissen `regkassen-democashbox`, `regkassen-verification` befinden sich nach dem erfolgreichen Build-Prozess die JAR Dateien (im Unterverzeichnis "target"), die zum Ausführen benötigt werden (siehe Punkte zur Verwendung des Demo-Codes weiter oben).
                     
 ##Testfälle
+
 Die Tesfälle sind im Mustercode der Demokasse integriert bzw. können durch Download und Entpacken von `regkassen-test-cases-0.7.zip` (siehe [https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases](https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases)) bezogen werden.
 Eine detallierte Beschreibung der Testfälle befindet sich im Dokument *Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV)*. Diese Beschreibung umfasst:
 
@@ -159,6 +168,7 @@ Eine detallierte Beschreibung der Testfälle befindet sich im Dokument *Festlegu
 
  
 #Kontakt/Fragen
+
 Es wurde dazu eine Projektseite von der WKO eingerichtet. Es ist dazu eine Registrierung bei der WKO notwendig.
 
 [Projektseite der WKO](https://communities.wko.at/Kassensoftware/default.aspx)
