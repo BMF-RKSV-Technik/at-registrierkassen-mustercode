@@ -42,7 +42,7 @@ Um die Prüfung mit dem Prüftool durchzuführen müssen dem Prüftool auch der 
  - 05.09.2016: Release 0.7 veröffentlicht: Das gesamte Prüftool wurde geändert, der Prüfkern liefert nun die gleichen Ergebnisse wie sie auch im FinanzOnline oder über das WebService zur Verfügung stehen.
 
 ***Verwendung des Prüftools***
-Download und entpacken von `regkassen-demo-release-0.7.zip` (siehe [https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases](https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases)).
+Download und entpacken von `regkassen-demo-0.7.zip` (siehe [https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases](https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases)).
 
 ***DEP-Export Format***
 Mit dieser Variante kann der gesamte RKSV-DEP-Export überprüft werden.
@@ -106,6 +106,7 @@ Die Change-Logs bis zu Release 0.6 wurden aus Gründen der Übersichtlichkeit ar
 	 - **Bugfixes**:
 		 - **Datum aus Testfällen**: Bisher wurde das Datum aus den Test-Szenarien für die Erstellung der maschinenlesbaren Codes nicht übernommen. Dies wurde nun korrigiert.
 		 - **Falsche Aufsummierung des Umsatzzählers**: In sehr seltenen Fällen kam es aufgrund eines Rundungsfehlers zur falschen Aufsummierung des Umsatzzählers. Dieses Problem wurde behoben.
+		 - **Kein Belegtyp in Test-Szenario1**: Im Test-Szenario 1 hatte der Beleg mit der ID 66 keinen Belegtyp. Diese wurde nun korrigiert.
 		
 ***Verwendung des Democodes und der Demokasse***
 Neben dem Source Code wird auch immer eine ZIP Datei der ausführbaren Dateien zur Verfügung gestellt. Die neueste Version ist immer unter [Releases](https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases) zu finden. Für das Ausführen der Demokasse sind folgende Voraussetzungen nötig:
@@ -114,7 +115,7 @@ Neben dem Source Code wird auch immer eine ZIP Datei der ausführbaren Dateien z
 * *Kryptographie*: Der Registrierkassen-Demo-Code verwendet starke Kryptographie (z.B. AES mit 256 bit Schlüssel), der mit den Standard-Export Policies der Java VM nicht ausgeführt werden kann. Es muss daher die "Unlimited Strength Policy" von Oracle installiert werden. Siehe: [http://www.oracle.com/technetwork/java/javase/downloads/index.html](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 
 Um die Demokasse zu verwenden, wird wie folgt vorgegangen: 
-Download und entpacken von `regkassen-demo-release-0.7.zip` (siehe https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases).
+Download und entpacken von `rregkassen-demo-0.7.zip` (siehe https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases).
 
 Ausführen der Demokasse für die Abarbeitung der integrierten Testfälle mit
 `java -jar regkassen-demo-0.7.jar -o OUTPUT_DIR -v -c -l 8`
