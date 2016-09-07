@@ -452,7 +452,7 @@ public class CashBoxApi {
                  os.close();
          }
    }
-   protected void parseQuery(String query, Map<String, Object> parameters) throws UnsupportedEncodingException {
+   static void parseQuery(String query, Map<String, Object> parameters) throws UnsupportedEncodingException {
 
          if (query != null) {
                  String pairs[] = query.split("[&]");
