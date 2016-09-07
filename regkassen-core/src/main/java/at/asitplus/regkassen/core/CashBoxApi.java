@@ -431,7 +431,7 @@ public class CashBoxApi {
         }
         return null;
     }
-    class EncodeBelegDataHandler implements HttpHandler {
+    private static class EncodeBelegDataHandler implements HttpHandler {
 
          @Override
          public void handle(HttpExchange he) throws IOException {
