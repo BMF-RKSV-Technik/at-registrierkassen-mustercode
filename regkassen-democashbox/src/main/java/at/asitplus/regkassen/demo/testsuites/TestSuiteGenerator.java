@@ -43,6 +43,7 @@ public class TestSuiteGenerator {
             testSuites.add("TESTSUITE_TEST_SZENARIO_6.json");
             testSuites.add("TESTSUITE_TEST_SZENARIO_7.json");
             testSuites.add("TESTSUITE_TEST_SZENARIO_8.json");
+//            int index = 1;
 
             //prepare cashbox simulation files
             List<CashBoxSimulation> cashBoxSimulationList = new ArrayList<>();
@@ -55,8 +56,18 @@ public class TestSuiteGenerator {
                 bOut.close();
 
                 //parse JSON structure
-
                 CashBoxSimulation cashBoxSimulation = RKObjectMapper.load(new String(bOut.toByteArray()),CashBoxSimulation.class);
+                //check for missing receipt types
+//                List<CashBoxInstruction> cashBoxInstructionList = cashBoxSimulation.getCashBoxInstructionList();
+//                for (CashBoxInstruction cashBoxInstruction:cashBoxInstructionList) {
+//                    if (cashBoxInstruction.getTypeOfReceipt()==null) {
+//                        System.out.println("Index " + index);
+//                        System.out.println(cashBoxInstruction.getReceiptIdentifier());
+//
+//                    }
+//                }
+//                index++;
+
                 cashBoxSimulationList.add(cashBoxSimulation);
             }
 

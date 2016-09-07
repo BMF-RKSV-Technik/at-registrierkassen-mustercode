@@ -422,7 +422,8 @@
         "taxSetErmaessigt2": 68.69,
         "taxSetNull": -27.83,
         "taxSetBesonders": 8.91
-      }
+      },
+      "typeOfReceipt": "STORNO_BELEG"
     },
     {
       "signatureDeviceDamaged": true,

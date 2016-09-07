@@ -940,7 +940,8 @@
         "taxSetErmaessigt2": -17.7,
         "taxSetNull": 69.05,
         "taxSetBesonders": 114.29
-      }
+      },
+      "typeOfReceipt": "STANDARD_BELEG"
     },
     {
       "signatureDeviceDamaged": false,
@@ -1023,7 +1024,8 @@
         "taxSetErmaessigt2": -32.74,
         "taxSetNull": 151.71,
         "taxSetBesonders": 31.17
-      }
+      },
+      "typeOfReceipt": "STANDARD_BELEG"
     },
     {
       "signatureDeviceDamaged": false,
