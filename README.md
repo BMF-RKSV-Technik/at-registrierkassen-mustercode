@@ -40,17 +40,20 @@ Um die Prüfung mit dem Prüftool durchzuführen müssen dem Prüftool auch der 
 
 ***Change-Log*** 
 
- - 05.09.2016: Release 0.7 veröffentlicht: Das gesamte Prüftool wurde geändert, der Prüfkern liefert nun die gleichen Ergebnisse wie sie auch im FinanzOnline oder über das WebService zur Verfügung stehen.
+ - **07.09.2016**: Release 0.7.1 veröffentlicht
+	 - Bugfixes:
+		 - Minimallänge des Belegs auf 100 statt 150 Zeichen geändert
+ -  **05.09.2016**: Release 0.7 veröffentlicht: Das gesamte Prüftool wurde geändert, der Prüfkern liefert nun die gleichen Ergebnisse wie sie auch im FinanzOnline oder über das WebService zur Verfügung stehen.
 
 ***Verwendung des Prüftools***
 
-Download und entpacken von `regkassen-demo-0.7.zip` (siehe [https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases](https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases)).
+Download und entpacken von `regkassen-demo-0.7.1.zip` (siehe [https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases](https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases)).
 
 ***DEP-Export Format***
 
 Mit dieser Variante kann der gesamte RKSV-DEP-Export überprüft werden.
 
-    java -jar regkassen-verification-depformat-0.7.jar -i DEP-EXPORT-FILE -c CRYPTOGRAPHIC-MATERIAL-FILE -o OUTPUT_DIR
+    java -jar regkassen-verification-depformat-0.7.1.jar -i DEP-EXPORT-FILE -c CRYPTOGRAPHIC-MATERIAL-FILE -o OUTPUT_DIR
 	         
 Wobei
 
@@ -72,7 +75,7 @@ Es werden dabei folgende Prüfungen durchgeführt:
 
 In dieser Variante werden einzelnen maschinenlesbaren Codes auf Ihre Gültigkeit überprüft. Die Ergebnisse entsprechen jenen der Prüfung "Einzelne maschinenlesbare Codes" die für die Prüfung des RKSV-DEP-Exports zur Verfügung stehen. **ACHTUNG**: Sollten sich mehrere maschinenlesbare Codes in der Datei **QR-CODE-REP-FILE** befinden, so wird deren Verkettung **NICHT** überprüft. Diese Prüfung wird nur bei der RKSV-DEP-Export-Format Prüfung durchgeführt.
 
-    java -jar regkassen-verification-receipts-0.7.jar -i QR-CODE-REP-FILE -c CRYPTOGRAPHIC-MATERIAL-FILE -o OUTPUT_DIR
+    java -jar regkassen-verification-receipts-0.7.1.jar -i QR-CODE-REP-FILE -c CRYPTOGRAPHIC-MATERIAL-FILE -o OUTPUT_DIR
 
 Wobei
 
@@ -102,8 +105,9 @@ https://github.com/a-sit-plus/at-registrierkassen-mustercode/wiki/Lizenzen-Dritt
 
 ***Change-Log***
 
-Die Change-Logs bis zu Release 0.6 wurden aus Gründen der Übersichtlichkeit archiviert (siehe [Archiv im Wiki](https://github.com/a-sit-plus/at-registrierkassen-mustercode/wiki/Changelog-Archiv-bis-06.09.2016)).
-
+ - **07.09.2016**: Release 0.7.1 veröffentlicht
+	 - Bugfixes:
+		 - In mehreren Test-Szenarien gab es Belege ohne Belegtyp. Dies wurde nun korrigiert.
  - **05.09.2016**: Release 0.7 veröffentlicht
 	 - **Änderungen**:
 		 - **Testfälle**: Nullbelege müssen eine gültige Signatur haben. Dies wurde in den Testfällen für den Beispiel Code entsprechend korrigiert.
@@ -122,10 +126,10 @@ Neben dem Source Code wird auch immer eine ZIP Datei der ausführbaren Dateien z
 * *Kryptographie*: Der Registrierkassen-Demo-Code verwendet starke Kryptographie (z.B. AES mit 256 bit Schlüssel), der mit den Standard-Export Policies der Java VM nicht ausgeführt werden kann. Es muss daher die "Unlimited Strength Policy" von Oracle installiert werden. Siehe: [http://www.oracle.com/technetwork/java/javase/downloads/index.html](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 
 Um die Demokasse zu verwenden, wird wie folgt vorgegangen: 
-Download und entpacken von `rregkassen-demo-0.7.zip` (siehe https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases).
+Download und entpacken von `rregkassen-demo-0.7.1.zip` (siehe https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases).
 
 Ausführen der Demokasse für die Abarbeitung der integrierten Testfälle mit
-`java -jar regkassen-demo-0.7.jar -o OUTPUT_DIR -v -c -l 8`
+`java -jar regkassen-demo-0.7.1.jar -o OUTPUT_DIR -v -c -l 8`
 
 **Parameter**: 
 
@@ -147,7 +151,7 @@ Die folgenden Dateien dienen nur zur Demonstrationszwecken und haben für das Pr
  - **qr-code-dir-pdf (Verzeichnis)**: Einfache Demo-PDF-Belege die mit dem QR-Code bedruckt wurden.
  - **ocr-code-dir-pdf (Verzeichnis)**: Einfache Demo-PDF-Belege die mit dem OCR-Code bedruckt wurden.
 
-Ein Beispiel für den Output ist auch direkt ohne dem Ausführen des Demo-Codes verfügbar: `example-output-0.7.zip` (siehe [https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases](https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases)).
+Ein Beispiel für den Output ist auch direkt ohne dem Ausführen des Demo-Codes verfügbar: `example-output-0.7.1.zip` (siehe [https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases](https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases)).
 
 ***BUILD Prozess***
 
@@ -160,7 +164,7 @@ In den Verzeichnissen `regkassen-democashbox`, `regkassen-verification` befinden
                     
 ##Testfälle
 
-Die Tesfälle sind im Mustercode der Demokasse integriert bzw. können durch Download und Entpacken von `regkassen-test-cases-0.7.zip` (siehe [https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases](https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases)) bezogen werden.
+Die Tesfälle sind im Mustercode der Demokasse integriert bzw. können durch Download und Entpacken von `regkassen-test-cases-0.7.1.zip` (siehe [https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases](https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases)) bezogen werden.
 Eine detallierte Beschreibung der Testfälle befindet sich im Dokument *Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV)*. Diese Beschreibung umfasst:
 
  - Die Beschreibung der verwendeten Datenformate der Testfälle für eine automatisierte Verarbeitung in einem Kassensystem, um die definierten maschinenlesbaren Codes und deren Abfolge erstellen zu können.
@@ -187,3 +191,4 @@ Seidlgasse 22 / 9
 1030 Wien
 FN 436920 f,
 Handelsgericht Wien
+0
