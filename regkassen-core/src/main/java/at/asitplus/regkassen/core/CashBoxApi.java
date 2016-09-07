@@ -52,11 +52,15 @@ public class CashBoxApi {
     protected long turnoverCounter = 0;
     public static void main(String[] args) {
       int port = 9000;
-      HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
-      System.out.println("server started at " + port);
-      server.createContext("/encodeBelegData", new EncodeBelegDataHandler());
-      server.setExecutor(null);
-      server.start();
+      try{
+        HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
+        System.out.println("server started at " + port);
+        server.createContext("/encodeBelegData", new EncodeBelegDataHandler());
+        server.setExecutor(null);
+        server.start();
+      } catch(Exception e){
+        System.out.println("Exception caught: "+e);
+      }
     }
     // public DemoCashBox(CashBoxParameters cashBoxParameters) {
     //     this.cashBoxParameters = cashBoxParameters;
