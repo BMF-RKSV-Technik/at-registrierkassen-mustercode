@@ -17,6 +17,11 @@ In Zusammenarbeit zwischen dem BMF und A-SIT Plus wurde das Dokument *Festlegung
 
 **Releases**:
 
+ - **Version 1.2 (06.09.2016)**: [Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV) V1.2](https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases/download/1.2-DOK/2016-09-05-Detailfragen-RKSV-V1.2.pdf): 
+	 - **Liste der Änderungen**: Es wurden die bei V1.1. unter "Bekannte Probleme" angemerkten Fehler behoben und der Algorithmus zur Berechnung der Prüfsumme des AES-Schlüssels für die manuelle Übermittlung im FinanzOnline hinzugefügt.
+		 - siehe Change-Log im Dokument
+		 - [Diff (Änderungsmarkierungen) von V1.1 zu V1.2](https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases/download/1.2-DOK/2016-06-09-Diff-Detailfragen-RKSV-V1.1-V1.2.pdf)
+
  - **Version 1.1 (11.03.2016)**: [Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV) V1.1] (https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases/download/1.1-DOK/2016-03-11-Detailfragen-RKSV-V1.1.pdf): 
 	 - **Liste der Änderungen**: Im Wesentlichen wurden die Kapitel um die ersten Kassen-Testfälle ergänzt, sowie diverse Fehlerbehebungen vorgenommen. Details zu den Änderungen:
 		 - siehe Change-Log im Dokument
@@ -191,4 +196,3 @@ Seidlgasse 22 / 9
 1030 Wien
 FN 436920 f,
 Handelsgericht Wien
-0
