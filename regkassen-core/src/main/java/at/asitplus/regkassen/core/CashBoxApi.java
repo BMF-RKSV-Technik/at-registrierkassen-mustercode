@@ -20,9 +20,7 @@ package at.asitplus.regkassen.core;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.InetSocketAddress;
-import java.net.URLDecoder;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
@@ -30,10 +28,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -88,17 +84,6 @@ public class CashBoxApi {
 	public CashBoxParameters getCashBoxParameters() {
 		return cashBoxParameters;
 	}
-
-	/**
-	 * since the 0.6 version of the demo code, this is the only way to run the cashbox,
-	 *
-	 * @param cashBoxInstructions list of instructions which tell the cashbox to create the specified receipts
-	 */
-	/*    public void executeSimulation(List<CashBoxInstruction> cashBoxInstructions) {
-        for (CashBoxInstruction cashBoxInstruction : cashBoxInstructions) {
-            createStoreAndSignReceiptPackage(cashBoxInstruction);
-        }
-    }*/
 
 	/**
 	 * export of the DEP
@@ -474,7 +459,6 @@ public class CashBoxApi {
 				os.close();
 				e1.printStackTrace();
 			}
-			System.out.println(parameters);
 			RKSuite rkSuite = RKSuite.R1_AT0;
 			String previousReceiptJWSRepresentation = parameters.get("previousJWSRepresentation").toString();
 			SimpleDateFormat df = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ss.SSSXXX" );
@@ -485,11 +469,9 @@ public class CashBoxApi {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			System.out.println(parameters.get("turnOverCounterAESKey").toString());
 			CashBoxParameters cashBoxParameters = new CashBoxParameters();
 			cashBoxParameters.setCashBoxId(parameters.get("cashboxID").toString());
 			cashBoxParameters.setCompanyID(parameters.get("companyId").toString());
-			System.out.println(parameters.get("turnOverCounterAESKey").toString().getBytes().length);
 			cashBoxParameters.setTurnOverCounterAESKey(new SecretKeySpec(parameters.get("turnOverCounterAESKey").toString().getBytes(),"AES"));
 			cashBoxParameters.setTurnOverCounterLengthInBytes(8);
 			ReceiptRepresentationForSignature receiptRepresentationForSignature = new ReceiptRepresentationForSignature();
@@ -507,16 +489,13 @@ public class CashBoxApi {
 			
 			// send response
 			String response = receiptRepresentationForSignature.getDataToBeSigned(rkSuite);
-			/*for (String key : parameters.keySet())
-				response += key + " = " + parameters.get(key) + "\n";*/
-			System.out.println(response);
 			he.sendResponseHeaders(200, response.length());
 			OutputStream os = he.getResponseBody();
 			os.write(response.toString().getBytes());
 			os.close();
 		}
 	}
-	static void parseQuery(String query, Map<String, Object> parameters) throws UnsupportedEncodingException {
+	/*static void parseQuery(String query, Map<String, Object> parameters) throws UnsupportedEncodingException {
 
 		if (query != null) {
 			String pairs[] = query.split("[&]");
@@ -551,5 +530,5 @@ public class CashBoxApi {
 				}
 			}
 		}
-	}
+	}*/
 }
