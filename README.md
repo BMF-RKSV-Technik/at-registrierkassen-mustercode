@@ -1,19 +1,19 @@
 
 # Übersicht
-Dieses Projekt dient zur Behandlung technischer Sachverhalte der RKSV. Wir bitten daher um Verständnis, dass rechtliche/organisatorische Themen im Allgemeinen nicht beantwortet werden können. Für die Beantwortung solcher Fragen bitten wir Sie die Informationen des BMFs heranzuziehen (siehe https://www.bmf.gv.at/top-themen/Registrierkassen.html). Sollte Ihr Anliegen dort nicht behandelt sein, steht Ihnen unter https://www.bmf.gv.at/kontakt.html eine Möglichkeit zur Verfügung, Ihre rechtliche oder organisatorische Frage schriftlich im BMF einzubringen. Nutzen Sie dazu die Option “Sonstige Anfrage” und fügen Sie Ihrem Anliegen den deutlichen Hinweis hinzu, dass es sich um ein Thema im Bereich Registrierkasse handelt. Bitte auch die Kontaktinformationen weiter unten beachten.
+Dieses Projekt dient der Behandlung technischer Sachverhalte der RKSV. Wir bitten daher um Verständnis, dass rechtliche/organisatorische Themen im Allgemeinen nicht beantwortet werden können. Für die Beantwortung solcher Fragen bitten wir Sie, die Informationen des BMFs heranzuziehen (siehe https://www.bmf.gv.at/top-themen/Registrierkassen.html). Sollte Ihr Anliegen dort nicht behandelt sein, bitten wir Sie, die am Ende dieses Dokuments genannten Kontaktpunkte bzw. Informationsquellen zu berücksichtigen.
  
-Ein weiterer Hinweis bezüglich den “Issues” in diesem Projekt: Offizielle – mit dem BMF abgestimmte – Aussagen werden nur von den Benutzern der Organisation A-SIT Plus (pteufl, tzefferer, asitplus-pteufl) getätigt. Für die Korrektheit der Aussagen anderer Benutzer kann keine Garantie übernommen werden.
+Ein weiterer Hinweis bezüglich den “Issues” in diesem Projekt: Offizielle – mit dem BMF abgestimmte – Aussagen werden nur von den Benutzern der Organisation A-SIT Plus (**pteufl, tzefferer, asitplus-pteufl**) getätigt. Für die Korrektheit der Aussagen anderer Benutzerinnen und Benutzer kann keine Garantie übernommen werden.
 
 Dieses Dokument ist wie folgt organisiert:
  
  - **Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV)**: In diesem Abschnitt werden Informationen zum gleichnamigen Dokument gegeben. Dieses Dokument beschreibt RKSV-relevante Prozesse im Detail und stellt neben dem Muster-Code die technischen Informationen für die Umsetzung in einer Kasse zur Verfügung.
- - **Prüftool**: Das Prüftool ermöglicht es den Kassenherstellern vorab die erstellten maschinenlesbaren Codes und RKSV-DEP-Export Dateien zu überprüfen.
- - **Muster-Code**: Dieser Abschnitt gibt die relevanten Informationen zum Muster-Code, der die RKSV-relevanten Elemente einer Kasse demonstriert. Der Muster-Code setzt dabei die Prozesse des Dokuments "Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV)" um.
+ - **Prüftool**: Das Prüftool ermöglicht es den Kassenherstellern, vorab die erstellten maschinenlesbaren Codes und RKSV-DEP-Export-Dateien zu überprüfen.
+ - **Muster-Code**: Dieser Abschnitt beinhaltet relevante Informationen zum Muster-Code, der die RKSV-relevanten Elemente einer Kasse demonstriert. Der Muster-Code setzt dabei die Prozesse des Dokuments "Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV)" um.
  - **Testfälle**: Dieser Abschnitt stellt Testfälle für die Überprüfung der Implementierung einer Kasse zur Verfügung.
- - **Kontakt/Fragen**: Kontaktinformationen für Detailfragen, die nicht im Rahmen dieses Projekts beantwortet werden können.
+ - **Kontakt/Fragen**: Dieser Abschnitt beinhaltet Kontaktinformationen für Detailfragen, die nicht im Rahmen dieses Projekts beantwortet werden können.
 
 # Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV)
-In Zusammenarbeit zwischen dem BMF und A-SIT Plus wurde das Dokument *Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV)* erstellt. Es enthält Festlegungen in technischen Detailfragen zur RKSV auf Prozessebene und Klarstellungen bzw. Ergänzungen im Bereich der Mustercode-Beispiele. 
+In Zusammenarbeit zwischen dem BMF und A-SIT Plus wurde das Dokument *Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV)* erstellt. Es enthält Festlegungen in technischen Detailfragen zur RKSV auf Prozessebene und Klarstellungen bzw. Ergänzungen im Bereich der Muster-Code-Beispiele. 
 
 **Releases**:
 
@@ -35,60 +35,84 @@ In Zusammenarbeit zwischen dem BMF und A-SIT Plus wurde das Dokument *Festlegung
  - **Version 1.0 (19.02.2016)**:
 	 - 	[Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV) V1.0](https://github.com/a-sit-plus/at-registrierkassen-mustercode/files/137544/2016-02-18-Detailfragen-RKSV-V1.0.pdf)
 
-# Prüftool
+# Prüftool 1.0.0
+Das gegenständliche, im Auftrag des BMF erstellte, Prüftool ab Version 1.0.0 überprüft Format und Inhalt sowie Abfolge von Einzelbelegen in einem exportierten RKSV-Datenerfassungsprotokoll (RKSV-DEP) einer Registrierkasse auf Übereinstimmung mit den ab 1.4.2017 gültigen Vorgaben der RKSV. Die Prüfalgorithmen, die dabei zur Anwendung kommen, stimmen im Wesentlichen mit jenen überein, die auch für Einzelbelegüberprüfungen und RKSV-DEP-Überprüfungen des BMF herangezogen werden (z.B.: BMF Belegcheck-App). Dadurch, dass das gegenständliche Prüftool primär auf die Überprüfung der korrekten Implementierung ausgerichtet ist, kann es dazu kommen, dass das Prüftool etwas als fehlerhaft ausgibt, das bei der Behördenprüfung als fehlerfrei angesehen wird (z.B. nicht vorhandener Startbeleg bei der Überprüfung eines DEP-Ausschnittes).
 
-Das Prüftool ermöglicht es den Kassenherstellern die erstellten maschinenlesbaren Codes sowie die RKSV-DEP-Export Dateien zu überprüfen. Mit Version 0.7. liefert das Prüftool für die maschinenlesbaren Codes die gleichen Ergebnisse wie sie auch im FinanzOnline zur Verfügung stehen bzw. über das Web-Service zurückgegeben werden. Es muss dabei berücksichtigt werden, dass das Prüftool keinen Zugriff auf die Daten im FinanzOnline hat und daher nicht den Status der Registrierung der Signatur- bzw. Siegelerstellungseinheit und der Kasse überprüfen kann. Im Prüftool wird immer von einer korrekten Registrierung ausgegangen und somit rein die technische Korrektheit der maschinenlesbaren Codes bzw. der RKGS-DEP-Export Dateien geprüft.
-Um die Prüfung mit dem Prüftool durchzuführen müssen dem Prüftool auch der verwendete AES-Schlüssel sowie die verwendeten Zertifikate/öffentliche Schlüssel in einer Datei als Parameter übergeben werden. Dies ist ebenso aufgrund der Tatsache dass das Prüftool keinen Zugriff auf FinanzOnline hat notwendig.
+Um die Prüfung mit dem Prüftool durchzuführen, müssen dem Prüftool auch der verwendete AES-Schlüssel sowie die verwendeten Zertifikate/öffentliche Schlüssel in einer Datei als Parameter übergeben werden (siehe Details weiter unten).
 
-**ACHTUNG: Obwohl nach bestem Gewissen vorgegangen wurde, kann keine GARANTIE für die korrekte Funktionsweise des Prüftools übernommen werden.**
+Die mitgelieferten Testfälle sollten im Zuge der Kassenimplementierung verwendet werden, auch um die Korrektheit des Verhaltens der Kasse bei unterschiedlichen Varianten der Belegabfolgen überprüfen zu können. Es wird aber darauf hingewiesen, dass mit den mitgelieferten Testfällen nur die allgemein gültigen Fallkonstellationen abgedeckt werden. Für eine vollständige Abdeckung der Fallkonstellationen im Zusammenhang mit der spezifischen Kassenlösung werden weitere Testfälle erforderlich sein, die vom Kassenhersteller beizusteuern sind.
 
+Im Zusammenhang mit dem Prüftool und den durchgeführten Prüfungen müssen folgende Quellen berücksichtigt werden:
+
+ - [Erlass zur Einzelaufzeichnungs-, Registrierkassen- und Belegerteilungspflicht](https://findok.bmf.gv.at/findok?execution=e1s1)
+ - [Registrierkassensicherheitsverordnung und Detailspezifikationen](https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=20009390&FassungVom=2017-04-01)
+ - [Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV)](https://www.bmf.gv.at/egovernment/projekte/registrierkassen/registrierkassen-beispiele-detailspezifikation.html)
 
 ***Change-Log*** 
 
+ - **21.10.2016**: Release 1.0.0 veröffentlicht. Im Vergleich zu Version 0.7.1 wurde eine detaillierte Qualitätssicherung der RKSV-DEP-Überprüfungen durchgeführt (die Einzelbelegprüfung hatte auch schon in Version 0.7.1 diesen Status). Im Zuge der Qualitätssicherung wurden noch weitere Detailprüfungen hinzugefügt, die es ermöglichen, einfache Implementierungsfehler zu erkennen (Belege mit gleicher Nummer im RKSV-DEP,  mehrere Kassen-IDs im RKSV-DEP, Mischung mehrerer Systemtypen). Die Erweiterungen werden im Detail genannt:
+
+	 - **Sammelbeleg nach ausgefallener Sicherheitseinrichtung**: Es wird nun akzeptiert, dass ein signierter Nullbeleg auch an zweiter Stelle nach einem Beleg mit einer ausgefallenenen Sicherheitseinrichtung im RKSV-DEP folgen darf. In Version 0.7.1 wurde es nur als richtig anerkannt, wenn der signierte Nullbeleg unmittelbar nach dem Beleg mit ausgefallener Sicherheitseinrichtung folgte (für Details siehe *"Erlass zur Einzelaufzeichnungs-, Registrierkassen- und Belegerteilungspflicht",* Abschnitt 3.6.1.).
+	 - **Überprüfung, ob nur eine Kassenidentifikationsnummer im RKSV-DEP-Export enthalten ist**: Es wird überprüft, ob pro RKSV-DEP-Export nur eine Kassenidentifikationsnummer enhalten ist. Laut RKSV darf in einem exportierten RKSV-DEP nur eine Kasse abgebildet werden.
+	 - **Überprüfung, ob mehrere Belege mit der gleichen Belegnummer im RKSV-DEP Export enthalten sind**: Es wird überprüft, ob pro RKSV-DEP-Export jede Belegnummer nur einmal zur Verwendung kommt.
+	 - **Belege mit zukünftigem Datum**: Es wurde der Paramater **-f** eingeführt, der das Prüftool instruiert, auch zukünftige Belege als gültig anzuerkennen. Dies gilt nur für das Prüftool, erleichtert aber das Überprüfen von spezifischen Testfällen.
+	 - **RKSV-DEP-Prüfungsdetails**: Die Prüfergebnisse werden wie in Version 0.7.1 in der Datei DEP.json abgelegt. Zusätzlich werden aber - wie für die Einzelbelegprüfung - pro Beleg die RKSV-DEP-Prüfergebnisse für den vorliegenden Beleg in einer Datei gespeichert (z.B. 0001_dep.json für den 2. Beleg im RKSV-DEP). Details dazu werden weiter unten genannt.
+	 - **Indizierung der Prüfergebnisse**: Indices für Belege im RKSV-DEP starten in Version 1.0.0. mit dem Index 0. In Version 0.7.1 war der Startindex gleich 1.
  - **07.09.2016**: Release 0.7.1 veröffentlicht
 	 - Bugfixes:
-		 - Minimallänge des Belegs auf 100 statt 150 Zeichen geändert
+		 - Minimallänge des Belegs auf 100 statt 150 Zeichen geändert.
  -  **05.09.2016**: Release 0.7 veröffentlicht: Das gesamte Prüftool wurde geändert, der Prüfkern liefert nun die gleichen Ergebnisse wie sie auch im FinanzOnline oder über das WebService zur Verfügung stehen.
 
 ***Verwendung des Prüftools***
 
-Download und entpacken von `regkassen-demo-0.7.1.zip` (siehe [https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases](https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases)).
+Download und entpacken von `regkassen-demo-1.0.0.zip` (siehe [https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases](https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases)).
 
 ***DEP-Export Format***
 
 Mit dieser Variante kann der gesamte RKSV-DEP-Export überprüft werden.
 
-    java -jar regkassen-verification-depformat-0.7.1.jar -i DEP-EXPORT-FILE -c CRYPTOGRAPHIC-MATERIAL-FILE -o OUTPUT_DIR
+    java -jar regkassen-verification-depformat-1.0.0.jar -v -f -i DEP-EXPORT-FILE -c CRYPTOGRAPHIC-MATERIAL-FILE -o OUTPUT_DIR
 	         
 Wobei
 
- - der Parameter **DEP-EXPORT-FILE**, der der im vorigen Beispiel erstellten `dep-export.json` Datei entspricht. Für den schnellen Test kann die entsprechende Datei aus dem Beispiel-Output übernommen werden.
- - der Parameter **CRYPTOGRAPHIC-MATERIAL-FILE**, der der im vorigen Beispiel erstellen `cryptographicMaterialContainer.json` Datei entspricht. Für den schnellen Test kann die entsprechende Datei aus dem Beispiel-Output übernommen werden.
- - Der Parameter **-o OUTPUT_DIR** gibt ein Verzeichnis an, in dem die Detailergebnisse des Prüftools gespeichert werden.
+ - der Parameter **DEP-EXPORT-FILE** der im Muster-Code erstellten `dep-export.json` Datei entspricht (RKSV-DEP Exportformat laut RKSV). Für den schnellen Test kann die entsprechende Datei aus dem Beispiel-Output übernommen werden.
+ - der Parameter **CRYPTOGRAPHIC-MATERIAL-FILE** den Pfad zur Datei angibt, die die notwendigen Daten (öffentliche Schlüssel, Zertifikate und AES-Schlüssel) für die Prüfung des exportieren RKSV-DEP enthält. In dem BSP-Outputs des Muster-Codes werden diese Daten in der Datei `cryptographicMaterialContainer.json` abgelegt.  Details zum Format können im weiter oben referenzierten Dokument *Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV)* abgerufen werden. Diese Datei ist nicht im Sinne der RKSV gefordert und **ist nur für die Verwendung des Prüftools relevant**, da dieses die Informationen bezüglich der verwendeten Zertifikate und AES-Schlüssel nicht aus FinanzOnline abrufen kann.
+ - der Parameter **-o OUTPUT_DIR** ein Verzeichnis angibt, in dem die Detailergebnisse des Prüftools gespeichert werden.
+ - der optionale Parameter **-f** angibt, dass Belege mit zukünftigem Belegerstellungsdatum als gültig anerkannt werden.
+ - der optionale Parameter **-v** angibt, dass detaillierte Informationen auf der Konsole ausgegeben werden. Die Detailstufen der Dateien im Verzeichnis **OUTPUT_DIR** werden davon nicht beeinflusst. 
 
-Es werden dabei folgende Prüfungen durchgeführt:
+***Weitere Details zum Prüfablauf:***
 
- - **RKSV-DEP-Export-Prüfungen**: Es wird die gültige Verkettung der maschinenlesbaren Codes, die korrekte Entwicklung des Umsatzzählers sowie die korrekte Abfolge der maschinenlesbaren Codes überprüft.
- - **Einzelne maschinenlesbare Codes**: Pro maschinenlesbaren Code erfolgt eine detallierte Prüfung dessen Korrektheit. Es werden dabei die gleichen Prüfungen wie im FinanzOnline durchgeführt und das Ergebnis im gleichen Format aufbereitet. Das Prüftool hat keinen Zugriff auf FinanzOnline, daher wird für den Registrierungstatus der Kasse und der verwendeten Siegel- bzw. Signaturerstellungseinheit immer der korrekte Wert angenommen. Die Detailergebnisse werden im angegeben Verzeichnis (**OUTPUT_DIR**) abgelegt. Dieses Verzeichnis enthält dabei für jeden maschinenlesbaren Code die Detailergebnisse, wobei **N** der Nummerierung der maschinenlesbaren Codes im RKSV-DEP-Export entspricht. Kommt es zu einem Fehler bei der Einzelprüfung, werden die restlichen maschinenlesbaren Codes NICHT mehr überprüft.
-	 - **DEP.json**: In dieser Datei werden die Detailergebnisse der RKSV-DEP-Export-Prüfung (Verkettung, Entwicklung Umsatzzähler, Abfolge der maschinenlesbaren Codes) ausgegeben.
-	 - **N_cashbox.json**: Dieses Ergebnis enspricht dem Ergebnis, das in FinanzOnline visuell aufbereitet wird und als Datei zu beziehen ist. Ebenso wird das Prüfergebnis im gleichen Format vom Web-Service für die Kassen zur Verfügung gestellt. Es werden nur die fehlerhaften Prüfergebnisse angezeigt. (**N** entspricht der Belegnummer im RKSV-DEP-Export, startend mit 1. Sind mehrere Beleggruppen im RKSV-DEP-Export vorhanden, wird die Nummerierung der maschinenlesbaren Codes nicht zurückgesetzt.)
-	 - **N_cashbox_full.json**: Es werden auch die positiven Prüfergebnisse angezeigt. Der Hersteller hat hier die Möglichkeit das vollständige Prüfergebnis einzusehen und alle durchgeführten Prüfungen zu erkennen. (**N** entspricht der Belegnummer im RKSV-DEP-Export, startend mit 1. Sind mehrere Beleggruppen im RKSV-DEP-Export vorhanden, wird die Nummerierung der maschinenlesbaren Codes nicht zurückgesetzt.)
-	 - **N_app.json**: Diese Ergebnis entspricht dem Ergebnis, das die App (Belegcheck) von FinanzOnline bekommt. Für Detailanalysen hat es keine wirkliche Relevanz, es zeigt aber wie etwaige Fehler in der App repräsentiert werden. (**N** entspricht der Belegnummer im RKSV-DEP-Export, startend mit 1. Sind mehrere Beleggruppen im RKSV-DEP-Export vorhanden, wird die Nummerierung der maschinenlesbaren Codes nicht zurückgesetzt.)
+ - **RKSV-DEP-Export-Prüfungen**: Es werden folgende Prüfungen durchgeführt:
+	 - Gültige Verkettung der maschinenlesbaren Codes zwischen den Belegen im exportierten RKSV-DEP
+	 - Korrekte Entwicklung des Umsatzzählers
+	 - Richtige Abfolge der Belegtypen im RKSV-DEP (z.B.: Startbeleg nur an erster Stelle, Sammelbeleg nach ausgefallener Sicherheitseinrichtung)
+	 - Diverse Prüfungen: Nur eine Kassen-ID pro RKSV-DEP, jede Belegnummer darf nur einmal im RKSV-DEP vorkommen, keine Vermischung von Systemtypen (geschlossen, offen)
+ - **Einzelne maschinenlesbare Codes**: Jeder maschinenlesbare Code im RKSV-DEP-Export wird im Detail geprüft: Es werden dabei die gleichen Prüfungen wie im FinanzOnline durchgeführt und das Ergebnis im gleichen Format aufbereitet. Das Prüftool hat keinen Zugriff auf FinanzOnline, daher wird für den Registrierungstatus der Kasse und der verwendeten Siegel- bzw. Signaturerstellungseinheit immer der korrekte Wert angenommen. Die Detailergebnisse werden im angegeben Verzeichnis (**OUTPUT_DIR**) abgelegt. Dieses Verzeichnis enthält dabei für jeden maschinenlesbaren Code die Detailergebnisse, wobei **N** der Nummerierung der maschinenlesbaren Codes im RKSV-DEP-Export entspricht (beginnend mit 0). Kommt es zu einem Fehler bei der Einzelprüfung, werden die restlichen maschinenlesbaren Codes weiter geprüft, die RKSV-DEP-Prüfungen werden aber an dieser Stelle abgebrochen.
+
+***Prüfergebnisse:***
+
+ - **N_cashbox.json**: Dieses Ergebnis enspricht dem Ergebnis, das in FinanzOnline visuell aufbereitet wird und als Datei zu beziehen ist. Ebenso wird das Prüfergebnis im gleichen Format vom Web-Service für die Kassen zur Verfügung gestellt. Es werden nur die fehlerhaften Prüfergebnisse angezeigt. (**N** entspricht der Belegnummer im RKSV-DEP-Export, beginnend mit 0. Sind mehrere Beleggruppen im RKSV-DEP-Export vorhanden, wird die Nummerierung der maschinenlesbaren Codes nicht zurückgesetzt.)
+ - **N_cashbox_full.json**: Es werden auch die positiven Prüfergebnisse angezeigt. Der Hersteller hat hier die Möglichkeit, das vollständige Prüfergebnis einzusehen und alle durchgeführten Prüfungen zu erkennen. (**N** entspricht der Belegnummer im RKSV-DEP-Export, beginnend mit 0. Sind mehrere Beleggruppen im RKSV-DEP-Export vorhanden, wird die Nummerierung der maschinenlesbaren Codes nicht zurückgesetzt.)
+ - **N_app.json**: Dieses ist äquivalent zu dem der Belegcheck App. Für Detailanalysen hat es keine direkte Relevanz, es zeigt aber, wie etwaige Fehler in der App repräsentiert werden. (**N** entspricht der Belegnummer im RKSV-DEP-Export, beginnend mit 0. Sind mehrere Beleggruppen im RKSV-DEP-Export vorhanden, wird die Nummerierung der maschinenlesbaren Codes nicht zurückgesetzt.)
+ - **N_dep.json**: Diese Datei enthält die detaillierten Prüfergebnisse der RKSV-DEP-Prüfungen für jeden Beleg im RKSV-DEP. (**N** entspricht der Belegnummer im RKSV-DEP-Export, beginnend mit 0. Sind mehrere Beleggruppen im RKSV-DEP-Export vorhanden, wird die Nummerierung der maschinenlesbaren Codes nicht zurückgesetzt.) Diese Dateien werden seit V 1.0.0 erstellt.
+ - 	**DEP.json**: In dieser Datei werden die Detailergebnisse der RKSV-DEP-Export-Prüfung (Verkettung, Entwicklung Umsatzzähler, Abfolge der maschinenlesbaren Codes) ausgegeben. Diese Datei ist aus Kompatibilitätsgründen enthalten. Deren Inhalte wurden durch die Einzelergebniss in **N_dep.json** ersetzt.
 
 
-***QR-Code-Repräsentation eines einzelnen oder mehrerer maschinenlesbaren Code(s)***
+***QR-Code-Repräsentation eines einzelnen oder mehrerer maschinenlesbaren Codes***
 
-In dieser Variante werden einzelnen maschinenlesbaren Codes auf Ihre Gültigkeit überprüft. Die Ergebnisse entsprechen jenen der Prüfung "Einzelne maschinenlesbare Codes" die für die Prüfung des RKSV-DEP-Exports zur Verfügung stehen. **ACHTUNG**: Sollten sich mehrere maschinenlesbare Codes in der Datei **QR-CODE-REP-FILE** befinden, so wird deren Verkettung **NICHT** überprüft. Diese Prüfung wird nur bei der RKSV-DEP-Export-Format Prüfung durchgeführt.
+In dieser Variante werden einzelne maschinenlesbare Codes auf Ihre Gültigkeit überprüft. Die Prüfverfahren entsprechen jenen, die auch beim RKSV-DEP-Export-Prüftool für die Einzelbelegprüfung zum Einsatz kommen. **ACHTUNG**: Es werden keine RKSV-DEP-relevanten Prüfungen durchgeführt (Verkettung, Abfolge, etc.). Die Prüfung der einzelnen Belege erfolgt unabhängig voneinander.
 
-    java -jar regkassen-verification-receipts-0.7.1.jar -i QR-CODE-REP-FILE -c CRYPTOGRAPHIC-MATERIAL-FILE -o OUTPUT_DIR
+    java -jar regkassen-verification-receipts-1.0.0.jar -v -f -i QR-CODE-REP-FILE -c CRYPTOGRAPHIC-MATERIAL-FILE -o OUTPUT_DIR
 
 Wobei
 
- - der Parameter **QR-CODE-REP-FILE**, der der vom Muster-Code erstellen `qr-code-rep.json` Datei entspricht. Für den schnellen Test kann die entsprechende Datei aus dem Beispiel-Output übernommen werden.
- - der Parameter **CRYPTOGRAPHIC-MATERIAL-FILE**, der der im vorigen Beispiel erstellen `cryptographicMaterialContainer.json` Datei entspricht. Für den schnellen Test kann die entsprechende Datei aus dem Beispiel-Output übernommen werden.
- - Der Parameter **-o OUTPUT_DIR** gibt ein Verzeichnis an, in dem die Detailergebnisse des Prüftools gespeichert werden.
+ - der Parameter **QR-CODE-REP-FILE** der vom Muster-Code erstellen `qr-code-rep.json` Datei entspricht. Für den schnellen Test kann die entsprechende Datei aus dem Beispiel-Output übernommen werden.
+ - der Parameter **CRYPTOGRAPHIC-MATERIAL-FILE** der im vorigen Beispiel erstellen Datei `cryptographicMaterialContainer.json` entspricht. Für den schnellen Test kann die entsprechende Datei aus dem Beispiel-Output übernommen werden.
+ - der Parameter **-o OUTPUT_DIR** ein Verzeichnis angibt, in dem die Detailergebnisse des Prüftools gespeichert werden.
+ - die Parameter **-v** und **-f** die gleiche Funktionsweise wie beim RKSV-DEP-Export-Prüftool haben.
 
-Die Ergebnisse ensprechen dem Format das unter der Prüfung "Einzelne maschinenlesbare Codes" für den RKSV-DEP-Export beschrieben ist.
+Die Ergebnisse ensprechen dem Format, das unter der Prüfung "Einzelne maschinenlesbare Codes" für den RKSV-DEP-Export beschrieben ist.
 
 
 # Muster-Code
@@ -96,32 +120,33 @@ Die Ergebnisse ensprechen dem Format das unter der Prüfung "Einzelne maschinenl
 Dieses Projekt stellt Demo-Code als Begleitung zur [Registrierkassensicherheitsverordnung (RKSV)](https://www.bmf.gv.at/top-themen/Registrierkassen.html#heading_Folder__Informationen_zur_Registrierkassen__und_Belegerteilungspflicht) zur Verfügung und wurde in der Zusammenarbeit zwischen BMF und A-SIT Plus erstellt. Der Demo-Code zeigt
 
 * wie die wesentlichen Elemente der Detailspezifikation der Verordnung in Software implementiert werden können und
-* gibt zusätzliche Erläuterungen zu Aspekten der Detailspezifikation die noch Interpretationsspielraum zulassen.
+* gibt zusätzliche Erläuterungen zu Aspekten der Detailspezifikation, die noch Interpretationsspielraum zulassen.
 
 In diesem Projekt werden nur technische Aspekte der Registrierkassensicherheitsverordnung betrachtet. Die Informationen und der Code werden laufend erweitert und mit typischen Fragen/Antworten ergänzt.
 
-Die Versionen 0.1 bis 0.7 demonstrieren wie mit den unterschiedlichen Elementen (Signatur, QR-Code etc.) umgegangen werden muss. Obwohl hier nach bestem Gewissen vorgegangen wurde, kann keine GARANTIE für die korrekte Funktionsweise übernommen werden. Diese Projektseite verwendet Deutsch als Sprache. In den textuellen Ergänzungen im Source Code wird Englisch verwendet.
+Diese Projektseite verwendet Deutsch als Sprache. In den textuellen Ergänzungen im Source Code wird Englisch verwendet.
 
-Der Muster-Code wird unter der Apache 2.0 Lizenz zur Verfügung gestellt. (http://www.apache.org/licenses/LICENSE-2.0). Der Code für die Prüftools wird nicht veröffentlicht. Die Verwendung der Prüftools ist natürlich frei möglich.
+Der Muster-Code wird unter der Apache 2.0 Lizenz (http://www.apache.org/licenses/LICENSE-2.0) zur Verfügung gestellt. Der Code für die Prüftools wird nicht veröffentlicht. Die Verwendung der Prüftools ist natürlich frei möglich.
 
-Alle verwendeten Dritt-Bibliotheken und deren Lizenzen sind in den Maven Build Dateien (pom.xml) der einzelnen Module ersichtlich und auf der folgenden WIKI Seite zusammengefasst:
+Alle verwendeten Dritt-Bibliotheken und deren Lizenzen sind in den Maven Build Dateien (pom.xml) der einzelnen Module ersichtlich und auf der folgenden WIKI-Seite zusammengefasst:
 
 https://github.com/a-sit-plus/at-registrierkassen-mustercode/wiki/Lizenzen-Dritt-Bibiliotheken
 
 ***Change-Log***
 
+ - **19.10.2016**: Release 1.0.0 veröffentlicht: Es gibt keine relevanten Änderungen gegenüber Version 0.7.1. Die Versionierung wurde aufgrund der Kompatibilität mit dem Prüftool angepasst.
  - **07.09.2016**: Release 0.7.1 veröffentlicht
 	 - Bugfixes:
 		 - In mehreren Test-Szenarien gab es Belege ohne Belegtyp. Dies wurde nun korrigiert.
  - **05.09.2016**: Release 0.7 veröffentlicht
 	 - **Änderungen**:
-		 - **Testfälle**: Nullbelege müssen eine gültige Signatur haben. Dies wurde in den Testfällen für den Beispiel Code entsprechend korrigiert.
+		 - **Testfälle**: Nullbelege müssen eine gültige Signatur haben. Dies wurde in den Testfällen für den Beispiel-Code entsprechend korrigiert.
 		 - **Umsatzzähler mit Länge ungleich 8**: Der Muster-Code zeigt nun die Aufbereitung eines Umsatzzählers ungleich der Länge 8. Mit dem Parameter "l" kann die Länge des Umsatzzählers für die Erstellung der Beispielbelege definiert werden.
 		 - **Organisation des Codes**: Diverse Pakete wurden umbenannt bzw. in andere Teile des Codes verschoben.
 	 - **Bugfixes**:
 		 - **Datum aus Testfällen**: Bisher wurde das Datum aus den Test-Szenarien für die Erstellung der maschinenlesbaren Codes nicht übernommen. Dies wurde nun korrigiert.
 		 - **Falsche Aufsummierung des Umsatzzählers**: In sehr seltenen Fällen kam es aufgrund eines Rundungsfehlers zur falschen Aufsummierung des Umsatzzählers. Dieses Problem wurde behoben.
-		 - **Kein Belegtyp in Test-Szenario1**: Im Test-Szenario 1 hatte der Beleg mit der ID 66 keinen Belegtyp. Diese wurde nun korrigiert.
+		 - **Kein Belegtyp in Test-Szenario 1**: Im Test-Szenario 1 hatte der Beleg mit der ID 66 keinen Belegtyp. Dies wurde nun korrigiert.
 		
 ***Verwendung des Democodes und der Demokasse***
 
@@ -131,32 +156,32 @@ Neben dem Source Code wird auch immer eine ZIP Datei der ausführbaren Dateien z
 * *Kryptographie*: Der Registrierkassen-Demo-Code verwendet starke Kryptographie (z.B. AES mit 256 bit Schlüssel), der mit den Standard-Export Policies der Java VM nicht ausgeführt werden kann. Es muss daher die "Unlimited Strength Policy" von Oracle installiert werden. Siehe: [http://www.oracle.com/technetwork/java/javase/downloads/index.html](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 
 Um die Demokasse zu verwenden, wird wie folgt vorgegangen: 
-Download und entpacken von `rregkassen-demo-0.7.1.zip` (siehe https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases).
+Download und entpacken von `regkassen-demo-1.0.0.zip` (siehe https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases).
 
 Ausführen der Demokasse für die Abarbeitung der integrierten Testfälle mit
-`java -jar regkassen-demo-0.7.1.jar -o OUTPUT_DIR -v -c -l 8`
+`java -jar regkassen-demo-1.0.0.jar -o OUTPUT_DIR -v -c -l 8`
 
 **Parameter**: 
 
  - Der optionale Parameter **-o OUTPUT_DIR** gibt ein Verzeichnis an, in dem die vom Demo-Code erstellten Daten/maschinenlesbaren Codes gespeichert werden. Wenn die Option **-o** nicht angegeben wird, werden die Ergebnisse in ein automatisch generiertes Verzeichnis im Arbeitsverzeichnis gespeichert. Format für das erstellte Verzeichnis: `CashBoxDemoOutputyyyy-MM-dd'T'HH-mm-ss` wobei `yyyy-MM-dd'T'HH-mm-ss` der aktuellen Zeit im angegebenen Format entspricht.
- - **-v (verbose)**: Der optionale Parameter **-v** gibt an ob die generierten Daten (maschinenlesbare Codes, RKSV-DEP-Export etc.) auch über STDOUT ausgegeben werden. Ist **-v** nicht angegeben, so werden die Daten nur in das Output Verzeichnis geschrieben.
+ - **-v (verbose)**: Der optionale Parameter **-v** gibt an, ob die generierten Daten (maschinenlesbare Codes, RKSV-DEP-Export etc.) auch über STDOUT ausgegeben werden. Ist **-v** nicht angegeben, so werden die Daten nur in das Output-Verzeichnis geschrieben.
  - **-c (closed-system)**: Der optionale Parameter **-c** gibt an, ob es sich um ein geschlossenes System handelt. In diesem Fall werden statt der Seriennummer des Zertifikats der Ordnungsbegriff des Unternehmens und das Identifikationsmerkmal des verwendeten Schlüssels in den erstellten maschinenlesbaren Codes verwendet. Außerdem werden statt den X509-Zertifikaten öffentliche Schlüssel für die Signaturprüfung zur Verfügung gestellt (siehe Datei `cryptographicMaterialContainer.json`).
- - Der optionale Parameter **-l TURNOVER-COUNTER-LENGTH** gibt an wieviele Bytes für die Kodierung des Umsatzzählers verwendet werden sollen. Wird der Parameter nicht angegeben, oder wird ein Wert kleiner 5 oder größer 8 angegeben so werden 8 bytes für die Kodierung des Umsatzzählers verwendet.
+ - Der optionale Parameter **-l TURNOVER-COUNTER-LENGTH** gibt an, wieviele Bytes für die Kodierung des Umsatzzählers verwendet werden sollen. Wird der Parameter nicht angegeben, oder wird ein Wert kleiner 5 oder größer 8 angegeben, so werden 8 Bytes für die Kodierung des Umsatzzählers verwendet.
  
 **Das Output-Verzeichnis enthält folgende Dateien/Verzeichnisse**:
 
-Für jeden Test-Fall wird ein eigenes Verzeichnis angelegt, das den Namen des Testfalls erhält.  In diesem Verzeichnis werden unterschiedliche Dateien/Verzeichnisse gespeichert. Die folgenden Dateien bzw. deren Formate haben zwar für eine produktive Kasse (mit Ausnahme des RKSV-DEP-Exports) keine Bedeutung, allerdings spielen sie bei der Überprüfung der Implementierung der Kasse eine wichtige Rolle, da die Dateien vom Prüftool verwendet werden, um die Testfälle einer Kasse und vor allem deren Abdeckung prüfen zu können (Abdeckung in Version 0.8 des Prüftools geplant):
+Für jeden Test-Fall wird ein eigenes Verzeichnis angelegt, das den Namen des Testfalls erhält.  In diesem Verzeichnis werden unterschiedliche Dateien/Verzeichnisse gespeichert. Die folgenden Dateien bzw. deren Formate haben zwar für eine produktive Kasse (mit Ausnahme des RKSV-DEP-Exports) keine Bedeutung, allerdings spielen sie bei der Überprüfung der Implementierung der Kasse eine wichtige Rolle, da die Dateien vom Prüftool verwendet werden, um die Testfälle einer Kasse und vor allem deren Abdeckung prüfen zu können:
 
- - **dep-export.json (Datei)**: In dieser Datei werden die erstellten maschinenlesbaren Codes im RKSV-DEP-Export-Format (Detailspezifikation, Abs 3) gespeichert. Weitere Details dazu: siehe Abschnitt 7 im Dokument *Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV)*.
- - **cryptographicMaterialContainer.json (Datei)**: Diese Datei enthält den AES-Schlüssel sowie die Zertifikate bzw. öffentliche Schlüssel, die für die Prüfung der maschinenlesbaren Codes nötig sind. Weitere Details dazu: siehe Abschnitt 7 im Dokument *Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV)*.
+ - **dep-export.json (Datei)**: In dieser Datei werden die erstellten maschinenlesbaren Codes im RKSV-DEP-Export-Format (Detailspezifikation, Abs. 3) gespeichert. Weitere Details dazu: Siehe Abschnitt 7 im Dokument *Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV)*.
+ - **cryptographicMaterialContainer.json (Datei)**: Diese Datei enthält den AES-Schlüssel sowie die Zertifikate bzw. öffentlichen Schlüssel, die für die Prüfung der maschinenlesbaren Codes nötig sind. Weitere Details dazu: Siehe Abschnitt 7 im Dokument *Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV)*.
 
 Die folgenden Dateien dienen nur zur Demonstrationszwecken und haben für das Prüftool keine Relevanz:
 
- -  **ocr-code-rep.json (Datei)**: Die textuelle Representation der maschinenlesbaren OCR-Codes als JSON-Array. Eine Zeile der Datei entspricht der OCR-Code Repräsentation eines maschinenlesbaren Codes.
- - **qr-code-dir-pdf (Verzeichnis)**: Einfache Demo-PDF-Belege die mit dem QR-Code bedruckt wurden.
- - **ocr-code-dir-pdf (Verzeichnis)**: Einfache Demo-PDF-Belege die mit dem OCR-Code bedruckt wurden.
+ -  **ocr-code-rep.json (Datei)**: Die textuelle Repräsentation der maschinenlesbaren OCR-Codes als JSON-Array. Eine Zeile der Datei entspricht der OCR-Code Repräsentation eines maschinenlesbaren Codes.
+ - **qr-code-dir-pdf (Verzeichnis)**: Einfache Demo-PDF-Belege, die mit dem QR-Code bedruckt wurden.
+ - **ocr-code-dir-pdf (Verzeichnis)**: Einfache Demo-PDF-Belege, die mit dem OCR-Code bedruckt wurden.
 
-Ein Beispiel für den Output ist auch direkt ohne dem Ausführen des Demo-Codes verfügbar: `example-output-0.7.1.zip` (siehe [https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases](https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases)).
+Ein Beispiel für den Output ist auch direkt ohne Ausführen des Demo-Codes verfügbar: `example-output-1.0.0.zip` (siehe [https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases](https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases)).
 
 ***BUILD Prozess***
 
@@ -169,10 +194,10 @@ In den Verzeichnissen `regkassen-democashbox`, `regkassen-verification` befinden
                     
 ##Testfälle
 
-Die Tesfälle sind im Mustercode der Demokasse integriert bzw. können durch Download und Entpacken von `regkassen-test-cases-0.7.1.zip` (siehe [https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases](https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases)) bezogen werden.
+Die Tesfälle sind im Mustercode der Demokasse integriert bzw. können durch Download und Entpacken von `regkassen-test-cases-1.0.0.zip` (siehe [https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases](https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases)) bezogen werden.
 Eine detallierte Beschreibung der Testfälle befindet sich im Dokument *Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV)*. Diese Beschreibung umfasst:
 
- - Die Beschreibung der verwendeten Datenformate der Testfälle für eine automatisierte Verarbeitung in einem Kassensystem, um die definierten maschinenlesbaren Codes und deren Abfolge erstellen zu können.
+ - Beschreibung der verwendeten Datenformate der Testfälle für eine automatisierte Verarbeitung in einem Kassensystem, um die definierten maschinenlesbaren Codes und deren Abfolge erstellen zu können.
  - Erklärungen zu den unterschiedlichen Testfällen und deren Hintergründe.
 
  
@@ -182,7 +207,7 @@ Es wurde dazu eine Projektseite von der WKO eingerichtet. Es ist dazu eine Regis
 
 [Projektseite der WKO](https://communities.wko.at/Kassensoftware/default.aspx)
 
-Etwaige Fragen sollten dort im Forum gestellt werden, um eine möglichst effizient die Beantwortung durchführen zu können. Es stehen dort die "Rubriken FinanzOnline – Webservice und File Upload" und „BMF Belegcheck-App (Belegprüfung) erweitert“ für Fragen zur Verfügung.
+Etwaige Fragen sollten dort im Forum gestellt werden, um eine möglichst effiziente Beantwortung durchführen zu können. Es stehen dort die Rubriken "FinanzOnline – Webservice und File Upload" und "BMF Belegcheck-App (Belegprüfung) erweitert“ für Fragen zur Verfügung.
 
 [Forum der WKO](https://communities.wko.at/Kassensoftware/Lists/Forum/)
 
