@@ -108,7 +108,7 @@ public class DemoCashBox {
      *
      * @param cashBoxInstruction
      */
-    protected void createStoreAndSignReceiptPackage(CashBoxInstruction cashBoxInstruction) {
+    protected synchronized void createStoreAndSignReceiptPackage(CashBoxInstruction cashBoxInstruction) {
         //get signature device and used RKSUITE
         //as of version 6 the cashbox can be instructed to use a specific signature device
         JWSModule signatureDevice = cashBoxParameters.getJwsSignatureModules().get(cashBoxInstruction.getUsedSignatureDevice());
@@ -133,12 +133,18 @@ public class DemoCashBox {
         el2_cashboxID = cashBoxParameters.getCashBoxId();
         el3_receiptID = cashBoxInstruction.getReceiptIdentifier();
         el4_timeAndData = null;
-        try {
-            el4_timeAndData = CashBoxUtils.convertISO8601toDate(cashBoxInstruction.getDateToUse());
-        } catch (ParseException e) {
-            System.err.println("Fatal error, cannot parse date from cashbox instruction file: " + cashBoxInstruction.getDateToUse() +  " is not a valid date");
-            System.exit(-1);
-        }
+        
+        if (cashBoxInstruction.getDateToUse() != null) {
+            try {
+                el4_timeAndData = CashBoxUtils.convertISO8601toDate(cashBoxInstruction.getDateToUse());
+            } catch (ParseException e) {
+                System.err.println("Fatal error, cannot parse date from cashbox instruction file: " + cashBoxInstruction.getDateToUse() +  " is not a valid date");
+                System.exit(-1);
+            }
+       } else {
+            el4_timeAndData = new Date();
+       }
+
 
         //if we have an open system, the serial number of the certificate is used
         //for a closed system, the companyID and the key id of the signing key is used
