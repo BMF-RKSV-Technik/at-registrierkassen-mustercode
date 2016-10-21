@@ -17,14 +17,16 @@
 
 package at.asitplus.regkassen.core.modules.DEP;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
  * DEP Export format according to Detailspezifikation Abs 3
  */
 public class DEPBelegDump {
 
-  @JsonProperty("Signaturzertifikat")
+
   protected String   signatureCertificate;
 
   @JsonProperty("Zertifizierungsstellen")
@@ -33,11 +35,18 @@ public class DEPBelegDump {
   @JsonProperty("Belege-kompakt")
   protected String[] belegeDaten;
 
+  @JsonGetter("Signaturzertifikat")
   public String getSignatureCertificate() {
     return signatureCertificate;
   }
 
+  @JsonSetter("Signaturzertifikat")
   public void setSignatureCertificate(final String signatureCertificate) {
+    this.signatureCertificate = signatureCertificate;
+  }
+
+  @JsonSetter("Signatur- bzw. Siegelzertifikat")
+  public void setSigOrSealCertificate(final String signatureCertificate) {
     this.signatureCertificate = signatureCertificate;
   }
 
