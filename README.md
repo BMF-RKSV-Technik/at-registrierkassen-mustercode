@@ -1,6 +1,25 @@
 # Wichtige Hinweise
 
- - **18.11.2016**: Es stehen nun Folien für die Fehlersuche bei kryptographisch ungültigen Signaturen zur Verfügung (dieses Thema wurde auch am 27.10. im Vortrag bei der WKO angesprochen). Die Datei liegt im Repository bzw. kann direkt von [hier](https://github.com/a-sit-plus/at-registrierkassen-mustercode/raw/master/Dokumente/2016-11-18%20SIG-Check.pdf) bezogen werden.
+**18.11.2016 Fehlersuche bei ungültigen Signaturen**:
+
+Es stehen nun Folien für die Fehlersuche bei kryptographisch ungültigen Signaturen zur Verfügung (dieses Thema wurde auch am 27.10. im Vortrag bei der WKO angesprochen). Die Datei liegt im Repository bzw. kann direkt von [hier](https://github.com/a-sit-plus/at-registrierkassen-mustercode/raw/master/Dokumente/2016-11-18%20SIG-Check.pdf) bezogen werden.
+ 
+**18.11.2016 Signieren von Nullbelegen**:
+
+Die aktuelle Version des Prüftools V1.0.0 gibt eine Fehlermeldung aus wenn ein Nullbeleg nicht signiert ist. Dazu gibt es folgende Erläuterungen (abgestimmt mit dem BMF):
+
+ - **Nullbelege, die eine gültige Signatur enthalten** müssen (also nicht mit “Sicherheitseinrichtung ausgefallen” markiert werden dürfen): 
+	 - Startbeleg
+	 - Jahresbeleg
+	 - Sammelbeleg, der das Ende des Ausfalls der Sicherheitseinrichtung markiert
+ - **Nullbelege die auch mit “Sicherheitseinrichtung ausgefallen”** markiert werden dürfen: 
+	 - Monatsbeleg
+	 - Schlussbeleg
+	 - Kontrollbelege, die über Aufforderung der Behörde erstellt werden müssen
+	 - Freiwillige Nullbelege: z.B. Tagesbelege etc.
+	 - "Zufällige Nullbelege” die z.B. aufgrund einer Gutschrift entstehen
+
+Im Prüftool mit der Version 1.0.0. wird bei allen Nullbelegen verlangt, dass eine Signatur vorhanden ist (also der Beleg nicht mit “Sicherheitseinrichtung ausgefallen” markiert ist). Diese Funktion wird in der nächsten Version wie folgt geändert: Das Prüfergebnis wird nach wie vor bei allen Nullbelegen ohne Signatur negativ sein, an Stelle der Fehlermeldung wird allerdings ein Hinweis ausgegeben, der auf die oben genannte Kategorisierung verweist. Der Prüfvorgang wird nicht abgebrochen. Da es sich um den selben Prüfkern wie im FinOnline handelt, wird auch dort die gleiche Meldung zu sehen sein.
 
 # Übersicht
 Dieses Projekt dient der Behandlung technischer Sachverhalte der RKSV. Wir bitten daher um Verständnis, dass rechtliche/organisatorische Themen im Allgemeinen nicht beantwortet werden können. Für die Beantwortung solcher Fragen bitten wir Sie, die Informationen des BMFs heranzuziehen (siehe https://www.bmf.gv.at/top-themen/Registrierkassen.html). Sollte Ihr Anliegen dort nicht behandelt sein, bitten wir Sie, die am Ende dieses Dokuments genannten Kontaktpunkte bzw. Informationsquellen zu berücksichtigen.
