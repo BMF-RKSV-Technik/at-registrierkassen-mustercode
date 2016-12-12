@@ -1,5 +1,6 @@
 # Wichtige Hinweise
 **12.12.2016 Ergänzung der Infos zu Fehlersuche bei ungültigen Signaturen**:
+
 Die vorliegende Präsentation wurde um Informationen zu Padding-Zeichen im JWS-Standard ergänzt. Die neue Version des Dokuments kann von [hier](https://github.com/a-sit-plus/at-registrierkassen-mustercode/blob/master/Dokumente/2016-12-12%20SIG-Check.pdf) bezogen werden.
 
 
