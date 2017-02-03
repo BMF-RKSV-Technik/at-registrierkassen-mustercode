@@ -8,8 +8,14 @@
   <artifactId>registrierkassen-core</artifactId>
   <version>0.7.1</version>
   <packaging>jar</packaging>
- 
+
   <dependencies>
+    <!-- https://mvnrepository.com/artifact/com.sun.net.httpserver/http -->
+    <dependency>
+        <groupId>com.sun.net.httpserver</groupId>
+        <artifactId>http</artifactId>
+        <version>20070405</version>
+    </dependency>
 
     <dependency>
       <groupId>at.asitplus.regkassen</groupId>
@@ -17,7 +23,7 @@
       <version>0.10</version>
     </dependency>
 
-    <!-- crypto library for handling certificates, AES encryptionm creating/verifying 
+    <!-- crypto library for handling certificates, AES encryptionm creating/verifying
       signatures REF: https://www.bouncycastle.org License: http://opensource.org/licenses/MIT -->
     <dependency>
       <groupId>org.bouncycastle</groupId>
@@ -30,10 +36,10 @@
       <version>1.52</version>
     </dependency>
 
-   
 
 
-    <!-- JSON Web Signature Library 1 REQUIRES BC PROVIDER REF: https://bitbucket.org/b_c/jose4j 
+
+    <!-- JSON Web Signature Library 1 REQUIRES BC PROVIDER REF: https://bitbucket.org/b_c/jose4j
       License: http://www.apache.org/licenses/LICENSE-2.0 -->
     <dependency>
       <groupId>org.bitbucket.b_c</groupId>
@@ -41,7 +47,7 @@
       <version>0.4.4</version>
     </dependency>
 
-    <!-- JSON Web Signature Library 2 PROVIDER INDEPENDENT REF: http://connect2id.com/products/nimbus-jose-jwt/ 
+    <!-- JSON Web Signature Library 2 PROVIDER INDEPENDENT REF: http://connect2id.com/products/nimbus-jose-jwt/
       License: http://www.apache.org/licenses/LICENSE-2.0 -->
     <dependency>
       <groupId>com.nimbusds</groupId>
@@ -49,7 +55,7 @@
       <version>4.2</version>
     </dependency>
 
-    <!-- Apache commons libraries for BASE64, BASE64, math operations etc. 
+    <!-- Apache commons libraries for BASE64, BASE64, math operations etc.
       License: http://www.apache.org/licenses/LICENSE-2.0 -->
     <!--Ref: https://commons.apache.org/proper/commons-io/ -->
     <dependency>
@@ -72,7 +78,7 @@
       <version>1.10</version>
     </dependency>
 
-    <!-- library for generating QR-Codes REF: http://zxing.github.io/zxing/project-info.html 
+    <!-- library for generating QR-Codes REF: http://zxing.github.io/zxing/project-info.html
       License: http://www.apache.org/licenses/LICENSE-2.0 -->
     <dependency>
       <groupId>com.google.zxing</groupId>
@@ -80,7 +86,7 @@
       <version>2.0</version>
     </dependency>
 
-    <!-- library for creating PDF documents REF: https://pdfbox.apache.org 
+    <!-- library for creating PDF documents REF: https://pdfbox.apache.org
       License: http://www.apache.org/licenses/LICENSE-2.0 -->
     <dependency>
       <groupId>org.apache.pdfbox</groupId>
