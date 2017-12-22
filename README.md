@@ -1,4 +1,7 @@
 # Wichtige Hinweise
+**22.12.2017 Release der Version 1.1.0 des Prüfmoduls**:
+Es wird die Version 1.1.0 des Prüftools freigegeben. Detailinformationen zu den Änderungen und Ergänzungen: Siehe "Change-Log" im Abschnitt "Prüftool 1.0.0 bis 1.1.0"
+
 **12.12.2016 Ergänzung der Infos zu Fehlersuche bei ungültigen Signaturen**:
 
 Die vorliegende Präsentation wurde um Informationen zu Padding-Zeichen im JWS-Standard ergänzt. Die neue Version des Dokuments kann von [hier](https://github.com/a-sit-plus/at-registrierkassen-mustercode/blob/master/Dokumente/2016-12-12%20SIG-Check.pdf) bezogen werden.
@@ -6,11 +9,11 @@ Die vorliegende Präsentation wurde um Informationen zu Padding-Zeichen im JWS-S
 
 **18.11.2016 Fehlersuche bei ungültigen Signaturen**:
 
-Es stehen nun Folien für die Fehlersuche bei kryptographisch ungültigen Signaturen zur Verfügung (dieses Thema wurde auch am 27.10. im Vortrag bei der WKO angesprochen). Die Datei liegt im Repository bzw. kann direkt von [hier](https://github.com/a-sit-plus/at-registrierkassen-mustercode/raw/master/Dokumente/2016-11-18%20SIG-Check.pdf) bezogen werden.
+Es stehen nun Folien für die Fehlersuche bei kryptographisch ungültigen Signaturen zur Verfügung (dieses Thema wurde auch am 27.10.2016 im Vortrag bei der WKO angesprochen). Die Datei liegt im Repository bzw. kann direkt von [hier](https://github.com/a-sit-plus/at-registrierkassen-mustercode/raw/master/Dokumente/2016-11-18%20SIG-Check.pdf) bezogen werden.
  
 **18.11.2016 Signieren von Nullbelegen**:
 
-Die aktuelle Version des Prüftools V1.0.0 gibt eine Fehlermeldung aus wenn ein Nullbeleg nicht signiert ist. Dazu gibt es folgende Erläuterungen (abgestimmt mit dem BMF):
+Die Version 1.0.0 des Prüftools gibt eine Fehlermeldung aus wenn ein Nullbeleg nicht signiert ist. Dazu gibt es folgende Erläuterungen (abgestimmt mit dem BMF):
 
  - **Nullbelege, die eine gültige Signatur enthalten** müssen (also nicht mit “Sicherheitseinrichtung ausgefallen” markiert werden dürfen): 
 	 - Startbeleg
@@ -61,7 +64,7 @@ In Zusammenarbeit zwischen dem BMF und A-SIT Plus wurde das Dokument *Festlegung
  - **Version 1.0 (19.02.2016)**:
 	 - 	[Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV) V1.0](https://github.com/a-sit-plus/at-registrierkassen-mustercode/files/137544/2016-02-18-Detailfragen-RKSV-V1.0.pdf)
 
-# Prüftool 1.0.0
+# Prüftool 1.0.0 bis 1.1.0
 Das gegenständliche, im Auftrag des BMF erstellte, Prüftool ab Version 1.0.0 überprüft Format und Inhalt sowie Abfolge von Einzelbelegen in einem exportierten RKSV-Datenerfassungsprotokoll (RKSV-DEP) einer Registrierkasse auf Übereinstimmung mit den ab 1.4.2017 gültigen Vorgaben der RKSV. Die Prüfalgorithmen, die dabei zur Anwendung kommen, stimmen im Wesentlichen mit jenen überein, die auch für Einzelbelegüberprüfungen und RKSV-DEP-Überprüfungen des BMF herangezogen werden (z.B.: BMF Belegcheck-App). Dadurch, dass das gegenständliche Prüftool primär auf die Überprüfung der korrekten Implementierung ausgerichtet ist, kann es dazu kommen, dass das Prüftool etwas als fehlerhaft ausgibt, das bei der Behördenprüfung als fehlerfrei angesehen wird (z.B. nicht vorhandener Startbeleg bei der Überprüfung eines DEP-Ausschnittes).
 
 Um die Prüfung mit dem Prüftool durchzuführen, müssen dem Prüftool auch der verwendete AES-Schlüssel sowie die verwendeten Zertifikate/öffentliche Schlüssel in einer Datei als Parameter übergeben werden (siehe Details weiter unten).
@@ -76,6 +79,14 @@ Im Zusammenhang mit dem Prüftool und den durchgeführten Prüfungen müssen fol
 
 ***Change-Log*** 
 
+ - **22.12.2017**: Release 1.1.0 veröffentlicht. Dabei wurden folgende Änderungen durchgeführt:
+- Speicherverbrauch ist nun konstant (unabhängig von der Anzahl der Belege)
+- Hinzufügen von Prüfungen
+	 - globale RKSV-DEP Prüfungen: Basiseigenschaften des RKSV-DEP-Exports, Korrektheit des JSON-Formats
+	 - RKSV-DEP Prüfungen pro Beleg: Chronologische Reihenfolge der Belege
+- Änderung von bestehenden Prüfungen
+	 - Fehler bei einzelnen Belegen führen nicht zum Abbruch des Prüftools. Dies gilt vor allem für das Behandeln von nicht-signierten Nullbelegen.
+       - Änderungen/Ergänzungen der Output-Dateien: siehe Detailbeschreibung im Abschnitt "Verwendung des Prüftools".
  - **21.10.2016**: Release 1.0.0 veröffentlicht. Im Vergleich zu Version 0.7.1 wurde eine detaillierte Qualitätssicherung der RKSV-DEP-Überprüfungen durchgeführt (die Einzelbelegprüfung hatte auch schon in Version 0.7.1 diesen Status). Im Zuge der Qualitätssicherung wurden noch weitere Detailprüfungen hinzugefügt, die es ermöglichen, einfache Implementierungsfehler zu erkennen (Belege mit gleicher Nummer im RKSV-DEP,  mehrere Kassen-IDs im RKSV-DEP, Mischung mehrerer Systemtypen). Die Erweiterungen werden im Detail genannt:
 
 	 - **Sammelbeleg nach ausgefallener Sicherheitseinrichtung**: Es wird nun akzeptiert, dass ein signierter Nullbeleg auch an zweiter Stelle nach einem Beleg mit einer ausgefallenenen Sicherheitseinrichtung im RKSV-DEP folgen darf. In Version 0.7.1 wurde es nur als richtig anerkannt, wenn der signierte Nullbeleg unmittelbar nach dem Beleg mit ausgefallener Sicherheitseinrichtung folgte (für Details siehe *"Erlass zur Einzelaufzeichnungs-, Registrierkassen- und Belegerteilungspflicht",* Abschnitt 3.6.1.).
@@ -83,7 +94,7 @@ Im Zusammenhang mit dem Prüftool und den durchgeführten Prüfungen müssen fol
 	 - **Überprüfung, ob mehrere Belege mit der gleichen Belegnummer im RKSV-DEP Export enthalten sind**: Es wird überprüft, ob pro RKSV-DEP-Export jede Belegnummer nur einmal zur Verwendung kommt.
 	 - **Belege mit zukünftigem Datum**: Es wurde der Paramater **-f** eingeführt, der das Prüftool instruiert, auch zukünftige Belege als gültig anzuerkennen. Dies gilt nur für das Prüftool, erleichtert aber das Überprüfen von spezifischen Testfällen.
 	 - **RKSV-DEP-Prüfungsdetails**: Die Prüfergebnisse werden wie in Version 0.7.1 in der Datei DEP.json abgelegt. Zusätzlich werden aber - wie für die Einzelbelegprüfung - pro Beleg die RKSV-DEP-Prüfergebnisse für den vorliegenden Beleg in einer Datei gespeichert (z.B. 0001_dep.json für den 2. Beleg im RKSV-DEP). Details dazu werden weiter unten genannt.
-	 - **Indizierung der Prüfergebnisse**: Indices für Belege im RKSV-DEP starten in Version 1.0.0. mit dem Index 0. In Version 0.7.1 war der Startindex gleich 1.
+	 - **Indizierung der Prüfergebnisse**: Indices für Belege im RKSV-DEP starten ab Version 1.0.0. mit dem Index 0. In Version 0.7.1 war der Startindex gleich 1.
  - **07.09.2016**: Release 0.7.1 veröffentlicht
 	 - Bugfixes:
 		 - Minimallänge des Belegs auf 100 statt 150 Zeichen geändert.
@@ -91,13 +102,13 @@ Im Zusammenhang mit dem Prüftool und den durchgeführten Prüfungen müssen fol
 
 ***Verwendung des Prüftools***
 
-Download und entpacken von `regkassen-demo-1.0.0.zip` (siehe [https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases](https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases)).
+Download und entpacken von `regkassen-verification-1.1.0.zip` (siehe [https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases](https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases)).
 
 ***DEP-Export Format***
 
 Mit dieser Variante kann der gesamte RKSV-DEP-Export überprüft werden.
 
-    java -jar regkassen-verification-depformat-1.0.0.jar -v -f -i DEP-EXPORT-FILE -c CRYPTOGRAPHIC-MATERIAL-FILE -o OUTPUT_DIR
+    java -jar regkassen-verification-depformat-1.1.0.jar -v -f -i DEP-EXPORT-FILE -c CRYPTOGRAPHIC-MATERIAL-FILE -o OUTPUT_DIR
 	         
 Wobei
 
@@ -109,27 +120,31 @@ Wobei
 
 ***Weitere Details zum Prüfablauf:***
 
- - **RKSV-DEP-Export-Prüfungen**: Es werden folgende Prüfungen durchgeführt:
+ - **RKSV-DEP-Export-Prüfungen pro Beleg**: Es werden folgende Prüfungen durchgeführt:
 	 - Gültige Verkettung der maschinenlesbaren Codes zwischen den Belegen im exportierten RKSV-DEP
 	 - Korrekte Entwicklung des Umsatzzählers
 	 - Richtige Abfolge der Belegtypen im RKSV-DEP (z.B.: Startbeleg nur an erster Stelle, Sammelbeleg nach ausgefallener Sicherheitseinrichtung)
+	 - Korrekte chronologische Abfolge der Belege
 	 - Diverse Prüfungen: Nur eine Kassen-ID pro RKSV-DEP, jede Belegnummer darf nur einmal im RKSV-DEP vorkommen, keine Vermischung von Systemtypen (geschlossen, offen)
+ - **Globale RKSV-DEP Prüfungen**:
+     -  Basisanforderungen an das RKSV-DEP-Format
+     - Korrektheit des JSON-Formats des RKSV-DEP-Export
  - **Einzelne maschinenlesbare Codes**: Jeder maschinenlesbare Code im RKSV-DEP-Export wird im Detail geprüft: Es werden dabei die gleichen Prüfungen wie im FinanzOnline durchgeführt und das Ergebnis im gleichen Format aufbereitet. Das Prüftool hat keinen Zugriff auf FinanzOnline, daher wird für den Registrierungstatus der Kasse und der verwendeten Siegel- bzw. Signaturerstellungseinheit immer der korrekte Wert angenommen. Die Detailergebnisse werden im angegeben Verzeichnis (**OUTPUT_DIR**) abgelegt. Dieses Verzeichnis enthält dabei für jeden maschinenlesbaren Code die Detailergebnisse, wobei **N** der Nummerierung der maschinenlesbaren Codes im RKSV-DEP-Export entspricht (beginnend mit 0). Kommt es zu einem Fehler bei der Einzelprüfung, werden die restlichen maschinenlesbaren Codes weiter geprüft, die RKSV-DEP-Prüfungen werden aber an dieser Stelle abgebrochen.
 
 ***Prüfergebnisse:***
-
  - **N_cashbox.json**: Dieses Ergebnis enspricht dem Ergebnis, das in FinanzOnline visuell aufbereitet wird und als Datei zu beziehen ist. Ebenso wird das Prüfergebnis im gleichen Format vom Web-Service für die Kassen zur Verfügung gestellt. Es werden nur die fehlerhaften Prüfergebnisse angezeigt. (**N** entspricht der Belegnummer im RKSV-DEP-Export, beginnend mit 0. Sind mehrere Beleggruppen im RKSV-DEP-Export vorhanden, wird die Nummerierung der maschinenlesbaren Codes nicht zurückgesetzt.)
  - **N_cashbox_full.json**: Es werden auch die positiven Prüfergebnisse angezeigt. Der Hersteller hat hier die Möglichkeit, das vollständige Prüfergebnis einzusehen und alle durchgeführten Prüfungen zu erkennen. (**N** entspricht der Belegnummer im RKSV-DEP-Export, beginnend mit 0. Sind mehrere Beleggruppen im RKSV-DEP-Export vorhanden, wird die Nummerierung der maschinenlesbaren Codes nicht zurückgesetzt.)
  - **N_app.json**: Dieses ist äquivalent zu dem der Belegcheck App. Für Detailanalysen hat es keine direkte Relevanz, es zeigt aber, wie etwaige Fehler in der App repräsentiert werden. (**N** entspricht der Belegnummer im RKSV-DEP-Export, beginnend mit 0. Sind mehrere Beleggruppen im RKSV-DEP-Export vorhanden, wird die Nummerierung der maschinenlesbaren Codes nicht zurückgesetzt.)
- - **N_dep.json**: Diese Datei enthält die detaillierten Prüfergebnisse der RKSV-DEP-Prüfungen für jeden Beleg im RKSV-DEP. (**N** entspricht der Belegnummer im RKSV-DEP-Export, beginnend mit 0. Sind mehrere Beleggruppen im RKSV-DEP-Export vorhanden, wird die Nummerierung der maschinenlesbaren Codes nicht zurückgesetzt.) Diese Dateien werden seit V 1.0.0 erstellt.
- - 	**DEP.json**: In dieser Datei werden die Detailergebnisse der RKSV-DEP-Export-Prüfung (Verkettung, Entwicklung Umsatzzähler, Abfolge der maschinenlesbaren Codes) ausgegeben. Diese Datei ist aus Kompatibilitätsgründen enthalten. Deren Inhalte wurden durch die Einzelergebniss in **N_dep.json** ersetzt.
-
+ - **N_dep.json**: Diese Datei enthält die detaillierten Prüfergebnisse der RKSV-DEP-Prüfungen pro Beleg zusammen (siehe oben, Punkt "RKSV-DEP-Export-Prüfungen pro Beleg") . (**N** entspricht der Belegnummer im RKSV-DEP-Export, beginnend mit 0. Sind mehrere Beleggruppen im RKSV-DEP-Export vorhanden, wird die Nummerierung der maschinenlesbaren Codes nicht zurückgesetzt.) Diese Dateien werden seit V 1.0.0 erstellt.
+ - **DEP-global.json** (seit Version 1.1.0): Diese Datei fasst die Ergebnisse der globalen RKSV-DEP Prüfungen zusammen (siehe oben, Punkt "Globale RKSV-DEP Prüfungen"): Basiseigenschaften des RKSV-DEP, Korrektheit des JSON-Formats sowie die Zusammenfassung der Ergebnisse aller Prüfungen die pro Beleg durchgeführt werden.
+ - **DEP-full.json** (seit Version 1.1.0): Diese Datei fasst enthält die detaillierte Auflistung aller Prüfungen die pro Beleg durchgeführt werden. Es handelt sich dabei um alle Einzelbelegprüfungen (siehe **N_cashbox_full.json**) und RKSV-DEP-Prüfungen die pro Beleg durchgeführt werden (siehe **N_DEP.json**).
+ - 	**DEP.json** (bis Version 1.0.0): In dieser Datei wurden die Detailergebnisse der RKSV-DEP-Export-Prüfung (Verkettung, Entwicklung Umsatzzähler, Abfolge der maschinenlesbaren Codes) ausgegeben. Diese Datei war bis V1.0.0 enthalten. Die Inhalte der Datei wurden durch die Einzelergebnisse der Dateien **N_dep.json** ersetzt. Mit Version 1.1.0 wurde diese Datei durch die Dateien **N_dep.json**, **DEP-global.json** sowie **DEP-full.json** ersetzt.
 
 ***QR-Code-Repräsentation eines einzelnen oder mehrerer maschinenlesbaren Codes***
 
 In dieser Variante werden einzelne maschinenlesbare Codes auf Ihre Gültigkeit überprüft. Die Prüfverfahren entsprechen jenen, die auch beim RKSV-DEP-Export-Prüftool für die Einzelbelegprüfung zum Einsatz kommen. **ACHTUNG**: Es werden keine RKSV-DEP-relevanten Prüfungen durchgeführt (Verkettung, Abfolge, etc.). Die Prüfung der einzelnen Belege erfolgt unabhängig voneinander.
 
-    java -jar regkassen-verification-receipts-1.0.0.jar -v -f -i QR-CODE-REP-FILE -c CRYPTOGRAPHIC-MATERIAL-FILE -o OUTPUT_DIR
+    java -jar regkassen-verification-receipts-1.1.0.jar -v -f -i QR-CODE-REP-FILE -c CRYPTOGRAPHIC-MATERIAL-FILE -o OUTPUT_DIR
 
 Wobei
 
@@ -247,3 +262,4 @@ Seidlgasse 22 / 9
 1030 Wien
 FN 436920 f,
 Handelsgericht Wien
+
