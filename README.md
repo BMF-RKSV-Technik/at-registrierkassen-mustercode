@@ -80,7 +80,7 @@ Im Zusammenhang mit dem Prüftool und den durchgeführten Prüfungen müssen fol
 ***Change-Log*** 
 
  - **22.12.2017**: Release 1.1.0 veröffentlicht. Dabei wurden folgende Änderungen durchgeführt:
-      - Speicherverbrauch ist nun konstant (unabhängig von der Anzahl der Belege)
+      - Speicherverbrauch stark reduziert (im Wesentlich unabhängig von der Anzahl der Belege, konstanter Verbrauch aber nicht möglich da bestimmte Informationen global gespeichert werden müssen: z.B. für Prüfung ob Belegnummer eindeutig ist)
       - Hinzufügen von Prüfungen
 	    - globale RKSV-DEP Prüfungen: Basiseigenschaften des RKSV-DEP-Exports, Korrektheit des JSON-Formats
 	    - RKSV-DEP Prüfungen pro Beleg: Chronologische Reihenfolge der Belege
