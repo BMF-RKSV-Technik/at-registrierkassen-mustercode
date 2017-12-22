@@ -80,13 +80,13 @@ Im Zusammenhang mit dem Prüftool und den durchgeführten Prüfungen müssen fol
 ***Change-Log*** 
 
  - **22.12.2017**: Release 1.1.0 veröffentlicht. Dabei wurden folgende Änderungen durchgeführt:
-- Speicherverbrauch ist nun konstant (unabhängig von der Anzahl der Belege)
-- Hinzufügen von Prüfungen
-	 - globale RKSV-DEP Prüfungen: Basiseigenschaften des RKSV-DEP-Exports, Korrektheit des JSON-Formats
-	 - RKSV-DEP Prüfungen pro Beleg: Chronologische Reihenfolge der Belege
-- Änderung von bestehenden Prüfungen
-	 - Fehler bei einzelnen Belegen führen nicht zum Abbruch des Prüftools. Dies gilt vor allem für das Behandeln von nicht-signierten Nullbelegen.
-       - Änderungen/Ergänzungen der Output-Dateien: siehe Detailbeschreibung im Abschnitt "Verwendung des Prüftools".
+      - Speicherverbrauch ist nun konstant (unabhängig von der Anzahl der Belege)
+      - Hinzufügen von Prüfungen
+	    - globale RKSV-DEP Prüfungen: Basiseigenschaften des RKSV-DEP-Exports, Korrektheit des JSON-Formats
+	    - RKSV-DEP Prüfungen pro Beleg: Chronologische Reihenfolge der Belege
+      - Änderung von bestehenden Prüfungen
+	    - Fehler bei einzelnen Belegen führen nicht zum Abbruch des Prüftools. Dies gilt vor allem für das Behandeln von nicht-signierten Nullbelegen.
+      - Änderungen/Ergänzungen der Output-Dateien: siehe Detailbeschreibung im Abschnitt "Verwendung des Prüftools".
  - **21.10.2016**: Release 1.0.0 veröffentlicht. Im Vergleich zu Version 0.7.1 wurde eine detaillierte Qualitätssicherung der RKSV-DEP-Überprüfungen durchgeführt (die Einzelbelegprüfung hatte auch schon in Version 0.7.1 diesen Status). Im Zuge der Qualitätssicherung wurden noch weitere Detailprüfungen hinzugefügt, die es ermöglichen, einfache Implementierungsfehler zu erkennen (Belege mit gleicher Nummer im RKSV-DEP,  mehrere Kassen-IDs im RKSV-DEP, Mischung mehrerer Systemtypen). Die Erweiterungen werden im Detail genannt:
 
 	 - **Sammelbeleg nach ausgefallener Sicherheitseinrichtung**: Es wird nun akzeptiert, dass ein signierter Nullbeleg auch an zweiter Stelle nach einem Beleg mit einer ausgefallenenen Sicherheitseinrichtung im RKSV-DEP folgen darf. In Version 0.7.1 wurde es nur als richtig anerkannt, wenn der signierte Nullbeleg unmittelbar nach dem Beleg mit ausgefallener Sicherheitseinrichtung folgte (für Details siehe *"Erlass zur Einzelaufzeichnungs-, Registrierkassen- und Belegerteilungspflicht",* Abschnitt 3.6.1.).
