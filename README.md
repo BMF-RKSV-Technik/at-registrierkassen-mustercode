@@ -1,4 +1,8 @@
 # Wichtige Hinweise
+**04.01.2018 Release der Version 1.1.1 des Prüfmoduls**:
+Es wurde ein Problem beim Speicherverbrauch behoben (Vielen Dank für den Hinweis an ztp-mino!). Der Speicherverbrauch von V 1.1.0 erhöhte sich pro geprüftem Beleg. Die Ursache dafür war ein Fehler bei der Verarbeitung der Prüfergebnisse: Diese wurden zu lange im Speicher gehalten. 
+Bitte beachten: Trotzdem ist ein konstanter Speicherverbrauch - unabhängig von der Anzahl der Belege - nicht möglich, da bestimmte Informationen im Speicher behalten werden müssen (z.B. jede Belegnummer, um die Prüfung auf die Mehrfachverwendung durchzuführen).
+
 **22.12.2017 Release der Version 1.1.0 des Prüfmoduls**:
 Es wird die Version 1.1.0 des Prüftools freigegeben. Detailinformationen zu den Änderungen und Ergänzungen: Siehe "Change-Log" im Abschnitt "Prüftool 1.0.0 bis 1.1.0"
 
