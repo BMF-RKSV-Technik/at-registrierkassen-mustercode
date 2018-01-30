@@ -8,12 +8,12 @@ Es wird die Version 1.1.0 des Prüftools freigegeben. Detailinformationen zu den
 
 **12.12.2016 Ergänzung der Infos zu Fehlersuche bei ungültigen Signaturen**:
 
-Die vorliegende Präsentation wurde um Informationen zu Padding-Zeichen im JWS-Standard ergänzt. Die neue Version des Dokuments kann von [hier](https://github.com/a-sit-plus/at-registrierkassen-mustercode/blob/master/Dokumente/2016-12-12%20SIG-Check.pdf) bezogen werden.
+Die vorliegende Präsentation wurde um Informationen zu Padding-Zeichen im JWS-Standard ergänzt. Die neue Version des Dokuments kann von [hier](https://github.com/BMF-RKSV-Technik/at-registrierkassen-mustercode/blob/master/Dokumente/2016-12-12%20SIG-Check.pdf) bezogen werden.
 
 
 **18.11.2016 Fehlersuche bei ungültigen Signaturen**:
 
-Es stehen nun Folien für die Fehlersuche bei kryptographisch ungültigen Signaturen zur Verfügung (dieses Thema wurde auch am 27.10.2016 im Vortrag bei der WKO angesprochen). Die Datei liegt im Repository bzw. kann direkt von [hier](https://github.com/a-sit-plus/at-registrierkassen-mustercode/raw/master/Dokumente/2016-11-18%20SIG-Check.pdf) bezogen werden.
+Es stehen nun Folien für die Fehlersuche bei kryptographisch ungültigen Signaturen zur Verfügung (dieses Thema wurde auch am 27.10.2016 im Vortrag bei der WKO angesprochen). Die Datei liegt im Repository bzw. kann direkt von [hier](https://github.com/BMF-RKSV-Technik/at-registrierkassen-mustercode/raw/master/Dokumente/2016-11-18%20SIG-Check.pdf) bezogen werden.
  
 **18.11.2016 Signieren von Nullbelegen**:
 
@@ -50,23 +50,23 @@ In Zusammenarbeit zwischen dem BMF und A-SIT Plus wurde das Dokument *Festlegung
 
 **Releases**:
 
- - **Version 1.2 (06.09.2016)**: [Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV) V1.2](https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases/download/1.2-DOK/2016-09-05-Detailfragen-RKSV-V1.2.pdf): 
+ - **Version 1.2 (06.09.2016)**: [Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV) V1.2](https://github.com/BMF-RKSV-Technik/at-registrierkassen-mustercode/releases/download/1.2-DOK/2016-09-05-Detailfragen-RKSV-V1.2.pdf): 
 	 - **Liste der Änderungen**: Es wurden die bei V1.1. unter "Bekannte Probleme" angemerkten Fehler behoben und der Algorithmus zur Berechnung der Prüfsumme des AES-Schlüssels für die manuelle Übermittlung im FinanzOnline hinzugefügt.
 		 - siehe Change-Log im Dokument
-		 - [Diff (Änderungsmarkierungen) von V1.1 zu V1.2](https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases/download/1.2-DOK/2016-09-05-Diff-Detailfragen-RKSV-V1.1-V1.2.pdf)
+		 - [Diff (Änderungsmarkierungen) von V1.1 zu V1.2](https://github.com/BMF-RKSV-Technik/at-registrierkassen-mustercode/releases/download/1.2-DOK/2016-09-05-Diff-Detailfragen-RKSV-V1.1-V1.2.pdf)
 
- - **Version 1.1 (11.03.2016)**: [Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV) V1.1] (https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases/download/1.1-DOK/2016-03-11-Detailfragen-RKSV-V1.1.pdf): 
+ - **Version 1.1 (11.03.2016)**: [Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV) V1.1] (https://github.com/BMF-RKSV-Technik/at-registrierkassen-mustercode/releases/download/1.1-DOK/2016-03-11-Detailfragen-RKSV-V1.1.pdf): 
 	 - **Liste der Änderungen**: Im Wesentlichen wurden die Kapitel um die ersten Kassen-Testfälle ergänzt, sowie diverse Fehlerbehebungen vorgenommen. Details zu den Änderungen:
 		 - siehe Change-Log im Dokument
-		 - [Diff (Änderungsmarkierungen) von V1.0 zu V1.1](https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases/download/1.1-DOK/2016-03-11-Diff-Detailfragen-RKSV-V1.0-V1.1.pdf)
+		 - [Diff (Änderungsmarkierungen) von V1.0 zu V1.1](https://github.com/BMF-RKSV-Technik/at-registrierkassen-mustercode/releases/download/1.1-DOK/2016-03-11-Diff-Detailfragen-RKSV-V1.0-V1.1.pdf)
 	 - **Bekannte Probleme**:
-		 - https://github.com/a-sit-plus/at-registrierkassen-mustercode/issues/48
-		 - https://github.com/a-sit-plus/at-registrierkassen-mustercode/issues/52
-		 - https://github.com/a-sit-plus/at-registrierkassen-mustercode/issues/54
-		 - https://github.com/a-sit-plus/at-registrierkassen-mustercode/issues/56
-		 - https://github.com/a-sit-plus/at-registrierkassen-mustercode/issues/77
+		 - https://github.com/BMF-RKSV-Technik/at-registrierkassen-mustercode/issues/48
+		 - https://github.com/BMF-RKSV-Technik/at-registrierkassen-mustercode/issues/52
+		 - https://github.com/BMF-RKSV-Technik/at-registrierkassen-mustercode/issues/54
+		 - https://github.com/BMF-RKSV-Technik/at-registrierkassen-mustercode/issues/56
+		 - https://github.com/BMF-RKSV-Technik/at-registrierkassen-mustercode/issues/77
  - **Version 1.0 (19.02.2016)**:
-	 - 	[Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV) V1.0](https://github.com/a-sit-plus/at-registrierkassen-mustercode/files/137544/2016-02-18-Detailfragen-RKSV-V1.0.pdf)
+	 - 	[Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV) V1.0](https://github.com/BMF-RKSV-Technik/at-registrierkassen-mustercode/files/137544/2016-02-18-Detailfragen-RKSV-V1.0.pdf)
 
 # Prüftool 1.0.0 bis 1.1.0
 Das gegenständliche, im Auftrag des BMF erstellte, Prüftool ab Version 1.0.0 überprüft Format und Inhalt sowie Abfolge von Einzelbelegen in einem exportierten RKSV-Datenerfassungsprotokoll (RKSV-DEP) einer Registrierkasse auf Übereinstimmung mit den ab 1.4.2017 gültigen Vorgaben der RKSV. Die Prüfalgorithmen, die dabei zur Anwendung kommen, stimmen im Wesentlichen mit jenen überein, die auch für Einzelbelegüberprüfungen und RKSV-DEP-Überprüfungen des BMF herangezogen werden (z.B.: BMF Belegcheck-App). Dadurch, dass das gegenständliche Prüftool primär auf die Überprüfung der korrekten Implementierung ausgerichtet ist, kann es dazu kommen, dass das Prüftool etwas als fehlerhaft ausgibt, das bei der Behördenprüfung als fehlerfrei angesehen wird (z.B. nicht vorhandener Startbeleg bei der Überprüfung eines DEP-Ausschnittes).
@@ -106,7 +106,7 @@ Im Zusammenhang mit dem Prüftool und den durchgeführten Prüfungen müssen fol
 
 ***Verwendung des Prüftools***
 
-Download und entpacken von `regkassen-verification-1.1.0.zip` (siehe [https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases](https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases)).
+Download und entpacken von `regkassen-verification-1.1.0.zip` (siehe [https://github.com/BMF-RKSV-Technik/at-registrierkassen-mustercode/releases](https://github.com/BMF-RKSV-Technik/at-registrierkassen-mustercode/releases)).
 
 ***DEP-Export Format***
 
@@ -175,7 +175,7 @@ Der Muster-Code wird unter der Apache 2.0 Lizenz (http://www.apache.org/licenses
 
 Alle verwendeten Dritt-Bibliotheken und deren Lizenzen sind in den Maven Build Dateien (pom.xml) der einzelnen Module ersichtlich und auf der folgenden WIKI-Seite zusammengefasst:
 
-https://github.com/a-sit-plus/at-registrierkassen-mustercode/wiki/Lizenzen-Dritt-Bibiliotheken
+https://github.com/BMF-RKSV-Technik/at-registrierkassen-mustercode/wiki/Lizenzen-Dritt-Bibiliotheken
 
 ***Change-Log***
 
@@ -195,13 +195,13 @@ https://github.com/a-sit-plus/at-registrierkassen-mustercode/wiki/Lizenzen-Dritt
 		
 ***Verwendung des Democodes und der Demokasse***
 
-Neben dem Source Code wird auch immer eine ZIP Datei der ausführbaren Dateien zur Verfügung gestellt. Die neueste Version ist immer unter [Releases](https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases) zu finden. Für das Ausführen der Demokasse sind folgende Voraussetzungen nötig:
+Neben dem Source Code wird auch immer eine ZIP Datei der ausführbaren Dateien zur Verfügung gestellt. Die neueste Version ist immer unter [Releases](https://github.com/BMF-RKSV-Technik/at-registrierkassen-mustercode/releases) zu finden. Für das Ausführen der Demokasse sind folgende Voraussetzungen nötig:
 
 * *Java VM*: Es wird eine aktuelle Java VM (JRE ausreichend) mit Version >= 1.7 benötigt.
 * *Kryptographie*: Der Registrierkassen-Demo-Code verwendet starke Kryptographie (z.B. AES mit 256 bit Schlüssel), der mit den Standard-Export Policies der Java VM nicht ausgeführt werden kann. Es muss daher die "Unlimited Strength Policy" von Oracle installiert werden. Siehe: [http://www.oracle.com/technetwork/java/javase/downloads/index.html](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 
 Um die Demokasse zu verwenden, wird wie folgt vorgegangen: 
-Download und entpacken von `regkassen-demo-1.0.0.zip` (siehe https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases).
+Download und entpacken von `regkassen-demo-1.0.0.zip` (siehe https://github.com/BMF-RKSV-Technik/at-registrierkassen-mustercode/releases).
 
 Ausführen der Demokasse für die Abarbeitung der integrierten Testfälle mit
 `java -jar regkassen-demo-1.0.0.jar -o OUTPUT_DIR -v -c -l 8`
@@ -226,7 +226,7 @@ Die folgenden Dateien dienen nur zur Demonstrationszwecken und haben für das Pr
  - **qr-code-dir-pdf (Verzeichnis)**: Einfache Demo-PDF-Belege, die mit dem QR-Code bedruckt wurden.
  - **ocr-code-dir-pdf (Verzeichnis)**: Einfache Demo-PDF-Belege, die mit dem OCR-Code bedruckt wurden.
 
-Ein Beispiel für den Output ist auch direkt ohne Ausführen des Demo-Codes verfügbar: `example-output-1.0.0.zip` (siehe [https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases](https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases)).
+Ein Beispiel für den Output ist auch direkt ohne Ausführen des Demo-Codes verfügbar: `example-output-1.0.0.zip` (siehe [https://github.com/BMF-RKSV-Technik/at-registrierkassen-mustercode/releases](https://github.com/BMF-RKSV-Technik/at-registrierkassen-mustercode/releases)).
 
 ***BUILD Prozess***
 
@@ -239,7 +239,7 @@ In den Verzeichnissen `regkassen-democashbox`, `regkassen-verification` befinden
                     
 ##Testfälle
 
-Die Tesfälle sind im Mustercode der Demokasse integriert bzw. können durch Download und Entpacken von `regkassen-test-cases-1.0.0.zip` (siehe [https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases](https://github.com/a-sit-plus/at-registrierkassen-mustercode/releases)) bezogen werden.
+Die Tesfälle sind im Mustercode der Demokasse integriert bzw. können durch Download und Entpacken von `regkassen-test-cases-1.0.0.zip` (siehe [https://github.com/BMF-RKSV-Technik/at-registrierkassen-mustercode/releases](https://github.com/BMF-RKSV-Technik/at-registrierkassen-mustercode/releases)) bezogen werden.
 Eine detallierte Beschreibung der Testfälle befindet sich im Dokument *Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV)*. Diese Beschreibung umfasst:
 
  - Beschreibung der verwendeten Datenformate der Testfälle für eine automatisierte Verarbeitung in einem Kassensystem, um die definierten maschinenlesbaren Codes und deren Abfolge erstellen zu können.
