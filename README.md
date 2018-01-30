@@ -35,7 +35,7 @@ Im Prüftool mit der Version 1.0.0. wird bei allen Nullbelegen verlangt, dass ei
 # Übersicht
 Dieses Projekt dient der Behandlung technischer Sachverhalte der RKSV. Wir bitten daher um Verständnis, dass rechtliche/organisatorische Themen im Allgemeinen nicht beantwortet werden können. Für die Beantwortung solcher Fragen bitten wir Sie, die Informationen des BMFs heranzuziehen (siehe https://www.bmf.gv.at/steuern/selbststaendige-unternehmer/registrierkassen_startseite.html). Sollte Ihr Anliegen dort nicht behandelt sein, bitten wir Sie, die am Ende dieses Dokuments genannten Kontaktpunkte bzw. Informationsquellen zu berücksichtigen.
  
-Ein weiterer Hinweis bezüglich den “Issues” in diesem Projekt: Offizielle – mit dem BMF abgestimmte – Aussagen werden nur von den Benutzern der Organisation A-SIT Plus (**pteufl, tzefferer, asitplus-pteufl**) getätigt. Für die Korrektheit der Aussagen anderer Benutzerinnen und Benutzer kann keine Garantie übernommen werden.
+Ein weiterer Hinweis bezüglich den “Issues” in diesem Projekt: Offizielle Aussagen des BMF werden nur von den Benutzern der Organisation BMF-RKSV-Technik (**Grigo-S, WienerroitherM**) getätigt. Für die Korrektheit der Aussagen anderer Benutzerinnen und Benutzer kann keine Garantie übernommen werden.
 
 Dieses Dokument ist wie folgt organisiert:
  
