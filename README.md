@@ -162,7 +162,7 @@ Die Ergebnisse ensprechen dem Format, das unter der Prüfung "Einzelne maschinen
 
 # Muster-Code
 
-Dieses Projekt stellt Demo-Code als Begleitung zur [Registrierkassensicherheitsverordnung (RKSV)](https://www.bmf.gv.at/top-themen/Registrierkassen.html#heading_Folder__Informationen_zur_Registrierkassen__und_Belegerteilungspflicht) zur Verfügung und wurde in der Zusammenarbeit zwischen BMF und A-SIT Plus erstellt. Der Demo-Code zeigt
+Dieses Projekt stellt Demo-Code als Begleitung zur [Registrierkassensicherheitsverordnung (RKSV)](https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=20009390&FassungVom=2017-04-01) zur Verfügung und wurde in der Zusammenarbeit zwischen BMF und A-SIT Plus erstellt. Der Demo-Code zeigt
 
 * wie die wesentlichen Elemente der Detailspezifikation der Verordnung in Software implementiert werden können und
 * gibt zusätzliche Erläuterungen zu Aspekten der Detailspezifikation, die noch Interpretationsspielraum zulassen.
