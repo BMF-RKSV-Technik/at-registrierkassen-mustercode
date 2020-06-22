@@ -1,7 +1,7 @@
 # Wichtige Hinweise
 **22.06.2020 Senkung des Umsatzsteuersatzes auf 5% und Auswirkungen auf Registrierkassen**:
 Auf der Homepage des BMF wurden FAQ's für die Umsetzung des 5%-igen Umsatzsteuersatzes veröffentlicht:
-https://www.bmf.gv.at/public/informationen/informationen-coronavirus/registrierkassen.html
+- https://www.bmf.gv.at/public/informationen/informationen-coronavirus/registrierkassen.html
 
 **04.01.2018 Release der Version 1.1.1 des Prüfmoduls**:
 Es wurde ein Problem beim Speicherverbrauch behoben (Vielen Dank für den Hinweis an ztp-mino!). Der Speicherverbrauch von V 1.1.0 erhöhte sich pro geprüftem Beleg. Die Ursache dafür war ein Fehler bei der Verarbeitung der Prüfergebnisse: Diese wurden zu lange im Speicher gehalten. 
