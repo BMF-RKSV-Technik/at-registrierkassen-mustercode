@@ -1,5 +1,6 @@
 # Wichtige Hinweise
 **22.06.2020 Senkung des Umsatzsteuersatzes auf 5% und Auswirkungen auf Registrierkassen**:
+
 Auf der Homepage des BMF wurden FAQ's für die Umsetzung des 5%-igen Umsatzsteuersatzes veröffentlicht:
 - https://www.bmf.gv.at/public/informationen/informationen-coronavirus/registrierkassen.html
 
