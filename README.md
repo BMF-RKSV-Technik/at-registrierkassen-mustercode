@@ -242,7 +242,7 @@ Um den Maven Build-Prozess eigenständig durchzuführen, sind in den jeweiligen 
       
 In den Verzeichnissen `regkassen-democashbox`, `regkassen-verification` befinden sich nach dem erfolgreichen Build-Prozess die JAR Dateien (im Unterverzeichnis "target"), die zum Ausführen benötigt werden (siehe Punkte zur Verwendung des Demo-Codes weiter oben).
                     
-##Testfälle
+## Testfälle
 
 Die Tesfälle sind im Mustercode der Demokasse integriert bzw. können durch Download und Entpacken von `regkassen-test-cases-1.0.0.zip` (siehe [https://github.com/BMF-RKSV-Technik/at-registrierkassen-mustercode/releases](https://github.com/BMF-RKSV-Technik/at-registrierkassen-mustercode/releases)) bezogen werden.
 Eine detallierte Beschreibung der Testfälle befindet sich im Dokument *Festlegungen des BMF zu Detailfragen der Registrierkassensicherheitsverordnung (RKSV)*. Diese Beschreibung umfasst:
@@ -251,7 +251,7 @@ Eine detallierte Beschreibung der Testfälle befindet sich im Dokument *Festlegu
  - Erklärungen zu den unterschiedlichen Testfällen und deren Hintergründe.
 
  
-#Kontakt/Fragen
+# Kontakt/Fragen
 
 Es wurde dazu eine Projektseite von der WKO eingerichtet. Es ist dazu eine Registrierung bei der WKO notwendig.
 
