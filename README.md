@@ -1,5 +1,5 @@
 # Wichtige Hinweise
-**13.03.2026 Senkung des Umsatzsteuersatzes ausgewählter Nahrungsmittel auf 4,9 % und Auswirkungen auf Registrierkassen**:
+### **13.03.2026 USt-Satz für ausgewählte Nahrungsmittel mit 4,9 % und Auswirkungen auf Registrierkassen**:
 
 Ab 1. Juli 2026 soll (zeitlich unbefristet) ein ermäßigter Steuersatz iHv 4,9% für ausgewählte Nahrungsmittel zur Anwendung kommen. Auf der Homepage des Bundesministeriums für Finanzen wurden nun dazu nähere Informationen bereitgestellt. Auszugsweise daraus untenstehend jene Informationen, welche die Umsetzung in der RKSV betreffen. Die vollständige Information finden Sie unter: https://www.bmf.gv.at/rechtsnews/steuern-rechtsnews/aktuelle-infos-und-erlaesse/Fachinformationen---Umsatzsteuer/Umsatzsteuersenkung-auf-ausgew%C3%A4hlte-Nahrungsmittel.html
 
@@ -21,29 +21,33 @@ Aufgrund der geplanten Einführung des ermäßigten Steuersatzes iHv 4,9% sind a
 
 	Die Basis für die USt-Abfuhr wird nicht aufgrund des RKSV-Protokolls ermittelt, sondern anhand der Tages-, Wochen-, oder Monatsabschlüsse aus den POS-Systemen (Basis § 131 BAO).
 
+
+**Beispiele für Standardbelege mit 4,9 % Umsatzsteuersatz mit Erfassung des betreffenden Betrags im Feld "Betrag-Satz-Besonders"**
+
+<img width="439" height="446" alt="Image" src="https://github.com/user-attachments/assets/3c55779c-dc10-43d3-8338-781976cdb19c" /><img width="446" height="446" alt="Image" src="https://github.com/user-attachments/assets/8cb664ed-e934-44b1-8108-aadb7ccd0f11" />
 #
-**22.06.2020 Senkung des Umsatzsteuersatzes auf 5 % und Auswirkungen auf Registrierkassen**:
+### **22.06.2020 Senkung des Umsatzsteuersatzes auf 5 % und Auswirkungen auf Registrierkassen**:
 
 Auf der Homepage des BMF wurden FAQ's für die Umsetzung des 5%-igen Umsatzsteuersatzes veröffentlicht:
 - https://www.bmf.gv.at/public/informationen/informationen-coronavirus/registrierkassen.html
 #
-**04.01.2018 Release der Version 1.1.1 des Prüfmoduls**:
+### **04.01.2018 Release der Version 1.1.1 des Prüfmoduls**:
 Es wurde ein Problem beim Speicherverbrauch behoben (Vielen Dank für den Hinweis an ztp-mino!). Der Speicherverbrauch von V 1.1.0 erhöhte sich pro geprüftem Beleg. Die Ursache dafür war ein Fehler bei der Verarbeitung der Prüfergebnisse: Diese wurden zu lange im Speicher gehalten. 
 Bitte beachten: Trotzdem ist ein konstanter Speicherverbrauch - unabhängig von der Anzahl der Belege - nicht möglich, da bestimmte Informationen im Speicher behalten werden müssen (z.B. jede Belegnummer, um die Prüfung auf die Mehrfachverwendung durchzuführen).
 #
-**22.12.2017 Release der Version 1.1.0 des Prüfmoduls**:
+### **22.12.2017 Release der Version 1.1.0 des Prüfmoduls**:
 
 Es wird die Version 1.1.0 des Prüftools freigegeben. Detailinformationen zu den Änderungen und Ergänzungen: Siehe "Change-Log" im Abschnitt "Prüftool 1.0.0 bis 1.1.0"
 #
-**12.12.2016 Ergänzung der Infos zu Fehlersuche bei ungültigen Signaturen**:
+### **12.12.2016 Ergänzung der Infos zu Fehlersuche bei ungültigen Signaturen**:
 
 Die vorliegende Präsentation wurde um Informationen zu Padding-Zeichen im JWS-Standard ergänzt. Die neue Version des Dokuments kann von [hier](https://github.com/BMF-RKSV-Technik/at-registrierkassen-mustercode/blob/master/Dokumente/2016-12-12%20SIG-Check.pdf) bezogen werden.
 #
-**18.11.2016 Fehlersuche bei ungültigen Signaturen**:
+### **18.11.2016 Fehlersuche bei ungültigen Signaturen**:
 
 Es stehen nun Folien für die Fehlersuche bei kryptographisch ungültigen Signaturen zur Verfügung (dieses Thema wurde auch am 27.10.2016 im Vortrag bei der WKO angesprochen). Die Datei liegt im Repository bzw. kann direkt von [hier](https://github.com/BMF-RKSV-Technik/at-registrierkassen-mustercode/raw/master/Dokumente/2016-11-18%20SIG-Check.pdf) bezogen werden.
 #
-**18.11.2016 Signieren von Nullbelegen**:
+### **18.11.2016 Signieren von Nullbelegen**:
 
 Die Version 1.0.0 des Prüftools gibt eine Fehlermeldung aus wenn ein Nullbeleg nicht signiert ist. Dazu gibt es folgende Erläuterungen (abgestimmt mit dem BMF):
 
