@@ -1,25 +1,48 @@
 # Wichtige Hinweise
-**22.06.2020 Senkung des Umsatzsteuersatzes auf 5% und Auswirkungen auf Registrierkassen**:
+**13.03.2026 Senkung des Umsatzsteuersatzes ausgewählter Nahrungsmittel auf 4,9 % und Auswirkungen auf Registrierkassen**:
+
+Ab 1. Juli 2026 soll (zeitlich unbefristet) ein ermäßigter Steuersatz iHv 4,9% für ausgewählte Nahrungsmittel zur Anwendung kommen. Auf der Homepage des Bundesministeriums für Finanzen wurden nun dazu nähere Informationen bereitgestellt. Auszugsweise daraus untenstehend jene Informationen, welche die Umsetzung in der RKSV betreffen. Die vollständige Information finden Sie unter: https://www.bmf.gv.at/rechtsnews/steuern-rechtsnews/aktuelle-infos-und-erlaesse/Fachinformationen---Umsatzsteuer/Umsatzsteuersenkung-auf-ausgew%C3%A4hlte-Nahrungsmittel.html
+
+**Detailfragen zur Registrierkassensicherheitsverordnung (RKSV)**
+
+Aufgrund der geplanten Einführung des ermäßigten Steuersatzes iHv 4,9% sind auch Anpassungen der Registrierkassen iSd RKSV erforderlich.
+ - ***Welche Änderungen sind bezüglich der Registrierkassen (insbesondere RKSV) vorgesehen (technische, Dokumentation, Signiereinheit)? Bis wann ist mit einer Veröffentlichung zu rechnen? Müssen Unternehmer, die Waren, die dem Steuersatz iHv 4,9% nicht unterliegen werden, ebenfalls anpassen?***
+
+	In der RKSV selbst ändert sich nichts. In der Detailspezifikation zur RKSV soll die technische Festlegung erfolgen, dass der neue USt-Satz von 4,9% in der Registrierkasse als „Betrag-Satz-Besonders“ zu erfassen ist. Aufgrund der vorgesehenen technischen Umsetzung in der Registrierkasse sind nur die Unternehmer/-innen von der Umstellung betroffen, die auch solche Umsätze tätigen. Die Veröffentlichung der angedachten Novelle der RKSV wird Anfang März 2026 erfolgen. Zu allgemeinen Testzwecken kann das bestehende Prüftool verwendet werden.
+- ***Wird es spezifische Anforderungen für den Kassenbeleg geben?***
+
+	Es gelten die Anforderungen des § 11 RKSV. Dieser normiert u.a. in seinem Abs. 1 Z 3, dass auf dem Beleg neben den Belegdaten des § 132a Abs. 3 BAO der Betrag der Barzahlung getrennt nach Steuersätzen auszuweisen ist. Die Steuersätze richten sich nach § 10 UStG 1994, daher ist ab 1. Juli 2026 (vorbehaltlich eines Gesetzesbeschlusses) auch der 4,9 % Steuersatz am Beleg auszuweisen.
+
+- ***Wie ist für Betriebe vorzugehen, die bereits 19 % USt [siehe § 10 Abs. 4 UStG 1994] abführen?***
+
+	Unternehmer/-innen, die sowohl Umsätze mit 19 % als auch mit 4,9 % tätigen, sollen diese Umsätze in derselben Spalte („Betrag-Satz-Besonders“) erfassen. Die Umsätze sollen mit dem jeweils angewandten Steuersatz (19 % oder 4,9 %) in der Registrierkasse erfasst werden. Für die Überprüfung der ordnungsgemäßen Registrierkasse werden das RK-Protokoll „DEP 7“ (gemäß § 7 RKSV) und das Protokoll „DEP 131“ (gemäß § 131 BAO), also die gesamten elektronischen Aufzeichnungen, herangezogen.
+
+	Die Programmierung der Kassen muss also dahingehend erfolgen, dass Belege, die einen Satz von 4,9 % enthalten, den Bruttobetrag, der den Satz von 4,9% betrifft, in die Spalte der 19 %igen Umsatzsteuer schreibt.
+
+	Die Basis für die USt-Abfuhr wird nicht aufgrund des RKSV-Protokolls ermittelt, sondern anhand der Tages-, Wochen-, oder Monatsabschlüsse aus den POS-Systemen (Basis § 131 BAO).
+
+#
+**22.06.2020 Senkung des Umsatzsteuersatzes auf 5 % und Auswirkungen auf Registrierkassen**:
 
 Auf der Homepage des BMF wurden FAQ's für die Umsetzung des 5%-igen Umsatzsteuersatzes veröffentlicht:
 - https://www.bmf.gv.at/public/informationen/informationen-coronavirus/registrierkassen.html
-
+#
 **04.01.2018 Release der Version 1.1.1 des Prüfmoduls**:
 Es wurde ein Problem beim Speicherverbrauch behoben (Vielen Dank für den Hinweis an ztp-mino!). Der Speicherverbrauch von V 1.1.0 erhöhte sich pro geprüftem Beleg. Die Ursache dafür war ein Fehler bei der Verarbeitung der Prüfergebnisse: Diese wurden zu lange im Speicher gehalten. 
 Bitte beachten: Trotzdem ist ein konstanter Speicherverbrauch - unabhängig von der Anzahl der Belege - nicht möglich, da bestimmte Informationen im Speicher behalten werden müssen (z.B. jede Belegnummer, um die Prüfung auf die Mehrfachverwendung durchzuführen).
-
+#
 **22.12.2017 Release der Version 1.1.0 des Prüfmoduls**:
-Es wird die Version 1.1.0 des Prüftools freigegeben. Detailinformationen zu den Änderungen und Ergänzungen: Siehe "Change-Log" im Abschnitt "Prüftool 1.0.0 bis 1.1.0"
 
+Es wird die Version 1.1.0 des Prüftools freigegeben. Detailinformationen zu den Änderungen und Ergänzungen: Siehe "Change-Log" im Abschnitt "Prüftool 1.0.0 bis 1.1.0"
+#
 **12.12.2016 Ergänzung der Infos zu Fehlersuche bei ungültigen Signaturen**:
 
 Die vorliegende Präsentation wurde um Informationen zu Padding-Zeichen im JWS-Standard ergänzt. Die neue Version des Dokuments kann von [hier](https://github.com/BMF-RKSV-Technik/at-registrierkassen-mustercode/blob/master/Dokumente/2016-12-12%20SIG-Check.pdf) bezogen werden.
-
-
+#
 **18.11.2016 Fehlersuche bei ungültigen Signaturen**:
 
 Es stehen nun Folien für die Fehlersuche bei kryptographisch ungültigen Signaturen zur Verfügung (dieses Thema wurde auch am 27.10.2016 im Vortrag bei der WKO angesprochen). Die Datei liegt im Repository bzw. kann direkt von [hier](https://github.com/BMF-RKSV-Technik/at-registrierkassen-mustercode/raw/master/Dokumente/2016-11-18%20SIG-Check.pdf) bezogen werden.
- 
+#
 **18.11.2016 Signieren von Nullbelegen**:
 
 Die Version 1.0.0 des Prüftools gibt eine Fehlermeldung aus wenn ein Nullbeleg nicht signiert ist. Dazu gibt es folgende Erläuterungen (abgestimmt mit dem BMF):
